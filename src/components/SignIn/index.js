@@ -18,6 +18,15 @@ const SignInPage = () => (
     </div>
 );
 
+const ERROR_CODE_ACCOUNT_EXISTS = 'auth/account-exists-with-different-credential';
+
+const ERROR_MSG_ACCOUNT_EXISTS = `
+    An account with an E-Mail address to
+    this social account already exists. Try to login from
+    this account instead and associate your social accounts on
+    your personal account page.
+`;
+
 const INITIAL_STATE = {
     email: '',
     password: '',
@@ -75,6 +84,8 @@ class SignInFormBase extends Component {
                 <button disabled={isInvalid} type="submit">
                     Sign In
                 </button>
+
+                {error && <p>{error.message}</p>}
             </form>
         );
     }
@@ -105,6 +116,10 @@ class SignInGoogleBase extends Component {
                 this.props.history.push(ROUTES.HOME);
             })
             .catch(error => {
+                if (error.code = ERROR_CODE_ACCOUNT_EXISTS) {
+                    error.message = ERROR_MSG_ACCOUNT_EXISTS;
+                }
+                
                 this.setState({ error });
             });
         
@@ -136,4 +151,4 @@ const SignInGoogle = compose(
 
 export default SignInPage;
 
-export { SignInForm };
+export { SignInForm, SignInGoogle };
