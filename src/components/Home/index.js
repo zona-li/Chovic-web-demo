@@ -4,16 +4,39 @@ import { compose } from 'recompose';
 
 import { withAuthorization, withEmailVerification, AuthUserContext } from '../Session';
 import { withFirebase } from '../Firebase';
-import { auth } from 'firebase';
 
-const HomePage = () => (
-    <div>
-        <h1>Home</h1>
-        <p>Only accessible by signed in user.</p>
+class HomePage extends Component {
+    constructor(props) {
+        super(props);
 
-        <Messages />
-    </div>
-);
+        this.state = {
+            users: null,
+        };
+    }
+
+    componentDidMount() {
+        this.props.firebase.users().on('value', snapshot => {
+            this.setState({
+                users: snapshot.val(),
+            });
+        });
+    }
+
+    componentWillUnmount() {
+        this.props.firebase.users().off();
+    }
+
+    render() {
+        return (
+            <div>
+                <h1>Home</h1>
+                <p>Only accessible by signed in user.</p>
+
+                <Messages users={this.state.users} />
+            </div>
+        );
+    }
+}
 
 class MessagesBase extends Component {
     constructor(props) {
@@ -31,7 +54,7 @@ class MessagesBase extends Component {
         this.onListenForMessages();
     }
 
-    onListenForMessages() {
+    onListenForMessages = () => {
         this.setState({ loading: true });
 
         this.props.firebase
@@ -55,7 +78,7 @@ class MessagesBase extends Component {
                     this.setState({ messages: null, loading: false });
                 }
             });
-    }
+    };
 
     componentWillUnmount() {
         this.props.firebase.messages().off();
@@ -97,6 +120,7 @@ class MessagesBase extends Component {
     };
 
     render() {
+        const { users } = this.props;
         const { text, messages, loading } = this.state;
 
         return (
@@ -108,18 +132,23 @@ class MessagesBase extends Component {
                                 More
                             </button>
                         )}
-                        
+
                         {loading && <div>Loading...</div>}
 
-                        {messages ? (
+                        {messages && (
                             <MessageList 
-                                messages={messages}
+                                messages={messages.map(message => ({
+                                    ...message,
+                                    user: users
+                                        ? users[message.userId]
+                                        : { userId: message.userid },
+                                }))}
                                 onEditMessage={this.onEditMessage}
                                 onRemoveMessage={this.onRemoveMessage}
                             />
-                        ) : (
-                            <div>There are no messages.</div>
                         )}
+                        
+                        {!messages && <div>There are no messages.</div>}
 
                         <form onSubmit={event => this.onCreateMessage(event, authUser)}>
                             <input
@@ -194,7 +223,9 @@ class MessageItem extends Component {
                     />
                 ) : (
                     <span>
-                        <strong>{message.userId}</strong> {message.text}
+                        <strong>{message.user.username || message.user.userId} </strong>
+                        
+                        {message.text}
                         {message.editedAt && <span>Edited</span>}
                     </span>
                 )}
@@ -228,6 +259,7 @@ const Messages = withFirebase(MessagesBase);
 const condition = authUser => !!authUser;
 
 export default compose(
+    withFirebase,
     withEmailVerification,
     withAuthorization(condition),
 )(HomePage);
