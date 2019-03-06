@@ -1,14 +1,14 @@
 import React from 'react';
-import styled from 'styled-components';
-import { Link } from 'react-router-dom';
 
+import { HeaderLink } from '../../elements/Link';
+import { Nav } from '../../elements/Nav';
 import SignOutButton from '../SignOut';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import { AuthUserContext } from '../Session';
 
 const Navigation = () => (
-    <div>
+    <Nav>
         <AuthUserContext.Consumer>
             {authUser =>
                 authUser ? (
@@ -18,40 +18,26 @@ const Navigation = () => (
                 )
             }
         </AuthUserContext.Consumer>
-    </div>
+    </Nav>
 );
 
 const NavigationAuth = ({ authUser }) => (
-    <ul>
-        <li>
-            <Link to={ROUTES.LANDING}>Landing</Link>
-        </li>
-        <li>
-            <Link to={ROUTES.HOME}>Home</Link>
-        </li>
-        <li>
-            <Link to={ROUTES.ACCOUNT}>Account</Link>
-        </li>
+    <div>
+        <HeaderLink to={ROUTES.LANDING}>Landing</HeaderLink>
+        <HeaderLink to={ROUTES.HOME}>Home</HeaderLink>
+        <HeaderLink to={ROUTES.ACCOUNT}>Account</HeaderLink>
         {authUser.roles.includes(ROLES.ADMIN) && (
-            <li>
-                <Link to={ROUTES.ADMIN}>Admin</Link>
-            </li>
+            <HeaderLink to={ROUTES.ADMIN}>Admin</HeaderLink>
         )}
-        <li>
-            <SignOutButton />
-        </li>
-    </ul>
+        <SignOutButton />
+    </div>
 );
 
 const NavigationNonAuth = () => (
-    <ul>
-        <li>
-            <Link to={ROUTES.LANDING}>Landing</Link>
-        </li>
-        <li>
-            <Link to={ROUTES.SIGN_IN}>Sign In</Link>
-        </li>
-    </ul>
+    <div>
+        <HeaderLink to={ROUTES.LANDING}>Landing</HeaderLink>
+        <HeaderLink to={ROUTES.SIGN_IN}>Sign In</HeaderLink>
+    </div>    
 );
 
 

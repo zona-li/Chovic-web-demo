@@ -14,8 +14,8 @@ const AdminPage = () => (
         <p>The Admin Page is accessible by every signed in admin user.</p>
 
         <Switch>
-            <Route exact path={ROUTES.ADMIN_DETAILS} component={UserItem} />
-            <Route exact path={ROUTES.ADMIN} component={UserList} />
+            <Route path={ROUTES.ADMIN_DETAILS} component={UserItem} />
+            <Route path={ROUTES.ADMIN} component={UserList} />
         </Switch>
     </div>
 );
@@ -104,12 +104,10 @@ class UserItemBase extends Component {
 
     componentDidMount() {
         if (this.state.user) {
-            return;
+            // return;
         }
 
-        if (this.state.username) {
-            console.log(this.state.username);
-        }
+        console.log("something");
 
         this.setState({ loading: true });
 
