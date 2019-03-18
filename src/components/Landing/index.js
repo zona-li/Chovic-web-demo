@@ -7,6 +7,7 @@ import art1 from '../../images/art1.png';
 import { Img } from '../../elements/Img';
 import { H1 } from '../../elements/H1';
 import { Button } from '../../elements/Button';
+import { A } from '../../elements/Link';
 
 const TitleLeft = styled.h1`
     text-align: right;
@@ -30,25 +31,30 @@ const Landing = () => (
         </SectionLeft>
         <SectionRight background="Salmon">
             <TitleRight>vic</TitleRight>
-            <H1>A growth environment to help you build good habits, become more 
-                disciplined, and execute to the highest standards</H1>
-            <P>Join a group of people who relentlessly seek to learn, improve, 
-                and, all the while, have fun during the process. We believe the 
-                compound effect of small but steady improvements; we find our 
-                strengths and weaknesses through transparent communication; 
-                we hold each other to our highest standards and inspire each other 
-                to constantly improve.</P>
+            <H1>A growth environment to help you form good habits, become more 
+                disciplined, and build the mental model that leads to success.</H1>
+            <P>Have you ever had an idea but find it difficult to realize? or had a goal but always fall short?
+                The reason might be that you are deploying the wrong method or lack a supportive community who 
+                can keep you accountable. Join a group of people who relentlessly seek to learn, improve, and 
+                constantly challenge themselves to do better. Chovic is a gathering place for people who are 
+                unwilling to settle, who pushes hard and persist. Here, you will meet incredible people, find 
+                supports, practice stoicism, overcome fear and doubt, have fun, and, most importantly, realize
+                your true potential.
+            </P>
             <br />
-            <a href="#section1">
+            <A href="#section1">
                 <span role="img" aria-label="downward-arrow">👇</span>How it works
-            </a>
+            </A>
             <Button color="white" primary="Salmon">
                 Apply
             </Button>
         </SectionRight>
-        <Section background="Black">
+
+        <Section background="SeaGreen">
             <scroll-container>
-                <scroll-page id="section1"></scroll-page>
+                <scroll-page id="section1">
+                    Page
+                </scroll-page>
             </scroll-container>
         </Section>
     </div>

@@ -16,4 +16,14 @@ const HeaderLink = styled(StyledLink)`
     text-transform: uppercase;
 `;
 
-export { StyledLink, HeaderLink };
+const A = styled.a`
+    text-decoration: none;
+    font-family: Dosis-Bold;
+    margin-left: 50px;
+
+    &:active {
+        color: black;
+    }
+`;
+
+export { StyledLink, HeaderLink, A };

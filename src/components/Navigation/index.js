@@ -37,6 +37,7 @@ const NavigationNonAuth = () => (
     <div>
         <HeaderLink to={ROUTES.LANDING}>Landing</HeaderLink>
         <HeaderLink to={ROUTES.SIGN_IN}>Sign In</HeaderLink>
+        <HeaderLink to={ROUTES.APPLICATION}>Apply</HeaderLink>
     </div>    
 );
 

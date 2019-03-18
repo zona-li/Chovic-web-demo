@@ -116,7 +116,7 @@ class SignInGoogleBase extends Component {
                 this.props.history.push(ROUTES.HOME);
             })
             .catch(error => {
-                if (error.code = ERROR_CODE_ACCOUNT_EXISTS) {
+                if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
                     error.message = ERROR_MSG_ACCOUNT_EXISTS;
                 }
                 
