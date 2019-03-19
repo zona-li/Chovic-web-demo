@@ -1,6 +1,7 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
+import Button from '@material-ui/core/Button';
 
 import { withFirebase } from '../Firebase';
 import Input from '../Input';
@@ -15,6 +16,7 @@ class ApplicationPageBase extends React.Component {
             lastName: '',
             email: '',
             ans1: '',
+            ans1Error: '',
             ans2: '',
             ans3: '',
             error: null,
@@ -23,8 +25,9 @@ class ApplicationPageBase extends React.Component {
 
     onSubmit = event => {
         const { firstName, lastName, email, ans1, ans2, ans3 } = this.state;
-        
-        this.props.firebase
+        const notValid = this.validateForm();
+        if (!notValid) {
+            this.props.firebase
             .applications()
             .push({
                 firstName,
@@ -40,6 +43,7 @@ class ApplicationPageBase extends React.Component {
             .catch((error) => {
                 this.setState({ error });
             });
+        }
 
         event.preventDefault();
     }
@@ -48,16 +52,20 @@ class ApplicationPageBase extends React.Component {
         this.setState({ [event.target.name]: event.target.value });
     };
 
-    checkFormValid = (inValid) => {
-        if (inValid) {
+    validateForm = () => {
+        let notValid = false;
+        if (this.state.ans1.length < 10) {
+            notValid = true;
             this.setState({
-                error: 'Please make sure you answered all questions before you submit.'
+                ans1Error: "Your answer is too short."
             })
         }
+        
+        return notValid;
     };
 
     render() {
-        const { firstName, lastName, email, ans1, ans2, ans3, error } = this.state;
+        const { firstName, lastName, email, ans1, ans1Error, ans2, ans3, error } = this.state;
         const isInvalid = 
             firstName === '' ||
             lastName === '' ||
@@ -95,12 +103,15 @@ class ApplicationPageBase extends React.Component {
                     value={ans1}
                     title="3 biggest goals?"
                     onChange={this.onChange}
+                    error={ans1Error ? true : false}
+                    helperText={ans1Error}
                 />
 
                 <Input
                     name="ans2"
                     value={ans2}
                     title="What changes do you wish to see in yourself?"
+                    fullWidth
                     onChange={this.onChange}
                 />
 
@@ -108,16 +119,18 @@ class ApplicationPageBase extends React.Component {
                     name="ans3"
                     value={ans3}
                     title="Biggest accomplishment so far?"
+                    fullWidth
                     onChange={this.onChange}
                 />
 
-                <button 
-                    // disabled={isInvalid} 
-                    onClick={(isInvalid) => this.checkFormValid(isInvalid)} 
+                <Button 
+                    disabled={isInvalid} 
+                    variant="outlined"
+                    color="primary"
                     type="submit"
                 >
                     Submit
-                </button>
+                </Button>
 
                 {error && <p>{error.message}</p>}
             </form>
