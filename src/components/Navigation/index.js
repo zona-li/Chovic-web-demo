@@ -23,7 +23,7 @@ const Navigation = () => (
 
 const NavigationAuth = ({ authUser }) => (
     <div>
-        <HeaderLink to={ROUTES.LANDING}>Landing</HeaderLink>
+        <HeaderLink to={ROUTES.LANDING}>Choivc</HeaderLink>
         <HeaderLink to={ROUTES.HOME}>Home</HeaderLink>
         <HeaderLink to={ROUTES.ACCOUNT}>Account</HeaderLink>
         {authUser.roles.includes(ROLES.ADMIN) && (
@@ -35,7 +35,7 @@ const NavigationAuth = ({ authUser }) => (
 
 const NavigationNonAuth = () => (
     <div>
-        <HeaderLink to={ROUTES.LANDING}>Landing</HeaderLink>
+        <HeaderLink to={ROUTES.LANDING}>Choivc</HeaderLink>
         <HeaderLink to={ROUTES.SIGN_IN}>Sign In</HeaderLink>
         <HeaderLink to={ROUTES.APPLICATION}>Apply</HeaderLink>
     </div>    
