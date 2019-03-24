@@ -14,6 +14,7 @@ import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
 import ApplicationPage from '../Application';
+import SideDrawer from '../SideDrawer';
 
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
@@ -21,7 +22,7 @@ import { withAuthentication } from '../Session';
 const App = () => (
     <Router>
         <div>
-            <Navigation />
+            <SideDrawer />
 
             <Route exact path={ROUTES.LANDING} component={LandingPage} />
             <Route exact path={ROUTES.SIGN_UP} component={SignUpPage} />

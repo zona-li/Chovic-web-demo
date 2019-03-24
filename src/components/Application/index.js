@@ -1,17 +1,40 @@
 import React from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
-import Button from '@material-ui/core/Button';
-import FormControl from '@material-ui/core/FormControl';
-import FormLabel from '@material-ui/core/FormLabel';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Radio from '@material-ui/core/Radio';
-import Divider from '@material-ui/core/Divider';
+import { 
+    Button, 
+    FormControl, 
+    FormLabel, 
+    RadioGroup,
+    FormControlLabel,
+    Radio,
+    Divider,
+    withStyles,
+} from '@material-ui/core';
 
 import { withFirebase } from '../Firebase';
 import Input from '../Input';
 import * as ROUTES from '../../constants/routes';
+
+const styles = theme => ({
+    container: {
+        margin: '10%',
+        fontFamily: 'Dosis',
+    },
+    button: {
+        display: 'block',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        marginTop: '10%',
+        width: '20%',
+        fontFamily: 'Dosis',
+    },
+    select: {
+        marginLeft: '2%',
+        marginTop: '5%',
+        display: 'block',
+    }
+});
 
 class ApplicationPageBase extends React.Component {
     constructor(props) {
@@ -27,7 +50,7 @@ class ApplicationPageBase extends React.Component {
             ans2Error: '',
             ans3: '',
             ans4: '',
-            profession: 'student',
+            profession: '',
             major: '',
             error: null,
         }
@@ -99,6 +122,7 @@ class ApplicationPageBase extends React.Component {
             profession,
             major,
         } = this.state;
+        const { classes } = this.props;
         let professionQuestion = "What do you study?";
 
         const isInvalid = 
@@ -111,7 +135,7 @@ class ApplicationPageBase extends React.Component {
             ans4 === '';
 
         return (
-            <form onSubmit={this.onSubmit}>
+            <form className={classes.container} onSubmit={this.onSubmit}>
                 <Input
                     name="firstName"
                     value={firstName}
@@ -137,9 +161,8 @@ class ApplicationPageBase extends React.Component {
                     error={emailError ? true : false}
                     helperText={emailError}
                 />
-                <Divider variant="middle" />
 
-                <FormControl component="fieldset">
+                <FormControl component="fieldset" className={classes.select}>
                     <FormLabel component="legend">Profession</FormLabel>
                     <RadioGroup aria-label="profession" value={profession} onChange={this.onSelect}>
                         <FormControlLabel value="student" control={<Radio />} label="I'm a student" />
@@ -155,7 +178,6 @@ class ApplicationPageBase extends React.Component {
                         onChange={this.onChange}
                     />
                 </FormControl>
-                <Divider variant="middle" />
 
                 <Input
                     name="ans1"
@@ -200,6 +222,7 @@ class ApplicationPageBase extends React.Component {
                     variant="outlined"
                     color="primary"
                     type="submit"
+                    className={classes.button}
                 >
                     Submit
                 </Button>
@@ -213,6 +236,7 @@ class ApplicationPageBase extends React.Component {
 const ApplicationPage = compose(
     withRouter,
     withFirebase,
+    withStyles(styles),
 )(ApplicationPageBase);
 
 export default ApplicationPage;

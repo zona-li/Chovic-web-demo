@@ -7,12 +7,12 @@ const StyledLink = styled(Link)`
     margin: 15px;
 
     &:active {
-        color: black;
+        color: powderblue;
     }
 `;
 
 const HeaderLink = styled(StyledLink)`
-    color: Gainsboro;
+    color: Silver;
     text-transform: uppercase;
 `;
 
@@ -22,7 +22,7 @@ const A = styled.a`
     margin-left: 50px;
 
     &:active {
-        color: black;
+        color: powderblue;
     }
 `;
 

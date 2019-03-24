@@ -6,13 +6,11 @@ const Button = styled.button`
     color: ${props => props.color};
     border-radius: 2px;
     border: 2px solid ${props => props.color};
-    margin: 0 1em;
     padding: 0.25em 1em;
     font-weight: 700;
     font-size: 1em;
     text-decoration: none;
-
-    margin-left: 50px;
+    margin: 10px;
 
     &:hover {
         cursor: pointer;
