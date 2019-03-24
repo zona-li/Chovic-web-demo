@@ -1,7 +1,15 @@
 import styled from 'styled-components';
 
 const Img = styled.img`
-    width: 300px;
+    width: 20vw;
+    height: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+`;
+
+const WideImg = styled(Img)`
+    width: 40vw;
     height: auto;
     display: block;
     margin-left: auto;
@@ -9,4 +17,4 @@ const Img = styled.img`
 `;
 
 
-export { Img };
+export { Img, WideImg };

@@ -5,9 +5,14 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     font-family: Dosis-Bold;
     margin: 15px;
+    color: white;
 
     &:active {
         color: powderblue;
+    }
+
+    &:hover {
+        color: Black;
     }
 `;
 
@@ -20,6 +25,7 @@ const A = styled.a`
     text-decoration: none;
     font-family: Dosis-Bold;
     margin-left: 50px;
+    color: white;
 
     &:active {
         color: powderblue;

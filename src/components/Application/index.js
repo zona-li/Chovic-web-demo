@@ -8,7 +8,6 @@ import {
     RadioGroup,
     FormControlLabel,
     Radio,
-    Divider,
     withStyles,
 } from '@material-ui/core';
 
@@ -18,7 +17,9 @@ import * as ROUTES from '../../constants/routes';
 
 const styles = theme => ({
     container: {
-        margin: '10%',
+        marginLeft: '15%',
+        marginRight: '15%',
+        marginButtom: '15%',
         fontFamily: 'Dosis',
     },
     button: {
@@ -26,6 +27,7 @@ const styles = theme => ({
         marginLeft: 'auto',
         marginRight: 'auto',
         marginTop: '10%',
+        marginBottom: '10%',
         width: '20%',
         fontFamily: 'Dosis',
     },
