@@ -24,10 +24,14 @@ const HeaderLink = styled(StyledLink)`
 const A = styled.a`
     text-decoration: none;
     font-family: Dosis-Bold;
-    margin-left: 50px;
     color: white;
+    cursor: pointer;
 
     &:active {
+        color: powderblue;
+    }
+
+    &:hover {
         color: powderblue;
     }
 `;

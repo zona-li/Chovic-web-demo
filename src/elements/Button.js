@@ -10,7 +10,9 @@ const Button = styled.button`
     font-weight: 700;
     font-size: 1em;
     text-decoration: none;
-    margin: 10px;
+    margin-left: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 
     &:hover {
         cursor: pointer;
