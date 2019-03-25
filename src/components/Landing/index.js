@@ -36,10 +36,9 @@ const styles = theme => ({
         margin: '0 auto',
         height: '100%',
     },
-    paper: {
-      textAlign: 'center',
-    //   color: theme.palette.text.secondary,
-    },
+    text: {
+        color: 'MistyRose',
+    }
 });
 
 class Landing extends Component {
@@ -80,12 +79,12 @@ class Landing extends Component {
                     <scroll-container>
                         <scroll-page id="section1">
                             <Grid  className={classes.root} container spacing={24}>
-                                <Grid className={classes.paper} item xs={5}>
-                                    <P>
-                                        The group is based in Charlottesville, Virginia. We meet once a week to discuss goals, draft out weekly plans, analyze our trajectory of growth, and share anything we learned from the previous week. Each member of the group have 1 personal challenge and 1 group challenge to complete on a weekly or monthly basis. Based on those challenges, we arrange daily check-ins on Slack and keep track of each individual’s progress on Coda. We evaluate the difficulty of the challenge based on each individual's baseline. The difficulty level will determine the amount of reward or punishment if one successfully completes or fails the challenge.
+                                <Grid className={classes.text} item xs={5}>
+                                    <P style={{marginLeft: '10vw'}}>
+                                    The group is based in Charlottesville, Virginia. We meet once a week to discuss goals, draft out weekly plans, analyze our trajectory of growth, and share anything we learned from the previous week. Each member of the group have 1 personal challenge and 1 group challenge to complete on a weekly or monthly basis. Based on those challenges, we arrange daily check-ins on Slack and keep track of each individual’s progress on Coda. Because we value the rate of improvement more than experience or current accomplishment, reward or punishment will be given based on each individual’s progress, instead of the weight of achievement.
                                     </P>
                                 </Grid>
-                                <Grid className={classes.paper} item xs={7}>
+                                <Grid className={classes.pic} item xs={7}>
                                     <WideImg src={meet} alt="img1" />
                                 </Grid>
                             </Grid>

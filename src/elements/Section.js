@@ -5,6 +5,7 @@ const SectionLeft = styled.section`
     width: 50%;
     height: 100vh;
     float: left;
+    overflow: scroll;
     
     background: ${props => props.background};
 `;
@@ -14,6 +15,7 @@ const SectionRight = styled.section`
     width: 50%;
     height: 100vh;
     float: right;
+    overflow: scroll;
     
     background: ${props => props.background};
 `;
@@ -23,6 +25,7 @@ const Section = styled.section`
     width: 100%;
     height: 100vh;
     float: left;
+    overflow: scroll;
     
     background: ${props => props.background};
 `;
