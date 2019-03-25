@@ -13,6 +13,7 @@ import AccountPage from '../Account';
 import AdminPage from '../Admin';
 import ApplicationPage from '../Application';
 import SideDrawer from '../SideDrawer';
+import ThankYou from '../ThankYou';
 
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
@@ -30,6 +31,7 @@ const App = () => (
             <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
             <Route exact path={ROUTES.ADMIN} component={AdminPage} />
             <Route exact path={ROUTES.APPLICATION} component={ApplicationPage} />
+            <Route exact path={ROUTES.CONFIRMATION} component={ThankYou} />
         </div>
     </Router>
 );

@@ -7,3 +7,4 @@ export const ADMIN = '/admin';
 export const PASSWORD_FORGET = '/pw-forget';
 export const ADMIN_DETAILS = '/admin/:id';
 export const APPLICATION = '/apply';
+export const CONFIRMATION = '/confirm';

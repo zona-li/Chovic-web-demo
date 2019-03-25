@@ -82,7 +82,7 @@ class Landing extends Component {
                             <Grid  className={classes.root} container spacing={24}>
                                 <Grid className={classes.paper} item xs={5}>
                                     <P>
-                                        The group is based in Charlottesville, Virginia. We meet once a week to discuss our goals, draft out weekly plans, analyze our trajectory of growth, and share anything we learned from the previous week. Each member of the group have 1 personal challenge and 1 group challenge to complete on a weekly or monthly basis. Based on those challenges, we arrange daily check-ins on Slack and keep track of each individual’s progress on Coda. We evaluate the difficulty of the challenge based on each individual's baseline. The difficulty level will determine the amount of reward or punishment if one successfully completes or fails the challenge.
+                                        The group is based in Charlottesville, Virginia. We meet once a week to discuss goals, draft out weekly plans, analyze our trajectory of growth, and share anything we learned from the previous week. Each member of the group have 1 personal challenge and 1 group challenge to complete on a weekly or monthly basis. Based on those challenges, we arrange daily check-ins on Slack and keep track of each individual’s progress on Coda. We evaluate the difficulty of the challenge based on each individual's baseline. The difficulty level will determine the amount of reward or punishment if one successfully completes or fails the challenge.
                                     </P>
                                 </Grid>
                                 <Grid className={classes.paper} item xs={7}>

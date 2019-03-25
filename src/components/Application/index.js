@@ -49,7 +49,6 @@ class ApplicationPageBase extends React.Component {
             ans1: '',
             ans1Error: '',
             ans2: '',
-            ans2Error: '',
             ans3: '',
             ans4: '',
             profession: '',
@@ -59,7 +58,7 @@ class ApplicationPageBase extends React.Component {
     }
 
     onSubmit = event => {
-        const { firstName, lastName, email, ans1, ans2, ans3 } = this.state;
+        const { firstName, lastName, email, ans1, ans2, ans3, ans4, profession, major } = this.state;
         const notValid = this.validateForm();
         if (!notValid) {
             this.props.firebase
@@ -68,12 +67,16 @@ class ApplicationPageBase extends React.Component {
                 firstName,
                 lastName,
                 email,
+                profession,
+                major,
                 ans1,
                 ans2,
-                ans3
+                ans3,
+                ans4,
             })
             .then(() => {
-                this.props.history.push(ROUTES.LANDING);
+                const route = this.props.history;
+                route.push(ROUTES.CONFIRMATION);
             })
             .catch((error) => {
                 this.setState({ error });
@@ -184,7 +187,7 @@ class ApplicationPageBase extends React.Component {
                 <Input
                     name="ans1"
                     value={ans1}
-                    title="Describe an ideal day/week of your life."
+                    title="What an ideal day/week should look like for you?"
                     onChange={this.onChange}
                     error={ans1Error ? true : false}
                     helperText={ans1Error}
@@ -195,7 +198,7 @@ class ApplicationPageBase extends React.Component {
                 <Input
                     name="ans2"
                     value={ans2}
-                    title="What keeps you going?"
+                    title="What drives you in your personal and professional life?"
                     fullWidth
                     onChange={this.onChange}
                     multiline
@@ -213,7 +216,7 @@ class ApplicationPageBase extends React.Component {
                 <Input
                     name="ans4"
                     value={ans4}
-                    title="What's the name of the last 3 books you've read that you loved?"
+                    title="Name the last 3 books you've read."
                     fullWidth
                     onChange={this.onChange}
                     multiline
