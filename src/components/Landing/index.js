@@ -70,12 +70,17 @@ const styles = theme => ({
         display: 'inline-block',
         marginLeft: '10%',
         marginRight: '10%',
-        height: '50%',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '15vw',
+        },
     },
     title2: {
         color: 'SandyBrown',
         fontSize: '6em',
         margin: '10vw',
+        [theme.breakpoints.down('sm')]: {
+            fontSize: '15vw',
+        },
     },
     list: {
         display: 'inline-block',
