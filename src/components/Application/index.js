@@ -24,11 +24,9 @@ const styles = theme => ({
     },
     button: {
         display: 'block',
-        marginLeft: 'auto',
-        marginRight: 'auto',
-        marginTop: '10%',
-        marginBottom: '10%',
-        width: '20%',
+        marginBottom: '50px',
+        marginTop: '40px',
+        marginLeft: '20px',
         fontFamily: 'Dosis',
     },
     select: {
@@ -128,7 +126,7 @@ class ApplicationPageBase extends React.Component {
             major,
         } = this.state;
         const { classes } = this.props;
-        let professionQuestion = "What do you study?";
+        let professionQuestion = "What's your major?";
 
         const isInvalid = 
             firstName === '' ||
@@ -170,7 +168,7 @@ class ApplicationPageBase extends React.Component {
                 <FormControl component="fieldset" className={classes.select}>
                     <FormLabel component="legend">Profession</FormLabel>
                     <RadioGroup aria-label="profession" value={profession} onChange={this.onSelect}>
-                        <FormControlLabel value="student" control={<Radio />} label="I'm a student" />
+                        <FormControlLabel value="student" control={<Radio />} label="I'm a student  ( you need to be > 17 years old )" />
                         <FormControlLabel value="worker" control={<Radio />} label="I'm in the work force" />
                         {
                             profession === "student" ? null : professionQuestion = "What's your specialty?"
