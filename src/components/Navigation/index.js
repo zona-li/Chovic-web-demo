@@ -59,11 +59,11 @@ const NavigationNonAuth = () => (
                 <HeaderLink to={ROUTES.LANDING}>Chovic</HeaderLink>
             </ListItem>
         </List>
-        <List>
+        {/* <List>
             <ListItem>
                 <HeaderLink to={ROUTES.SIGN_IN}>Sign In</HeaderLink>
             </ListItem>
-        </List>
+        </List> */}
         <List>
             <ListItem>
                 <HeaderLink to={ROUTES.APPLICATION}>Apply</HeaderLink>

@@ -2,7 +2,7 @@ import React from 'react';
 import Drawer from '@material-ui/core/Drawer';
 import MenuIcon from '@material-ui/icons/Menu';
 import IconButton from '@material-ui/core/IconButton';
-import yellow from '@material-ui/core/colors/yellow';
+import orange from '@material-ui/core/colors/orange';
 
 import Navigation from '../Navigation';
 import { withStyles } from '@material-ui/core';
@@ -10,7 +10,7 @@ import { withStyles } from '@material-ui/core';
 const styles = {
     iconButton: {
         margin: '20px',
-        color: yellow[500],
+        color: orange[500],
     },
     drawer: {
         position: 'fixed',

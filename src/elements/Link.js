@@ -4,15 +4,14 @@ import { Link } from 'react-router-dom';
 const StyledLink = styled(Link)`
     text-decoration: none;
     font-family: Dosis-Bold;
-    margin: 15px;
-    color: white;
+    color: DarkOrange;
 
     &:active {
-        color: powderblue;
+        color: Orange;
     }
 
     &:hover {
-        color: Black;
+        color: Orange;
     }
 `;
 
