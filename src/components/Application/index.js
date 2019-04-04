@@ -35,7 +35,7 @@ const styles = theme => ({
         marginLeft: '2%',
         marginTop: '5%',
         display: 'block',
-    }
+    },
 });
 
 class ApplicationPageBase extends React.Component {

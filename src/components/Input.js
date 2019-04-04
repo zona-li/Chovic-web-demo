@@ -14,7 +14,7 @@ const Input = (props) => {
             error={props.error || false}
             helperText={props.helperText}
             multiline={props.multiline}
-            // required
+            rows={2}
         />
     )
 }
