@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const StyledLink = styled(Link)`
-    text-decoration: none;
+    text-decoration: ${props => props.decoration || 'none'};
     font-family: Dosis-Bold;
     color: DarkOrange;
 

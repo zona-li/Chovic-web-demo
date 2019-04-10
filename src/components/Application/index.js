@@ -185,7 +185,7 @@ class ApplicationPageBase extends React.Component {
                 <Input
                     name="ans1"
                     value={ans1}
-                    title="What an ideal day/week should look like for you?"
+                    title="What an ideal day/week looks like for you?"
                     onChange={this.onChange}
                     error={ans1Error ? true : false}
                     helperText={ans1Error}

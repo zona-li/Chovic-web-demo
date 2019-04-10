@@ -8,3 +8,4 @@ export const PASSWORD_FORGET = '/pw-forget';
 export const ADMIN_DETAILS = '/admin/:id';
 export const APPLICATION = '/apply';
 export const CONFIRMATION = '/confirm';
+export const CONTACT = '/contact';

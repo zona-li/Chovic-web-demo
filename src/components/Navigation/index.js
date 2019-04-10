@@ -69,6 +69,11 @@ const NavigationNonAuth = () => (
                 <HeaderLink to={ROUTES.APPLICATION}>Apply</HeaderLink>
             </ListItem>
         </List>
+        <List>
+            <ListItem>
+                <HeaderLink to={ROUTES.CONTACT}>Contact</HeaderLink>
+            </ListItem>
+        </List>
     </Nav>    
 );
 
