@@ -20,8 +20,8 @@ const devConfig = {
     messagingSenderId: process.env.REACT_APP_DEV_MESSAGING_SENDER_ID,
 };
 
-const config = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
-
+// const config = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
+const config = devConfig;
 class Firebase {
     constructor() {
         app.initializeApp(config);
