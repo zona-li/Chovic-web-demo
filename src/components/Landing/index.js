@@ -115,7 +115,7 @@ class Landing extends Component {
                     <SectionRight background="Salmon">
                         <TitleRight>vic</TitleRight>
                         <H1>A growth environment to help you form good habits, become more 
-                            disciplined, and build the mental model that leads to success.</H1>
+                            disciplined, end procrastination, and realize your true potential.</H1>
                         <P>Have you ever had an idea but find it difficult to realize? or had a goal but always fall short?
                             Most of the times, it is because you are deploying the wrong method or lack a supportive community 
                             to keep you accountable. Join a group of people who relentlessly seek to learn, improve, and 
