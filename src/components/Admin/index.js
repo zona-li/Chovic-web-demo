@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { compose } from 'recompose';
 import { Switch, Route, Link } from 'react-router-dom';
 

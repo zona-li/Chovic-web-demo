@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
 
@@ -9,7 +8,7 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
 const SignInPage = () => (
-    <div>
+    <div style={{ position: 'absolute', left: '40%', top: '5%' }}>
         <h1>Signin</h1>
         <SignInForm />
         <SignInGoogle />

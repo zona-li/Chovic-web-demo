@@ -61,7 +61,7 @@ class ApplicationPageBase extends React.Component {
         if (!notValid) {
             this.props.firebase
             .applications()
-            .push({
+            .add({
                 firstName,
                 lastName,
                 email,

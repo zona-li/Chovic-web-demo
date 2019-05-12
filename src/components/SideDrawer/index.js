@@ -14,6 +14,7 @@ const styles = {
     },
     drawer: {
         position: 'fixed',
+        top: 0,
     }
 }
 
