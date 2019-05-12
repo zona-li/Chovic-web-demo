@@ -90,17 +90,17 @@ class Firebase {
 
     
     // *** User API ***
-    user = uid => this.db.collection(`users/${uid}`);
+    user = uid => this.db.collection(`users`).doc(`${uid}`);
 
     users = () => this.db.collection('users');
 
     // *** Message API ***
-    message = uid => this.db.collection(`messages/${uid}`);
+    message = uid => this.db.collection(`messages`).doc(`${uid}`);
 
     messages = () => this.db.collection('messages');
 
     // *** Application API ***
-    application = applicationId => this.db.collection(`applications/${applicationId}`);
+    application = applicationId => this.db.collection(`applications`).doc(`${applicationId}`);
 
     applications = () => this.db.collection('applications');
 }
