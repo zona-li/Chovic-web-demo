@@ -14,7 +14,9 @@
   },
   "dependencies": {
     "firebase-admin": "~7.0.0",
-    "firebase-functions": "^2.3.0"
+    "firebase-functions": "^2.3.0",
+    "@google-cloud/logging": "^0.7.1",
+    "stripe": "^4.15.0"
   },
   "devDependencies": {
     "eslint": "^5.12.0",
