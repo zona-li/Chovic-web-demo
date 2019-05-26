@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "labcapri-dev"
+    "default": "labcapri-dev",
+    "staging": "labcapri-b55a6",
+    "prod": "labcapri-dev"
   }
 }
