@@ -6,8 +6,8 @@ class Home extends Component {
     render() {
         return (
             <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
-              <div>
-                <h1>React Stripe Elements Example</h1>
+              <div style={{ position: 'absolute', left: '10%', top: '5%', width: '60%'}}>
+                <h1>Home</h1>
                 <Elements>
                   <CardForm />
                 </Elements>

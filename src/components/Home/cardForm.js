@@ -27,7 +27,7 @@ class CardForm extends Component {
     if (this.state.complete) return <h1>Purchase Complete</h1>;
     return (
       <div className="checkout">
-        <p>Would you like to complete the purchase?</p>
+        <p>Payment Method</p>
         <CardElement />
         <button onClick={this.submit}>Send</button>
       </div>
