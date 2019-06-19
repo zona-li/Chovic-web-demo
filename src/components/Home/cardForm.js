@@ -10,7 +10,7 @@ class CardForm extends Component {
     this.state = {
       complete: false,
       errorMessage: '',
-      signedInUser: props.authUser,
+      signedInUser: this.props.authUser,
     };
     this.submit = this.submit.bind(this);
   }
@@ -38,7 +38,7 @@ class CardForm extends Component {
         <p>Payment Method</p>
         <CardElement />
         <br />
-        {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : ''}
+        {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
         <button onClick={this.submit}>Send</button>
       </div>
     );
