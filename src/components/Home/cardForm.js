@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
+import { compose } from 'recompose';
 
+import { withFirebase } from '../Firebase';
 
 
 class CardForm extends Component {
@@ -8,19 +10,22 @@ class CardForm extends Component {
     super(props);
     this.state = {
       complete: false,
+      errorMessage: '',
     };
     this.submit = this.submit.bind(this);
   }
 
   async submit(event) {
-    let {token} = await this.props.stripe.createToken({name: "Name"});
-    let response = await fetch("/charge", {
-      method: "POST",
-      headers: {"Content-Type": "text/plain"},
-      body: token.id
-    });
+    const {token, error} = await this.props.stripe.createToken();
+    console.log(token, error);
+    if (error) {
+      this.setState({errorMessage: error.message});
+    } 
+    else {
 
-    if (response.ok) this.setState({complete: true});
+    }
+
+    if (token.id) this.setState({complete: true});
   }
 
   render() {
@@ -29,10 +34,15 @@ class CardForm extends Component {
       <div className="checkout">
         <p>Payment Method</p>
         <CardElement />
+        <br />
+        {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : ''}
         <button onClick={this.submit}>Send</button>
       </div>
     );
   }
 }
 
-export default injectStripe(CardForm);
+export default compose(
+  injectStripe,
+  withFirebase,
+)(CardForm);

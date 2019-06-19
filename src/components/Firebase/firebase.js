@@ -102,6 +102,10 @@ class Firebase {
     application = applicationId => this.db.collection(`applications`).doc(`${applicationId}`);
 
     applications = () => this.db.collection('applications');
+
+    // *** Payment API ***
+    // '/stripe_customers/{userId}/tokens/{pushId}')
+    setToken = (uid, tokenId) => this.db.collection(`stripe_customers`).doc(`${uid}`).collection('tokens').add({token: tokenId});
 }
 
 export default Firebase;
