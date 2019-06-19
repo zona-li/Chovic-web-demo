@@ -4,25 +4,27 @@ import { compose } from 'recompose';
 
 import { withFirebase } from '../Firebase';
 
-
 class CardForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       complete: false,
       errorMessage: '',
+      signedInUser: props.authUser,
     };
     this.submit = this.submit.bind(this);
   }
 
   async submit(event) {
-    const {token, error} = await this.props.stripe.createToken();
+    const {token, error} = await this.props.stripe.createToken(signedInUser.email);
     console.log(token, error);
     if (error) {
       this.setState({errorMessage: error.message});
     } 
     else {
-
+      this.props.firebase.setToken(signedInUser.uid, token.id)
+        .then(docRef => console.log(`Token added: ${token.id} ${docRef.id}`))
+        .catch(error => console.error(`${error}`));
     }
 
     if (token.id) this.setState({complete: true});
