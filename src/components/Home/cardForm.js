@@ -16,13 +16,13 @@ class CardForm extends Component {
   }
 
   async submit(event) {
-    const {token, error} = await this.props.stripe.createToken(signedInUser.email);
+    const {token, error} = await this.props.stripe.createToken();
     console.log(token, error);
     if (error) {
       this.setState({errorMessage: error.message});
     } 
     else {
-      this.props.firebase.setToken(signedInUser.uid, token.id)
+      this.props.firebase.setToken(this.state.signedInUser.uid, token.id)
         .then(docRef => {
           console.log(`Token added: ${token.id} ${docRef.id}`);
           this.setState({complete: true});

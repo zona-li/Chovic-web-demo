@@ -67,7 +67,7 @@ class Firebase {
                     const dbUser = snapshot.data();
 
                     // default empty roles
-                    if (!dbUser.roles) {
+                    if (dbUser && !dbUser.roles) {
                         dbUser.roles = [];
                     }
 

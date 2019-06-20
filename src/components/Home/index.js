@@ -10,7 +10,7 @@ class Home extends Component {
         return (
           <AuthUserContext.Consumer>
             {authUser => (
-              <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
+              <StripeProvider apiKey="pk_test_Qu2iqCKHXB7r5v2nopdcctsg">
                 <div style={{ position: 'absolute', left: '10%', top: '5%', width: '60%'}}>
                   <h1>Home</h1>
                   <Elements>
