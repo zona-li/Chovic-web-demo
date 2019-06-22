@@ -93,6 +93,8 @@ class Firebase {
 
     users = () => this.db.collection('users');
 
+    stripe_customer = uid => this.db.collection('stripe_customers').doc(`${uid}`).collection('sources');
+
     // *** Message API ***
     message = uid => this.db.collection(`messages`).doc(`${uid}`);
 

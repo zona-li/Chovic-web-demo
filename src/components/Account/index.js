@@ -20,15 +20,48 @@ const SIGN_IN_METHODS = [
 const AccountPage = () => (
     <AuthUserContext.Consumer>
         {authUser => (
-            <div>
-                <h1>Account: {authUser.email}</h1>
+            <div style={{ position: 'absolute', left: '10%', top: '5%', width: '60%'}}>
+                <h3>Account:</h3>
+                <p>{authUser.email}</p>
                 <PasswordForgetForm />
                 <PasswordChangeForm />
                 <LoginManagement authUser={authUser} />
+                <h3>Card on file:</h3>
+                <PaymentInfo authUser={authUser} />
             </div>
         )}
     </AuthUserContext.Consumer>
 );
+
+class PaymentInfoBase extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            last4: null,
+        };
+    }
+
+    componentDidMount() {
+        // Fetch payment card info
+        const { firebase, authUser } = this.props;
+        const data = firebase.stripe_customer(authUser.uid).get();
+        data.then(docs => {
+            docs.forEach(doc => {
+                console.log(doc.id, '=>', doc.data());
+            });
+        }, err => {
+            console.log(`Encountered error fetching stripe user: ${err}`);
+        });
+        
+    }
+
+    render() {
+        return (
+            <p>{this.state.last4}</p>
+        );
+    }
+}
 
 class LoginManagementBase extends Component {
     constructor(props) {
@@ -207,9 +240,11 @@ class DefaultLoginToggle extends Component {
 }
 
 const LoginManagement = withFirebase(LoginManagementBase);
+const PaymentInfo = withFirebase(PaymentInfoBase);
 const condition = authUser => !!authUser;
 
 export default compose(
     withEmailVerification,
     withAuthorization(condition),
+    withFirebase,
 )(AccountPage);
