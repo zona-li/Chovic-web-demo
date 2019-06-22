@@ -26,7 +26,6 @@ const AccountPage = () => (
                 <PasswordForgetForm />
                 <PasswordChangeForm />
                 <LoginManagement authUser={authUser} />
-                <h3>Card on file:</h3>
                 <PaymentInfo authUser={authUser} />
             </div>
         )}
@@ -48,7 +47,7 @@ class PaymentInfoBase extends Component {
         const data = firebase.stripe_customer(authUser.uid).get();
         data.then(docs => {
             docs.forEach(doc => {
-                console.log(doc.id, '=>', doc.data());
+                this.setState({ last4: doc.data().last4 });
             });
         }, err => {
             console.log(`Encountered error fetching stripe user: ${err}`);
@@ -58,7 +57,7 @@ class PaymentInfoBase extends Component {
 
     render() {
         return (
-            <p>{this.state.last4}</p>
+            <p>{this.state.last4 ? `Card on file: ${this.state.last4}` : 'No card on file'}</p>
         );
     }
 }
