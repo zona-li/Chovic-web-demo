@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
+import { Elements, StripeProvider } from 'react-stripe-elements';
+import CardForm from './cardForm';
 
 import { PasswordForgetForm } from '../PasswordForget';
 import PasswordChangeForm from '../PasswordChange';
@@ -27,6 +29,14 @@ const AccountPage = () => (
                 <PasswordChangeForm />
                 <LoginManagement authUser={authUser} />
                 <PaymentInfo authUser={authUser} />
+                <StripeProvider apiKey="pk_test_Qu2iqCKHXB7r5v2nopdcctsg">
+                    <div>
+                    <h3>Payment Option</h3>
+                    <Elements>
+                        <CardForm authUser={authUser}/>
+                    </Elements>
+                    </div>
+              </StripeProvider>
             </div>
         )}
     </AuthUserContext.Consumer>
