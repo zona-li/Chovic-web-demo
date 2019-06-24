@@ -54,7 +54,7 @@ class PaymentInfoBase extends Component {
     componentDidMount() {
         // Fetch payment card info
         const { firebase, authUser } = this.props;
-        const data = firebase.stripe_customer(authUser.uid).get();
+        const data = firebase.stripe_customer(authUser.uid);
         data.then(docs => {
             docs.forEach(doc => {
                 this.setState({ last4: doc.data().last4 });

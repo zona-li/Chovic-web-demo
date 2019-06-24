@@ -91,14 +91,14 @@ class Firebase {
     // *** User API ***
     user = uid => this.db.collection(`users`).doc(`${uid}`);
 
-    users = () => this.db.collection('users');
+    users = () => this.db.collection('users').get();
 
-    stripe_customer = uid => this.db.collection('stripe_customers').doc(`${uid}`).collection('sources');
+    stripe_customer = uid => this.db.collection('stripe_customers').doc(`${uid}`).collection('sources').get();
 
     // *** Message API ***
     message = uid => this.db.collection(`messages`).doc(`${uid}`);
 
-    messages = () => this.db.collection('messages');
+    messages = () => this.db.collection('messages').get();
 
     // *** Application API ***
     application = applicationId => this.db.collection(`applications`).doc(`${applicationId}`);
