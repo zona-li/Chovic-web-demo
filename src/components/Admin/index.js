@@ -25,20 +25,19 @@ class UserListBase extends Component {
 
         this.state = {
             loading: false,
-            users: [],
+            users: {},
         };
     }
 
     componentDidMount() {
         this.setState({ loading: true });
 
-        this.props.firebase.users().on('value', snapshot => {
-            const usersObject = snapshot.val();
-
-            const usersList = Object.keys(usersObject).map(key => ({
-                ...usersObject[key],
-                uid: key,
-            }));
+        this.props.firebase.users().then(snapshot => {
+            const usersList = {};
+            snapshot.forEach(doc => {
+                console.log(doc.id, '=>', doc.data());
+                usersList[doc.id] = doc.data();
+            });
 
             this.setState({
                 users: usersList,
@@ -46,11 +45,6 @@ class UserListBase extends Component {
             });
         });
     }
-
-    componentWillUnmount() {
-        this.props.firebase.users().off();
-    }
-
 
     render() {
         const { users, loading } = this.state;
@@ -61,7 +55,7 @@ class UserListBase extends Component {
                 {loading && <div>Loading...</div>}
 
                 <ul>
-                    {users.map(user => (
+                    {Object.values(users).forEach(user => (
                         <li key={user.uid}>
                             <span>
                                 <strong>ID:</strong> {user.uid}

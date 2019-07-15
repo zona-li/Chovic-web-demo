@@ -1,5 +1,5 @@
 import { createMuiTheme } from '@material-ui/core/styles';
-import { lightBlue, cyan, teal } from '@material-ui/core/colors/blue';
+import { cyan, teal } from '@material-ui/core/colors/blue';
 
 const theme = createMuiTheme({
   palette: {
@@ -15,10 +15,7 @@ const theme = createMuiTheme({
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
-    typography: {
-      useNextVariants: true,
-    },
+    ].join(',')
   },
 });
 
