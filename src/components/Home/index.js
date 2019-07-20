@@ -1,9 +1,10 @@
 import React from 'react';
+import Canvas from './HabitBoard/Canvas';
 
 const TheBoard = () => {
     return (
-        <div style={{ position: 'absolute', left: '40%', top: '5%' }}>
-            <p>hi</p>
+        <div className={'board'}>
+            <Canvas />
         </div>
     )
 }
