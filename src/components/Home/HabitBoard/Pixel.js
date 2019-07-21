@@ -2,5 +2,12 @@ import React from 'react';
 import '../styles.css';
 
 export default props => {
-    return <div className={props.background + ' pixel'} />
+    const selected = props.current ? 'current-color' : '';
+    const className = props.background + ' pixel ' + selected;
+    return (
+        <div 
+            className={className}
+            onClick={props.onClick}
+        />
+    )
 }
