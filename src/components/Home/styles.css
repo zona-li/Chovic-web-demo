@@ -13,8 +13,8 @@
 
 .board {
     display: flex;
+    align-items: flex-start;
     justify-content: center;
-    /* align-items: center; */
     /* height: 100vh; */
     top: 5%;
     left: 10%;
@@ -34,11 +34,14 @@
 }
 
 .habit {
-    height: 15px;
+    margin: 0;
+    width: 100px;
+    padding-left: 20px;
 }
 
 .canvas {
     display: flex;
+    align-self: flex-start;
     /* flex-wrap: wrap; */
     max-width: 900px;
 }
