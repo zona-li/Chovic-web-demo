@@ -1,7 +1,7 @@
 import React from 'react'
 
 export default props => {
-    const handleChange = e => props.setHabit(e.target.value);
+    const handleChange = e => props.setHabits(e.target.value);
 
     return (
         <form>

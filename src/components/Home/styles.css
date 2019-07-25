@@ -17,7 +17,7 @@
     position: absolute;
 }
 
-.board {
+.habitList {
     display: flex;
     align-items: flex-start;
     justify-content: center;
