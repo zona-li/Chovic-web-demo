@@ -1,16 +1,26 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export default props => {
-    const handleChange = e => props.setHabits(e.target.value);
+    const [habit, setHabit] = useState('');
+
+    const handleChange = e => setHabit(e.target.value);
+
+    const handleSubmit = e => {
+        e.preventDefault();
+        if (habit) {
+            props.setHabits(habits => [...habits || [], habit]);
+            setHabit('');
+        }
+    }
 
     return (
         <form>
             <input 
                 placeholder="Add Habit"
-                value={props.habit}
+                value={habit}
                 onChange={handleChange}
             />
-            <button>Add</button>
+            <button onClick={handleSubmit} >Add</button>
         </form>
     )
 }

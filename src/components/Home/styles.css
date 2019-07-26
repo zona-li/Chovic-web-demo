@@ -17,6 +17,10 @@
     position: absolute;
 }
 
+.colorpicker {
+    display: flex;
+}
+
 .habitList {
     display: flex;
     align-items: flex-start;
@@ -39,7 +43,6 @@
 .habit {
     margin: 0;
     width: 100px;
-    padding-left: 20px;
     font-size: 0.8em;
 }
 
