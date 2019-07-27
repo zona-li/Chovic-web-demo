@@ -1,25 +1,25 @@
-import React, { useState } from 'react';
-import ColorPicker from './HabitBoard/ColorPicker';
-import AddHabit from './AddHabit';
-import HabitList from './HabitBoard/HabitList';
+import React from 'react';
+import { compose } from 'recompose';
 
-const TheBoard = () => {
-    const [color, setColor] = useState(0);  // Default color is white
-    const [habits, setHabits] = useState([]);
+import { AuthUserContext, withAuthorization, withEmailVerification } from '../Session';
+import { withFirebase } from '../Firebase';
+import TheBoard from './Board';
 
+const Home = () => {
     return (
-        <div className={'content'}>
-            <AddHabit setHabits={habits => setHabits(habits)} />
-            <ColorPicker 
-                currentColor={color} 
-                setColor={color => setColor(color)} 
-            />
-
-            <div>
-                <HabitList currentColor={color} habits={habits} />
-            </div>
-        </div>
-    );
+        <AuthUserContext.Consumer>
+            {authUser => (
+                <TheBoard authUser={authUser} />
+            )}
+        </AuthUserContext.Consumer>
+    )
 }
 
-export default TheBoard;
+
+const condition = authUser => !!authUser;
+
+export default compose (
+    withEmailVerification,
+    withAuthorization(condition),
+    withFirebase,
+)(Home);

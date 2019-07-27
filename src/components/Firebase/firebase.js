@@ -93,6 +93,28 @@ class Firebase {
 
     users = () => this.db.collection('users').get();
 
+    getAllHabits = uid => {
+        const habitList = this.user(uid).collection('habits').doc('current');
+        habitList.get()
+            .then(doc => {
+                if (!doc.exists) {
+                    return null;
+                } else {
+                    return doc.data();
+                }
+            })
+            .catch(err => {
+                console.log('Error getting habit list: ', err);
+            });
+    }
+
+    addHabit = (uid, habit) => {
+        let habitsRef = this.user(uid).collection('habits').doc('current');
+        habitsRef.update({
+            habitList: this.db.FieldValue.arrayUnion(habit)
+        });
+    }
+
     stripe_customer = uid => this.db.collection('stripe_customers').doc(`${uid}`).collection('sources').get();
 
     // *** Message API ***
@@ -104,6 +126,7 @@ class Firebase {
     application = applicationId => this.db.collection(`applications`).doc(`${applicationId}`);
 
     applications = () => this.db.collection('applications');
+
 
     // *** Payment API ***
     // '/stripe_customers/{userId}/tokens/{pushId}')
