@@ -5,11 +5,11 @@ import { AuthUserContext, withAuthorization, withEmailVerification } from '../Se
 import { withFirebase } from '../Firebase';
 import TheBoard from './Board';
 
-const Home = () => {
+const Home = props => {
     return (
         <AuthUserContext.Consumer>
             {authUser => (
-                <TheBoard authUser={authUser} />
+                <TheBoard authUser={authUser} firebase={props.firebase} />
             )}
         </AuthUserContext.Consumer>
     )

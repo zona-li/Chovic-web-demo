@@ -93,25 +93,10 @@ class Firebase {
 
     users = () => this.db.collection('users').get();
 
-    getAllHabits = uid => {
-        const habitList = this.user(uid).collection('habits').doc('current');
-        habitList.get()
-            .then(doc => {
-                if (!doc.exists) {
-                    return null;
-                } else {
-                    return doc.data();
-                }
-            })
-            .catch(err => {
-                console.log('Error getting habit list: ', err);
-            });
-    }
-
-    addHabit = (uid, habit) => {
-        let habitsRef = this.user(uid).collection('habits').doc('current');
+    updateHabit = (uid, habits) => {
+        let habitsRef = this.user(uid);
         habitsRef.update({
-            habitList: this.db.FieldValue.arrayUnion(habit)
+            habits: habits
         });
     }
 
