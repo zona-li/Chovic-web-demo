@@ -100,6 +100,13 @@ class Firebase {
         });
     }
 
+    // updateHabitEntry = (uid, habitId, entryIndex, color) => {
+    //     const data = {
+    //         history: 
+    //     }
+    //     this.user(uid).collection("habit_entries").doc(`${habitId}`).set(data);
+    // }
+
     stripe_customer = uid => this.db.collection('stripe_customers').doc(`${uid}`).collection('sources').get();
 
     // *** Message API ***

@@ -39,7 +39,7 @@ const NavigationAuth = ({ authUser }) => (
         </List>
         <List>
             <ListItem>
-                {authUser.roles.includes(ROLES.ADMIN) && (
+                {authUser.roles && authUser.roles.includes(ROLES.ADMIN) && (
                     <HeaderLink to={ROUTES.ADMIN}>Admin</HeaderLink>
                 )}
             </ListItem>

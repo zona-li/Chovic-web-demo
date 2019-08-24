@@ -1,25 +1,46 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import useForm from './useForm';
+
+const initialState = {
+    habit: '',
+    category: 'career'
+};
 
 export default props => {
-    const [habit, setHabit] = useState('');
-
-    const handleChange = e => setHabit(e.target.value);
+    const [values, handleChange] = useForm(initialState);
 
     const handleSubmit = e => {
         e.preventDefault();
-        if (habit) {
-            props.setHabits(habits => [...habits || [], habit]);
-            setHabit('');
+        if (values.habit) {
+            props.onSubmit(values.habit);
+            // setHabit('');
         }
+        console.log(values);
     }
 
+    const resetForm = () => {
+        console.log("resetting form")
+        handleChange({...initialState});
+    };
+
     return (
-        <form>
-            <input 
+        <form onReset={resetForm}>
+            <input
                 placeholder="Add Habit"
-                value={habit}
+                value={values.habit}
+                name="habit"
                 onChange={handleChange}
             />
+            <select name="category" value={values.category} onChange={handleChange}>
+                <option value="career">Career</option>
+                <option value="finance">Finance</option>
+                <option value="fam">Friends and Family</option>
+                <option value="health">Health</option>
+                <option value="fun">Fun</option>
+                <option value="love">Love</option>
+                <option value="growth">Growth</option>
+                <option value="contribution">Contribution</option>
+            </select>
             <button onClick={handleSubmit} >Add</button>
         </form>
     )
