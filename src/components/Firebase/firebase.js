@@ -96,14 +96,26 @@ class Firebase {
 
     // *** Habit API ***
     habits = (uid) => {
-        return this.user(uid).collection('habits');
+        let allHabits = [];
+        // this.user(uid).collection('habits').get().then(snapshot => {
+        //     return snapshot;
+        // });
+        console.log(`uid: ${uid}`);
+        this.user(uid).collection('habits').get().then(function(querySnapshot) {
+            querySnapshot.forEach(function(doc) {
+                // doc.data() is never undefined for query doc snapshots
+                allHabits.push(doc.id);
+                console.log(doc.id, " => ", doc.data());
+                console.log(allHabits);
+            });
+        });
+        return allHabits;
     }
 
     addHabit = (uid, habit, category) => {
         const userInfo = this.user(uid);
         userInfo.collection('habits').doc(habit).set({
             category: category,
-            // startDate: this.serverValue.TIMESTAMP
             startDate: firebase.firestore.FieldValue.serverTimestamp()
         });
     }
