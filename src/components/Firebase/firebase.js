@@ -1,4 +1,5 @@
 import app from 'firebase/app';
+import firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/firestore';
@@ -92,6 +93,20 @@ class Firebase {
     user = uid => this.db.collection(`users`).doc(`${uid}`);
 
     users = () => this.db.collection('users').get();
+
+    // *** Habit API ***
+    habits = (uid) => {
+        return this.user(uid).collection('habits');
+    }
+
+    addHabit = (uid, habit, category) => {
+        const userInfo = this.user(uid);
+        userInfo.collection('habits').doc(habit).set({
+            category: category,
+            // startDate: this.serverValue.TIMESTAMP
+            startDate: firebase.firestore.FieldValue.serverTimestamp()
+        });
+    }
 
     updateHabit = (uid, habits) => {
         let habitsRef = this.user(uid);

@@ -11,8 +11,8 @@ export default props => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        if (values.habit) {
-            props.onSubmit(values.habit);
+        if (values) {
+            props.onSubmit(values);
             // setHabit('');
         }
         console.log(values);
