@@ -1,5 +1,4 @@
 import app from 'firebase/app';
-import firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/firestore';
@@ -97,16 +96,9 @@ class Firebase {
     // *** Habit API ***
     habits = (uid) => {
         let allHabits = [];
-        // this.user(uid).collection('habits').get().then(snapshot => {
-        //     return snapshot;
-        // });
-        console.log(`uid: ${uid}`);
-        this.user(uid).collection('habits').get().then(function(querySnapshot) {
-            querySnapshot.forEach(function(doc) {
-                // doc.data() is never undefined for query doc snapshots
-                allHabits.push(doc.id);
-                console.log(doc.id, " => ", doc.data());
-                console.log(allHabits);
+        this.user(uid).collection('habits').get().then(snapshot => {
+            snapshot.forEach(doc => {
+                allHabits.push(doc.id); // The document id is the habit name
             });
         });
         return allHabits;
@@ -116,25 +108,9 @@ class Firebase {
         const userInfo = this.user(uid);
         userInfo.collection('habits').doc(habit).set({
             category: category,
-            startDate: firebase.firestore.FieldValue.serverTimestamp()
+            startDate: app.firestore.FieldValue.serverTimestamp()
         });
     }
-
-    updateHabit = (uid, habits) => {
-        let habitsRef = this.user(uid);
-        habitsRef.update({
-            habits: habits
-        });
-    }
-
-    // updateHabitEntry = (uid, habitId, entryIndex, color) => {
-    //     const data = {
-    //         history: 
-    //     }
-    //     this.user(uid).collection("habit_entries").doc(`${habitId}`).set(data);
-    // }
-
-    stripe_customer = uid => this.db.collection('stripe_customers').doc(`${uid}`).collection('sources').get();
 
     // *** Message API ***
     message = uid => this.db.collection(`messages`).doc(`${uid}`);
@@ -150,6 +126,8 @@ class Firebase {
     // *** Payment API ***
     // '/stripe_customers/{userId}/tokens/{pushId}')
     setToken = (uid, tokenId) => this.db.collection(`stripe_customers`).doc(`${uid}`).collection('tokens').add({token: tokenId});
+
+    stripe_customer = uid => this.db.collection('stripe_customers').doc(`${uid}`).collection('sources').get();
 }
 
 export default Firebase;

@@ -6,7 +6,10 @@ const Canvas = props => {
     const [row, setRow] = useState(Array(30).fill().map(() => 0));
     const changeColor = (index) => {
         const newRow = JSON.parse(JSON.stringify(row));
-        newRow[index] = props.currentColor;
+        let currentColorIndex = newRow[index];
+        if (currentColorIndex + 1 > 3) currentColorIndex = 0;
+        else currentColorIndex += 1;
+        newRow[index] = currentColorIndex;
         setRow(newRow);
     }
 
