@@ -13,18 +13,12 @@ export default props => {
         e.preventDefault();
         if (values) {
             props.onSubmit(values);
-            // setHabit('');
+            handleChange(initialState);
         }
-        console.log(values);
     }
 
-    const resetForm = () => {
-        console.log("resetting form")
-        handleChange({...initialState});
-    };
-
     return (
-        <form onReset={resetForm}>
+        <form>
             <input
                 placeholder="Add Habit"
                 value={values.habit}
