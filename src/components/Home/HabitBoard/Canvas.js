@@ -1,9 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Colors from '../Colors';
 import Pixel from './Pixel';
+import { withFirebase } from '../../Firebase';
 
-const Canvas = () => {
+const Canvas = props => {
+    const { userId, habit, firebase } = props;
     const [row, setRow] = useState(Array(30).fill().map(() => 0));
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const trackingData = await firebase.getHabitTrackerEntry(userId, habit);
+            setRow(trackingData);
+            console.log(trackingData);
+        }
+        fetchData();
+        console.log("fetch habit data gets called, habit:", habit);
+    }, [habit]);
+
     const changeColor = (index) => {
         const newRow = JSON.parse(JSON.stringify(row));
         let currentColorIndex = newRow[index];
@@ -11,6 +24,7 @@ const Canvas = () => {
         else currentColorIndex += 1;
         newRow[index] = currentColorIndex;
         setRow(newRow);
+        firebase.updateHabitTrackerEntry(userId, habit, newRow);
     }
 
     return (
@@ -28,4 +42,4 @@ const Canvas = () => {
     );
 }
 
-export default Canvas;
+export default withFirebase(Canvas);

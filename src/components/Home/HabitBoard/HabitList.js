@@ -8,7 +8,7 @@ const HabitList = props => {
     const habitItems = habits.map(habit =>
         <div className={'habitList'} key={habit}>
             <HabitItem habit={habit} />
-            <Canvas />
+            <Canvas habit={habit} userId={props.userId} />
         </div>
     );
     

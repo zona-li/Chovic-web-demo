@@ -108,8 +108,30 @@ class Firebase {
         const userInfo = this.user(uid);
         userInfo.collection('habits').doc(habit).set({
             category: category,
-            startDate: app.firestore.FieldValue.serverTimestamp()
-        });
+            startDate: app.firestore.FieldValue.serverTimestamp(),
+            tracker: Array(30).fill().map(() => 0),
+        }, { merge: true });
+    }
+
+    updateHabitTrackerEntry = (uid, habit, entryArr) => {
+        const userInfo = this.user(uid);
+        userInfo.collection('habits').doc(habit).set({
+            tracker: entryArr
+        }, { merge: true });
+    }
+
+    getHabitTrackerEntry = async (uid, habit) => {
+        const userInfo = this.user(uid);
+        let trackingData;
+        await userInfo.collection('habits').doc(habit).get()
+            .then(doc => {
+                if (doc.exists) {
+                    trackingData = doc.data().tracker;
+                } else {
+                    console.log(`No entry for ${habit} found.`);
+                }
+            });
+        return trackingData;
     }
 
     // *** Message API ***
