@@ -12,7 +12,7 @@ export default props => {
     const handleSubmit = e => {
         e.preventDefault();
         if (values) {
-            props.onSubmit(values);
+            props.onSubmitNewHabit(values);
             handleChange(initialState);
         }
     }

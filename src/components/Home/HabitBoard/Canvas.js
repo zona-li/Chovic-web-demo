@@ -15,7 +15,7 @@ const Canvas = props => {
         }
         fetchData();
         console.log("fetch habit data gets called, habit:", habit);
-    }, [habit]);
+    }, []);
 
     const changeColor = (index) => {
         const newRow = JSON.parse(JSON.stringify(row));

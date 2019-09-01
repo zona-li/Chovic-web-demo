@@ -104,9 +104,10 @@ class Firebase {
         return allHabits;
     }
 
+    // This function adds a new habit to the database and returns a promise after the action is complete.
     addHabit = (uid, habit, category) => {
         const userInfo = this.user(uid);
-        userInfo.collection('habits').doc(habit).set({
+        return userInfo.collection('habits').doc(habit).set({
             category: category,
             startDate: app.firestore.FieldValue.serverTimestamp(),
             tracker: Array(30).fill().map(() => 0),
@@ -123,14 +124,12 @@ class Firebase {
     getHabitTrackerEntry = async (uid, habit) => {
         const userInfo = this.user(uid);
         let trackingData;
-        await userInfo.collection('habits').doc(habit).get()
-            .then(doc => {
-                if (doc.exists) {
-                    trackingData = doc.data().tracker;
-                } else {
-                    console.log(`No entry for ${habit} found.`);
-                }
-            });
+        const habitEntry = await userInfo.collection('habits').doc(habit).get();
+        if (habitEntry) {
+            trackingData = habitEntry.data().tracker;
+        } else {
+            console.log(`No entry for ${habit} found.`);
+        }
         return trackingData;
     }
 
