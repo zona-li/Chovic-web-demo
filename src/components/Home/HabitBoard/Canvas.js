@@ -11,10 +11,8 @@ const Canvas = props => {
         const fetchData = async () => {
             const trackingData = await firebase.getHabitTrackerEntry(userId, habit);
             setRow(trackingData);
-            console.log(trackingData);
         }
         fetchData();
-        console.log("fetch habit data gets called, habit:", habit);
     }, []);
 
     const changeColor = (index) => {
