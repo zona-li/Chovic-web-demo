@@ -31,13 +31,17 @@
 .pixel {
     width: 20px;
     height: 20px;
+}
+
+.pixel.tracker {
     border: 1px solid Gainsboro;
     box-sizing: border-box;
     cursor: pointer;
 }
 
-.pixel.current-color {
-    border: 2px solid Gold;
+.pixel.day-of-month {
+    border: 1px solid Gainsboro;
+    box-sizing: border-box;
 }
 
 .habit {
