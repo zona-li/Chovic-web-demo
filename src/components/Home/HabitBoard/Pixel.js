@@ -9,7 +9,7 @@ export default props => {
     return (
         <div>
             {dayOfMonth ? (
-                <p className={className}>{dayOfMonth}</p>
+                <div className={className}>{dayOfMonth}</div>
             ) : (
                 <div 
                     className={className}

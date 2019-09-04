@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import Colors from '../Colors';
 import Pixel from './Pixel';
 import { withFirebase } from '../../Firebase';
+import sound from '../../../assets/complete.wav';
 
 const Canvas = props => {
     const { userId, habit, firebase } = props;
     const [row, setRow] = useState(Array(30).fill().map(() => 0));
+    const [audio] = useState(new Audio(sound));
 
     useEffect(() => {
         const fetchData = async () => {
@@ -13,9 +15,12 @@ const Canvas = props => {
             setRow(trackingData);
         }
         fetchData();
-    }, []);
+    }, [firebase, habit, userId]);
 
     const changeColor = (index) => {
+        // Play sound
+        audio.play();
+        // Update color
         const newRow = JSON.parse(JSON.stringify(row));
         let currentColorIndex = newRow[index];
         if (currentColorIndex + 1 > 3) currentColorIndex = 0;

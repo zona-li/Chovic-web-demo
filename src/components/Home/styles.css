@@ -40,8 +40,10 @@
 }
 
 .pixel.day-of-month {
-    border: 1px solid Gainsboro;
-    box-sizing: border-box;
+    text-align: center;
+    font-size: 11px;
+    background-color: white;
+    cursor: default;
 }
 
 .habit {
