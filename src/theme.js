@@ -1,4 +1,4 @@
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import { cyan, teal } from '@material-ui/core/colors/blue';
 
 const theme = createMuiTheme({
@@ -19,4 +19,25 @@ const theme = createMuiTheme({
   },
 });
 
-export default theme;
+const useStyles = makeStyles(theme => ({
+  fab: {
+    margin: theme.spacing(1),
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
+  dense: {
+    marginTop: 19,
+  },
+  menu: {
+    width: 200,
+  },
+}));
+
+export {theme, useStyles};

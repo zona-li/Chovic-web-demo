@@ -7,7 +7,7 @@ import sound from '../../../assets/complete.wav';
 const Canvas = props => {
     const { userId, habit, firebase } = props;
     const [row, setRow] = useState(Array(30).fill().map(() => 0));
-    const [audio] = useState(new Audio(sound));
+    const audio = new Audio(sound);
 
     useEffect(() => {
         const fetchData = async () => {
