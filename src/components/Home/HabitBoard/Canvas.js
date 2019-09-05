@@ -17,14 +17,17 @@ const Canvas = props => {
         fetchData();
     }, [firebase, habit, userId]);
 
-    const changeColor = (index) => {
-        // Play sound
-        audio.play();
+    const onHabitPixelClicked = (index) => {
         // Update color
         const newRow = JSON.parse(JSON.stringify(row));
         let currentColorIndex = newRow[index];
-        if (currentColorIndex + 1 > 3) currentColorIndex = 0;
-        else currentColorIndex += 1;
+        if (currentColorIndex + 1 > 3) {
+            currentColorIndex = 0;
+        } else {
+            currentColorIndex += 1;
+            // Play sound
+            audio.play();
+        }
         newRow[index] = currentColorIndex;
         setRow(newRow);
         firebase.updateHabitTrackerEntry(userId, habit, newRow);
@@ -37,7 +40,7 @@ const Canvas = props => {
                     <Pixel
                         key={index}
                         background={Colors[row[index]]}
-                        onClick={e => changeColor(index)}
+                        onClick={e => onHabitPixelClicked(index)}
                     />
                 )
             })}
