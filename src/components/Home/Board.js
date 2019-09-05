@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import AddHabit from './AddHabit';
 import HabitList from './HabitBoard/HabitList';
@@ -7,8 +7,15 @@ import DayOfMonth from './HabitBoard/DayOfMonth';
 const TheBoard = props => {
     const { authUser, firebase } = props;
     const userId = authUser.uid;
-    let existingHabits = firebase.habits(userId);
-    const [habits, setHabits] = useState(existingHabits || []);
+    const [habits, setHabits] = useState([]);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const existingHabits = await firebase.habits(userId);
+            setHabits(existingHabits);
+        }
+        fetchData();
+    }, [firebase, userId]);
 
     const addNewHabit = values => {
         const {habit, category} = values;

@@ -94,12 +94,11 @@ class Firebase {
     users = () => this.db.collection('users').get();
 
     // *** Habit API ***
-    habits = (uid) => {
+    habits = async (uid) => {
         let allHabits = [];
-        this.user(uid).collection('habits').get().then(snapshot => {
-            snapshot.forEach(doc => {
-                allHabits.push(doc.id); // The document id is the habit name
-            });
+        const snapshot = await this.user(uid).collection('habits').get();
+        snapshot.forEach(doc => {
+            allHabits.push(doc.id); // The document id is the habit name
         });
         return allHabits;
     }
