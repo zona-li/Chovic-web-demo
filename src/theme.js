@@ -21,7 +21,7 @@ const theme = createMuiTheme({
 
 const useStyles = makeStyles(theme => ({
   fab: {
-    margin: theme.spacing(1),
+    margin: theme.spacing(3),
   },
   container: {
     display: 'flex',

@@ -57,7 +57,13 @@ export default props => {
                 <option value="growth">Growth</option>
                 <option value="contribution">Contribution</option>
             </TextField>
-            <Fab color="primary" aria-label="add" className={classes.fab} onClick={handleSubmit}>
+            <Fab 
+                color="primary" 
+                aria-label="add"
+                size="small"
+                className={classes.fab} 
+                onClick={handleSubmit}
+            >
                 <AddIcon />
             </Fab>
         </form>
