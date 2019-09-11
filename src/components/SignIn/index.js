@@ -1,21 +1,57 @@
-import React, { Component } from 'react';
+import React, { useState, Component } from 'react';
 import { withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
 
 import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+import signInBird from '../../assets/signIn.png';
 
-const SignInPage = () => (
-    <div style={{ position: 'absolute', left: '40%', top: '5%' }}>
-        <h1>Signin</h1>
-        <SignInForm />
-        <SignInGoogle />
-        <PasswordForgetLink />
-        <SignUpLink />
-    </div>
-);
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        margin: 100
+      },
+    signInImage: {
+        width: 300,
+        height: 300,
+    },
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+    },
+    button: {
+        margin: theme.spacing(1),
+    },
+    signInText: {
+        margin: theme.spacing(1),
+    }
+}));
+
+const SignInPage = () => {
+    const classes = useStyles();
+    return (
+        <div className={classes.root}>
+            <Grid container spacing={2}>
+                <Grid item xs>
+                    <img src={signInBird} alt="signIn" className={classes.signInImage} />
+                </Grid>
+                <Grid item xs>
+                    <SignInForm />
+                    <SignUpLink />
+                    <SignInGoogle />
+                    <PasswordForgetLink />
+                </Grid>
+            </Grid>
+        </div>
+    );
+};
 
 const ERROR_CODE_ACCOUNT_EXISTS = 'auth/account-exists-with-different-credential';
 
@@ -32,63 +68,70 @@ const INITIAL_STATE = {
     error: null,
 };
 
-class SignInFormBase extends Component {
-    constructor(props) {
-        super(props);
-        
-        this.state = { ...INITIAL_STATE };
-    }
+const SignInFormBase = (props) => {
+    const [state, setState] = useState(INITIAL_STATE);
+    const classes = useStyles();
 
-    onSubmit = event => {
-        const { email, password } = this.state;
+    const onSubmit = event => {
+        const { email, password } = state;
 
-        this.props.firebase
+        props.firebase
             .doSignInWithEmailAndPassword(email, password)
             .then(() => {
-                this.setState({ ...INITIAL_STATE });
-                this.props.history.push(ROUTES.HOME);
+                setState(INITIAL_STATE);
+                props.history.push(ROUTES.HOME);
             })
             .catch(error => {
-                this.setState({ error });
+                setState(...state, error);
             });
 
         event.preventDefault();
     };
 
-    onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+    const onChange = event => {
+        const signInInfo = {
+            ...state,
+            [event.target.name]: event.target.value,
+        };
+        setState(signInInfo);
     };
 
-    render() {
-        const { email, password, error } = this.state;
 
-        const isInvalid = password === '' || email === '';
+    const { email, password, error } = state;
+    const isInvalid = password === '' || email === '';
 
-        return (
-            <form onSubmit={this.onSubmit}>
-                <input
-                    name="email"
-                    value={email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                />
-                <input
-                    name="password"
-                    value={password}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Password"
-                />
-                <button disabled={isInvalid} type="submit">
-                    Sign In
-                </button>
+    return (
+        <form onSubmit={onSubmit}>
+            <Typography variant="h6" className={classes.signInText}>Sign in</Typography>
+            <TextField
+                name="email"
+                value={email}
+                type="email"
+                label="Email"
+                className={classes.textField}
+                autoComplete="email"
+                margin="normal"
+                onChange={onChange}
+            />
+            <TextField
+                name="password"
+                value={password}
+                type="password"
+                label="Password"
+                className={classes.textField}
+                autoComplete="current-password"
+                margin="normal"
+                onChange={onChange}                    
+            />
+            <Button disabled={isInvalid} className={classes.button} variant="contained" type="submit">
+                Sign In
+            </Button>
 
-                {error && <p>{error.message}</p>}
-            </form>
-        );
-    }
+            {error && <p>{error.message}</p>}
+        </form>
+    );
 }
+
 
 class SignInGoogleBase extends Component {
     constructor(props) {
