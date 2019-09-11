@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
 import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
@@ -17,7 +18,10 @@ import signInBird from '../../assets/signIn.png';
 const useStyles = makeStyles(theme => ({
     root: {
         margin: 100
-      },
+    },
+    line: {
+        width: 350,
+    },
     signInImage: {
         width: 300,
         height: 300,
@@ -31,6 +35,17 @@ const useStyles = makeStyles(theme => ({
     },
     signInText: {
         margin: theme.spacing(1),
+    },
+    divider: {
+        margin: theme.spacing(1),
+        width: 150,
+        marginTop: 40,
+        display: "inline-block"
+    },
+    or: {
+        display: "inline-block",
+        position: "relative",
+        top: -5
     }
 }));
 
@@ -43,9 +58,17 @@ const SignInPage = () => {
                     <img src={signInBird} alt="signIn" className={classes.signInImage} />
                 </Grid>
                 <Grid item xs>
-                    <SignInForm />
-                    <SignUpLink />
+                    <Typography variant="h6" className={classes.signInText}>Sign in</Typography>
                     <SignInGoogle />
+                    <div className={classes.line}>
+                    <Divider className={classes.divider} />
+                        <Typography variant="subtitle1" className={classes.or} >or</Typography>
+                    <Divider className={classes.divider} />
+                    </div>
+                    
+                    <SignInForm />
+
+                    <SignUpLink />
                     <PasswordForgetLink />
                 </Grid>
             </Grid>
@@ -102,7 +125,6 @@ const SignInFormBase = (props) => {
 
     return (
         <form onSubmit={onSubmit}>
-            <Typography variant="h6" className={classes.signInText}>Sign in</Typography>
             <TextField
                 name="email"
                 value={email}
