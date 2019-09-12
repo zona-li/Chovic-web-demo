@@ -4,8 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { SectionLeft, SectionRight, Section } from '../../elements/Section';
 import { P } from '../../elements/P';
-import art1 from '../../images/art1.png';
-import meet from '../../images/meet.jpg';
+import art1 from '../../assets/art1.png';
+import meet from '../../assets/meet.jpg';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Group from '@material-ui/icons/Group';
 import ShowChart from '@material-ui/icons/ShowChart';
