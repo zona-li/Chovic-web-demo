@@ -8,13 +8,13 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import signInBird from '../../assets/signIn.png';
-
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -26,6 +26,10 @@ const useStyles = makeStyles(theme => ({
     signInImage: {
         width: 300,
         height: 300,
+        paddingLeft: 150
+    },
+    signIn: {
+        paddingLeft: 150,
     },
     textField: {
         marginLeft: theme.spacing(1),
@@ -63,6 +67,7 @@ const useStyles = makeStyles(theme => ({
 
 const SignInPage = () => {
     const classes = useStyles();
+    const matches = useMediaQuery('(min-width:1100px)');
     return (
         <div className={classes.root}>
             <Grid container spacing={2}>
@@ -70,16 +75,18 @@ const SignInPage = () => {
                     <img src={signInBird} alt="signIn" className={classes.signInImage} />
                 </Grid>
                 <Grid item xs>
-                    <Typography variant="h6" className={classes.signInText}>Sign in</Typography>
-                    <SignUpLink />
-                    <SignInGoogle />
-                    <div className={classes.line}>
-                    <Divider className={classes.divider} />
-                        <Typography variant="subtitle1" className={classes.or} >or</Typography>
-                    <Divider className={classes.divider} />
+                    <div className={matches ? "" : `${classes.signIn}`}>
+                        <Typography variant="h6" className={classes.signInText}>Sign in</Typography>
+                        <SignUpLink />
+                        <SignInGoogle />
+                        <div className={classes.line}>
+                        <Divider className={classes.divider} />
+                            <Typography variant="subtitle1" className={classes.or} >or</Typography>
+                        <Divider className={classes.divider} />
+                        </div>
+                        
+                        <SignInForm />
                     </div>
-                    
-                    <SignInForm />
                 </Grid>
             </Grid>
         </div>
