@@ -1,8 +1,21 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
+
+const useStyles = makeStyles(theme => ({
+    text: {
+        display: "inline-block"
+    },
+    link: {
+        textDecoration: "none",
+        color: "#283593",
+        marginLeft: 145
+    }
+}));
 
 const PasswordForgetPage = () => (
     <div>
@@ -66,11 +79,14 @@ class PasswordForgetFormBase extends Component {
     }
 }
 
-const PasswordForgetLink = () => (
-    <p>
-        <Link to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
-    </p>
-);
+const PasswordForgetLink = () => {
+    const classes = useStyles();
+    return (
+        <Typography variant="subtitle2" className={classes.text} >
+            <Link className={classes.link} to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
+        </Typography>
+    );
+};
 
 const PasswordForgetForm = withFirebase(PasswordForgetFormBase);
 

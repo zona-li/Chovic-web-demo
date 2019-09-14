@@ -30,9 +30,12 @@ const useStyles = makeStyles(theme => ({
     textField: {
         marginLeft: theme.spacing(1),
         marginRight: theme.spacing(1),
+        display: "flex",
+        width: 330
     },
     button: {
         margin: theme.spacing(1),
+        display: "inline-block"
     },
     googleButton: {
         margin: theme.spacing(1),
@@ -77,7 +80,6 @@ const SignInPage = () => {
                     </div>
                     
                     <SignInForm />
-                    <PasswordForgetLink />
                 </Grid>
             </Grid>
         </div>
@@ -156,6 +158,7 @@ const SignInFormBase = (props) => {
             <Button disabled={isInvalid} className={classes.button} variant="contained" type="submit">
                 Sign In
             </Button>
+            <PasswordForgetLink />
 
             {error && <p>{error.message}</p>}
         </form>
