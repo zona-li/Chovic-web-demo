@@ -1,10 +1,20 @@
 import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
+import './styles.css';
+
+const useStyles = makeStyles(theme => ({
+    signUpOption: {
+        marginLeft: 200,
+        display: "inline-block"
+    },
+}));
 
 const SignUpPage = () => (
     <div>
@@ -152,11 +162,18 @@ class SignUpFormBase extends Component {
     }
 }
 
-const SignUpLink = () => (
-    <p>
-        Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-    </p>
-);
+const SignUpLink = () => {
+    const classes = useStyles();
+    return (
+        <Typography variant="subtitle1" className={classes.signUpOption}>
+            or
+            <NavLink 
+                to={ROUTES.SIGN_UP}
+                className="signUp"
+            >Sign Up</NavLink>
+        </Typography>
+    );
+};
 
 const SignUpForm = compose(
     withRouter,

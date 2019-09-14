@@ -14,7 +14,6 @@ import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import signInBird from '../../assets/signIn.png';
-import gIcon from '../../assets/google.svg';
 
 
 const useStyles = makeStyles(theme => ({
@@ -45,6 +44,7 @@ const useStyles = makeStyles(theme => ({
     },
     signInText: {
         margin: theme.spacing(1),
+        display: "inline-block"
     },
     divider: {
         margin: theme.spacing(1),
@@ -68,6 +68,7 @@ const SignInPage = () => {
                 </Grid>
                 <Grid item xs>
                     <Typography variant="h6" className={classes.signInText}>Sign in</Typography>
+                    <SignUpLink />
                     <SignInGoogle />
                     <div className={classes.line}>
                     <Divider className={classes.divider} />
@@ -76,8 +77,6 @@ const SignInPage = () => {
                     </div>
                     
                     <SignInForm />
-
-                    <SignUpLink />
                     <PasswordForgetLink />
                 </Grid>
             </Grid>
