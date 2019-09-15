@@ -6,6 +6,7 @@ import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
@@ -18,6 +19,9 @@ const useStyles = makeStyles(theme => ({
     root: {
         margin: 100
     },
+    signUp: {
+        paddingLeft: 250,
+    },
     signUpOption: {
         marginLeft: 200,
         display: "inline-block"
@@ -29,7 +33,7 @@ const useStyles = makeStyles(theme => ({
     signInImage: {
         width: 300,
         height: 300,
-        paddingLeft: 150
+        paddingLeft: 250
     },
     textField: {
         marginLeft: theme.spacing(1),
@@ -45,14 +49,17 @@ const useStyles = makeStyles(theme => ({
 
 const SignUpPage = () => {
     const classes  = useStyles();
+    const matches = useMediaQuery('(min-width:1100px)');
     return (
     <Grid container spacing={2} className={classes.root}>
         <Grid item xs>
             <img src={signInPic} alt="signIn" className={classes.signInImage} />
         </Grid>
         <Grid item xs>
-            <Typography variant="h6" className={classes.signUpText}>Sign up</Typography>
-            <SignUpForm />
+            <div className={matches ? "" : `${classes.signUp}`}>
+                <Typography variant="h6" className={classes.signUpText}>Sign up</Typography>
+                <SignUpForm />
+            </div>
         </Grid>
     </Grid>
     );
