@@ -1,12 +1,19 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 
 const useStyles = makeStyles(theme => ({
+    root: {
+        marginTop: 30,
+        marginLeft: 100,
+        color: "#505050",
+    },
     text: {
         display: "inline-block"
     },
@@ -14,69 +21,78 @@ const useStyles = makeStyles(theme => ({
         textDecoration: "none",
         color: "#283593",
         marginLeft: 145
-    }
+    },
+    button: {
+        marginTop: 30,
+        marginLeft: 30
+    },
 }));
 
-const PasswordForgetPage = () => (
-    <div>
-        <h1>Password Forget</h1>
-        <PasswordForgetForm />
-    </div>
-);
+const PasswordForgetPage = () => {
+    const classes = useStyles();
+    return (
+        <div className={classes.root}>
+            <Typography variant="h4">Forgot Your Password?</Typography>
+            <Typography variant="subtitle2">Enter your email address here to reset your password.</Typography>
+            <PasswordForgetForm />
+        </div>
+    );
+}
 
 const INITIAL_STATE = {
     email: '',
     error: null,
 };
 
-class PasswordForgetFormBase extends Component {
-    constructor(props){
-        super(props);
+const PasswordForgetFormBase = props => {
+    const [state, setState] = useState(INITIAL_STATE);
+    const classes = useStyles();
 
-        this.state = { ...INITIAL_STATE };
-    }
+    const onSubmit = event => {
+        const { email } = state;
 
-    onSubmit = event => {
-        const { email } = this.state;
-
-        this.props.firebase
+        props.firebase
             .doPasswordReset(email)
             .then(() => {
-                this.setState({ ...INITIAL_STATE });
+                setState(INITIAL_STATE);
             })
             .catch(error => {
-                this.setState({ error });
+                setState({ error });
             });
 
         event.preventDefault();
     };
 
-    onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+    const onChange = event => {
+        setState({ [event.target.name]: event.target.value });
     };
 
-    render() {
-        const { email, error } = this.state;
+    const { email, error } = state;
+    const isInvalid = email === '';
 
-        const isInvalid = email === '';
+    return (
+        <form onSubmit={onSubmit}>
+            <TextField
+                name="email"
+                value={state.email}
+                onChange={onChange}
+                type="email"
+                label="Email"
+                margin="normal"
+            />
+            <Button 
+                disabled={isInvalid} 
+                color="primary" 
+                type="submit" 
+                className={classes.button}
+                variant="outlined"
+            >
+                Send
+            </Button>
 
-        return (
-            <form onSubmit={this.onSubmit}>
-                <input
-                    name="email"
-                    value={this.state.email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                />
-                <button disabled={isInvalid} type="submit">
-                    Send Password Reset Email
-                </button>
-
-                {error && <p>{error.message}</p>}
-            </form>
-        );  
-    }
+            {error && <p>{error.message}</p>}
+        </form>
+    );
 }
 
 const PasswordForgetLink = () => {
