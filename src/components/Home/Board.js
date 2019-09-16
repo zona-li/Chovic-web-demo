@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import ConfettiGenerator from "confetti-js";
 
 import AddHabit from './AddHabit';
 import HabitList from './HabitBoard/HabitList';
@@ -17,6 +18,14 @@ const TheBoard = props => {
         fetchData();
     }, [firebase, userId]);
 
+    useEffect(() => {
+        const confettiSettings = { target: 'page' };
+        const confetti = new ConfettiGenerator(confettiSettings);
+        // confetti.render();
+       
+        return () => confetti.clear();
+    }, [])
+
     const addNewHabit = values => {
         const {habit, category} = values;
         firebase.addHabit(userId, habit, category)
@@ -30,12 +39,15 @@ const TheBoard = props => {
     }
 
     return (
-        <div className={'content'}>
-            <AddHabit onSubmitNewHabit={addNewHabit} />
-            <br />
-            {habits.length === 0 ? '' : <DayOfMonth />}
-            <HabitList habits={habits} userId={userId} />
-        </div>
+        <>
+            <canvas id="page" />
+            <div className="content">
+                <AddHabit onSubmitNewHabit={addNewHabit} />
+                <br />
+                {habits.length === 0 ? '' : <DayOfMonth />}
+                <HabitList habits={habits} userId={userId} />
+            </div>
+        </>
     );
 }
 
