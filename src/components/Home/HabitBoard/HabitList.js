@@ -4,11 +4,11 @@ import HabitItem from './HabitItem';
 import Canvas from './Canvas';
 
 const HabitList = props => {
-    const habits = props.habits;
+    const {habits, setHabitChecked} = props;
     const habitItems = habits.map(habit =>
         <div className={'habitList'} key={habit}>
             <HabitItem habit={habit} />
-            <Canvas habit={habit} userId={props.userId} />
+            <Canvas habit={habit} userId={props.userId} setHabitChecked={setHabitChecked} />
         </div>
     );
     

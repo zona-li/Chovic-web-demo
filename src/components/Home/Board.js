@@ -9,6 +9,7 @@ const TheBoard = props => {
     const { authUser, firebase } = props;
     const userId = authUser.uid;
     const [habits, setHabits] = useState([]);
+    const [habitChecked, setHabitChecked] = useState(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -19,12 +20,16 @@ const TheBoard = props => {
     }, [firebase, userId]);
 
     useEffect(() => {
-        const confettiSettings = { target: 'page' };
+        const confettiSettings = { target: "page", "clock": "90" };
         const confetti = new ConfettiGenerator(confettiSettings);
-        // confetti.render();
-       
-        return () => confetti.clear();
-    }, [])
+        if (habitChecked) {
+            confetti.render();
+            setTimeout(() => {
+                confetti.clear();
+                setHabitChecked(false);
+            }, 3000);
+        }
+    }, [habitChecked])
 
     const addNewHabit = values => {
         const {habit, category} = values;
@@ -45,7 +50,7 @@ const TheBoard = props => {
                 <AddHabit onSubmitNewHabit={addNewHabit} />
                 <br />
                 {habits.length === 0 ? '' : <DayOfMonth />}
-                <HabitList habits={habits} userId={userId} />
+                <HabitList habits={habits} userId={userId} setHabitChecked={setHabitChecked} />
             </div>
         </>
     );
