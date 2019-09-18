@@ -1,8 +1,9 @@
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
 
 const HabitItem = props => {
     return (
-        <p className={'habit'}>{props.habit}</p>
+        <Typography variant="body2" className={'habit'}>{props.habit}</Typography>
     );
 }
 

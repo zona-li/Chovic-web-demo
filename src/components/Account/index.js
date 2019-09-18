@@ -3,7 +3,6 @@ import { compose } from 'recompose';
 import { Elements, StripeProvider } from 'react-stripe-elements';
 import CardForm from './cardForm';
 
-import { PasswordForgetForm } from '../PasswordForget';
 import PasswordChangeForm from '../PasswordChange';
 import { AuthUserContext, withAuthorization, withEmailVerification } from '../Session';
 import { withFirebase } from '../Firebase';
@@ -25,7 +24,6 @@ const AccountPage = () => (
             <div style={{ position: 'absolute', left: '10%', top: '5%', width: '60%'}}>
                 <h3>Account:</h3>
                 <p>{authUser.email}</p>
-                <PasswordForgetForm />
                 <PasswordChangeForm />
                 <LoginManagement authUser={authUser} />
                 <PaymentInfo authUser={authUser} />

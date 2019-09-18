@@ -35,9 +35,6 @@ const useStyles = makeStyles(theme => ({
   dense: {
     marginTop: 19,
   },
-  menu: {
-    width: 200,
-  },
 }));
 
 export {theme, useStyles};

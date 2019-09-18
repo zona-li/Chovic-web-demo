@@ -32,6 +32,8 @@ export default props => {
                 value={values.habit}
                 name="habit"
                 onChange={handleChange}
+                inputProps={{ maxLength: 20 }}
+                onKeyPress={e => {if (e.key === 'Enter') e.preventDefault()}}
             />
             <TextField
                 select
