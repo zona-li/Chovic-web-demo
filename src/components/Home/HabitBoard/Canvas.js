@@ -5,8 +5,10 @@ import { withFirebase } from '../../Firebase';
 import sound from '../../../assets/complete.wav';
 
 const Canvas = props => {
+    const date = new Date();
+    const days = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
     const { userId, habit, setHabitChecked, firebase } = props;
-    const [row, setRow] = useState(Array(30).fill().map(() => 0));
+    const [row, setRow] = useState(Array(days).fill().map(() => 0));
     const audio = new Audio(sound);
 
     useEffect(() => {
@@ -15,7 +17,7 @@ const Canvas = props => {
             setRow(trackingData);
         }
         fetchData();
-    }, [firebase, habit, userId]);
+    }, [firebase, habit, userId, setRow]);
 
     const onHabitPixelClicked = (index) => {
         // Update color

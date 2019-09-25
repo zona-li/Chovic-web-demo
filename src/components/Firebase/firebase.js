@@ -23,6 +23,8 @@ const devConfig = {
 
 // const config = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
 const config = devConfig;
+const date = new Date();
+const month = date.getMonth();
 class Firebase {
     constructor() {
         app.initializeApp(config);
@@ -109,14 +111,14 @@ class Firebase {
         return userInfo.collection('habits').doc(habit).set({
             category: category,
             startDate: app.firestore.FieldValue.serverTimestamp(),
-            tracker: Array(30).fill().map(() => 0),
+            [month]: Array(new Date(date.getFullYear(), date.getMonth()+1, 0).getDate()).fill().map(() => 0),
         }, { merge: true });
     }
 
     updateHabitTrackerEntry = (uid, habit, entryArr) => {
         const userInfo = this.user(uid);
         userInfo.collection('habits').doc(habit).set({
-            tracker: entryArr
+            [month]: entryArr
         }, { merge: true });
     }
 
@@ -125,7 +127,7 @@ class Firebase {
         let trackingData;
         const habitEntry = await userInfo.collection('habits').doc(habit).get();
         if (habitEntry) {
-            trackingData = habitEntry.data().tracker;
+            trackingData = habitEntry.data()[month];
         } else {
             console.log(`No entry for ${habit} found.`);
         }
