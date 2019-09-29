@@ -128,7 +128,7 @@ class Landing extends Component {
                 
     
                 <Section background="Seagreen">
-                    <Grid  className={classes.root} container spacing={24}>
+                    <Grid  className={classes.root} container spacing={1}>
                         <Grid className={classes.text} item md={6} sm={12}>
                             <P style={{marginLeft: '10vw'}}>
                             The group is based in Charlottesville, Virginia. We meet once a week to discuss goals, 
@@ -141,7 +141,7 @@ class Landing extends Component {
                             health, and other essential skills that will help us during our life's journey.
                             </P>
                         </Grid>
-                        <Grid className={classes.pic} item xs={6} sm={0} >
+                        <Grid className={classes.pic} item xs={6} >
                             <img src={meet} alt="img1" height="380" width="auto" />
                         </Grid>
                     </Grid>
