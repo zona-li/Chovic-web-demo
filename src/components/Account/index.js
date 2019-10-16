@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
 import { compose } from 'recompose';
 import { Elements, StripeProvider } from 'react-stripe-elements';
-import CardForm from './cardForm';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
+
 
 import PasswordChangeForm from '../PasswordChange';
 import { AuthUserContext, withAuthorization, withEmailVerification } from '../Session';
 import { withFirebase } from '../Firebase';
+import CardForm from './cardForm';
+
+const useStyles = makeStyles(theme => ({
+    pageTitle: {
+        fontWeight: 500,
+    }
+}));
 
 const SIGN_IN_METHODS = [
     {
@@ -18,27 +27,30 @@ const SIGN_IN_METHODS = [
     },
 ];
 
-const AccountPage = () => (
-    <AuthUserContext.Consumer>
-        {authUser => (
-            <div style={{ position: 'absolute', left: '10%', top: '5%', width: '60%'}}>
-                <h3>Account:</h3>
-                <p>{authUser.email}</p>
-                <PasswordChangeForm />
-                <LoginManagement authUser={authUser} />
-                <PaymentInfo authUser={authUser} />
-                <StripeProvider apiKey="pk_test_Qu2iqCKHXB7r5v2nopdcctsg">
-                    <div>
-                    <h3>Payment Option</h3>
-                    <Elements>
-                        <CardForm authUser={authUser}/>
-                    </Elements>
-                    </div>
-              </StripeProvider>
-            </div>
-        )}
-    </AuthUserContext.Consumer>
-);
+const AccountPage = () => {
+    const classes = useStyles();
+    return (
+        <AuthUserContext.Consumer>
+            {authUser => (
+                <div style={{ position: 'absolute', left: '10%', top: '5%', width: '60%'}}>
+                    <Typography variant="h5" className={classes.pageTitle}>Account</Typography>
+                    <p>{authUser.email}</p>
+                    <PasswordChangeForm />
+                    <LoginManagement authUser={authUser} />
+                    <PaymentInfo authUser={authUser} />
+                    <StripeProvider apiKey="pk_test_Qu2iqCKHXB7r5v2nopdcctsg">
+                        <div>
+                        <h3>Payment Option</h3>
+                        <Elements>
+                            <CardForm authUser={authUser}/>
+                        </Elements>
+                        </div>
+                  </StripeProvider>
+                </div>
+            )}
+        </AuthUserContext.Consumer>
+    );
+}
 
 class PaymentInfoBase extends Component {
     constructor(props) {
