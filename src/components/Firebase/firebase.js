@@ -40,6 +40,7 @@ const yearlyTrackingData = {
     10: Array(new Date(year, 11, 0).getDate()).fill().map(() => 0),
     11: Array(new Date(year, 12, 0).getDate()).fill().map(() => 0),
 };
+
 class Firebase {
     constructor() {
         app.initializeApp(config);

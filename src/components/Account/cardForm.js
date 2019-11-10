@@ -35,7 +35,6 @@ class CardForm extends Component {
     if (this.state.complete) return <p>Card saved</p>;
     return (
       <div className="checkout">
-        <p>Payment Method</p>
         <CardElement />
         <br />
         {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
