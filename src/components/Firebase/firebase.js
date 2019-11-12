@@ -164,7 +164,10 @@ class Firebase {
 
     // *** Payment API ***
     // '/stripe_customers/{userId}/tokens/{pushId}')
-    setToken = (uid, tokenId) => this.db.collection(`stripe_customers`).doc(`${uid}`).collection('tokens').add({token: tokenId});
+    setToken = (uid, tokenId) => this.db.collection('stripe_customers').doc(`${uid}`).collection('tokens').add({token: tokenId});
+
+    // '/stripe_customers/{userId}/charges/{id}'
+    setCharge = (uid) => this.db.collection('stripe_customers').doc(`${uid}`).collection('charges').add({amount: 1500});
 
     stripe_customer = uid => this.db.collection('stripe_customers').doc(`${uid}`).collection('sources').get();
 }

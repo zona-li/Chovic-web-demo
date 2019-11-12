@@ -22,11 +22,13 @@ class CardForm extends Component {
       this.setState({errorMessage: error.message});
     }
     else {
-      this.props.firebase.setToken(this.state.signedInUser.uid, token.id)
+      const uid = this.state.signedInUser.uid;
+      this.props.firebase.setToken(uid, token.id)
         .then(docRef => {
           console.log(`Token added: ${token.id} ${docRef.id}`);
           this.setState({complete: true});
         })
+        .then(res => this.props.firebase.setCharge(uid))
         .catch(error => console.error(`${error}`));
     }
   }

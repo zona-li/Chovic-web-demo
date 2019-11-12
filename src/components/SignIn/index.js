@@ -122,7 +122,7 @@ const SignInFormBase = (props) => {
                 props.history.push(ROUTES.HOME);
             })
             .catch(error => {
-                setState(...state, error);
+                setState({...state, error});
             });
 
         event.preventDefault();

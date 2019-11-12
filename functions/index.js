@@ -7,7 +7,7 @@ const stripe = require("stripe")(functions.config().stripe.token);
 const currency = functions.config().stripe.currency || "USD";
 
 // [START chargecustomer]
-// Charge the Stripe customer whenever an amount is written to the Realtime database
+// Charge the Stripe customer whenever an amount is written to the database
 exports.createStripeCharge = functions.firestore
   .document("stripe_customers/{userId}/charges/{id}")
   .onCreate(async (snap, context) => {
