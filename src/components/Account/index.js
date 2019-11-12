@@ -90,8 +90,8 @@ class PaymentInfoBase extends Component {
     return (
       <p>
         {this.state.last4
-          ? `Card on file: ${this.state.last4}`
-          : "No card on file"}
+          ? "Welcome member!"
+          : "Not a member"}
       </p>
     );
   }
