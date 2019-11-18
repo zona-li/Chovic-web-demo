@@ -119,7 +119,7 @@ const SignInFormBase = (props) => {
             .doSignInWithEmailAndPassword(email, password)
             .then(() => {
                 setState(INITIAL_STATE);
-                props.history.push(ROUTES.HOME);
+                props.history.goBack();
             })
             .catch(error => {
                 setState({...state, error});
