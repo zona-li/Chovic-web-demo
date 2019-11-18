@@ -11,7 +11,8 @@ import PasswordForgetPage from '../PasswordForget';
 import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
-import MembershipSubscription from '../Application';
+import MembershipSubscription from '../Membership/main';
+import PaymentPage from '../Membership/payment';
 import SideDrawer from '../SideDrawer';
 import ThankYou from '../ThankYou';
 import Contact from '../Contact';
@@ -32,6 +33,7 @@ const App = () => (
             <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
             <Route exact path={ROUTES.ADMIN} component={AdminPage} />
             <Route exact path={ROUTES.MEMBERSHIP} component={MembershipSubscription} />
+            <Route exact path={ROUTES.PAYMENT} component={PaymentPage} />
             <Route exact path={ROUTES.CONFIRMATION} component={ThankYou} />
             <Route exact path={ROUTES.CONTACT} component={Contact} />
         </div>

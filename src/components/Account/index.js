@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { compose } from "recompose";
-import { Elements, StripeProvider } from "react-stripe-elements";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 
@@ -11,7 +10,6 @@ import {
   withEmailVerification
 } from "../Session";
 import { withFirebase } from "../Firebase";
-import CardForm from "./cardForm";
 
 const useStyles = makeStyles(theme => ({
   pageTitle: {
@@ -45,16 +43,6 @@ const AccountPage = () => {
           <PasswordChangeForm />
           <LoginManagement authUser={authUser} />
           <PaymentInfo authUser={authUser} />
-          <StripeProvider apiKey="pk_test_Qu2iqCKHXB7r5v2nopdcctsg">
-            <div>
-              <Typography variant="h5" className={classes.pageTitle}>
-                Become a member
-              </Typography>
-              <Elements>
-                <CardForm authUser={authUser} />
-              </Elements>
-            </div>
-          </StripeProvider>
         </div>
       )}
     </AuthUserContext.Consumer>
