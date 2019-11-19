@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
@@ -10,6 +10,7 @@ import {
   withEmailVerification
 } from "../Session";
 import { withFirebase } from "../Firebase";
+import member from "../../assets/member.png";
 
 const useStyles = makeStyles(theme => ({
   pageTitle: {
@@ -30,19 +31,21 @@ const SIGN_IN_METHODS = [
 
 const AccountPage = () => {
   const classes = useStyles();
+  const [isMember, setIsMember] = useState(false);
   return (
     <AuthUserContext.Consumer>
       {authUser => (
         <div
           style={{ position: "absolute", left: "10%", top: "5%", width: "60%" }}
         >
+          {isMember && <img src={member} alt="img1" />}
           <Typography variant="h4" className={classes.pageTitle}>
             Account
           </Typography>
           <p>{authUser.email}</p>
           <PasswordChangeForm />
           <LoginManagement authUser={authUser} />
-          <PaymentInfo authUser={authUser} />
+          <PaymentInfo authUser={authUser} setIsMember={setIsMember} />
         </div>
       )}
     </AuthUserContext.Consumer>
@@ -60,7 +63,7 @@ class PaymentInfoBase extends Component {
 
   componentDidMount() {
     // Fetch payment card info
-    const { firebase, authUser } = this.props;
+    const { firebase, authUser, setIsMember } = this.props;
     const data = firebase.stripe_customer(authUser.uid);
     data.then(
       docs => {
@@ -71,17 +74,13 @@ class PaymentInfoBase extends Component {
       err => {
         console.log(`Encountered error fetching stripe user: ${err}`);
       }
+    ).then(
+      _ => {if (this.state.last4) setIsMember(true);}
     );
   }
 
   render() {
-    return (
-      <p>
-        {this.state.last4
-          ? "Welcome member!"
-          : "Not a member"}
-      </p>
-    );
+    return null;
   }
 }
 
