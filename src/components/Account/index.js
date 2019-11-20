@@ -2,6 +2,8 @@ import React, { Component, useState } from "react";
 import { compose } from "recompose";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
+import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
 import PasswordChangeForm from "../PasswordChange";
 import {
@@ -11,6 +13,7 @@ import {
 } from "../Session";
 import { withFirebase } from "../Firebase";
 import member from "../../assets/member.png";
+import * as ROUTES from '../../constants/routes';
 
 const useStyles = makeStyles(theme => ({
   pageTitle: {
@@ -38,14 +41,20 @@ const AccountPage = () => {
         <div
           style={{ position: "absolute", left: "10%", top: "5%", width: "60%" }}
         >
-          {isMember && <img src={member} alt="img1" />}
           <Typography variant="h4" className={classes.pageTitle}>
             Account
           </Typography>
+          {isMember && <img src={member} alt="img1" />}
           <p>{authUser.email}</p>
           <PasswordChangeForm />
           <LoginManagement authUser={authUser} />
           <PaymentInfo authUser={authUser} setIsMember={setIsMember} />
+          {
+            !isMember && 
+            <Button variant="contained">
+              <Link style={{ textDecoration: 'none' }} to={ROUTES.MEMBERSHIP}>Join Us!</Link>
+            </Button>
+          }
         </div>
       )}
     </AuthUserContext.Consumer>
