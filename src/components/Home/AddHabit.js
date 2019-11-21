@@ -17,7 +17,7 @@ export default props => {
 
     const handleSubmit = e => {
         e.preventDefault();
-        if (values) {
+        if (values.habit) {
             props.onSubmitNewHabit(values);
             handleChange(initialState);
         }

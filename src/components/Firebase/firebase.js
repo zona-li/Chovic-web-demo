@@ -144,7 +144,6 @@ class Firebase {
         const habitEntry = await userInfo.collection('habits').doc(habit).get();
         if (habitEntry) {
             trackingData = habitEntry.data()[month];
-            console.log(trackingData)
         } else {
             console.log(`No entry for ${habit} found.`);
         }
