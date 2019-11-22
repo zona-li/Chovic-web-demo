@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { CardElement, injectStripe } from 'react-stripe-elements';
 import { compose } from 'recompose';
+import { Redirect } from 'react-router-dom';
 
+import * as ROUTES from '../../constants/routes'
 import { withFirebase } from '../Firebase';
 
 class CardForm extends Component {
@@ -34,7 +36,7 @@ class CardForm extends Component {
   }
 
   render() {
-    if (this.state.complete) return <p>Card saved</p>;
+    if (this.state.complete) return <Redirect to={ROUTES.AFTERPAYMENT} />;
     return (
       <div className="checkout">
         <CardElement />

@@ -22,7 +22,7 @@ const MembershipSubscriptionBase = props => {
             <Typography variant="subtitle1">Start the journey to become a more disciplined, healthier, wealthier, and happier version of you</Typography>
             <br />
             <Button variant="contained">
-                <Link to={ROUTES.PAYMENT}>Become a member</Link>
+                <Link to={ROUTES.PAYMENT} style={{ textDecoration: 'none' }}>Become a member</Link>
             </Button>
         </div>
     );

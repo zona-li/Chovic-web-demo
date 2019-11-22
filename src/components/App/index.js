@@ -16,6 +16,7 @@ import PaymentPage from '../Membership/payment';
 import SideDrawer from '../SideDrawer';
 import ThankYou from '../ThankYou';
 import Contact from '../Contact';
+import MemberConfirmationPage from '../Membership/memberConfirmation';
 
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
@@ -36,6 +37,7 @@ const App = () => (
             <Route exact path={ROUTES.PAYMENT} component={PaymentPage} />
             <Route exact path={ROUTES.CONFIRMATION} component={ThankYou} />
             <Route exact path={ROUTES.CONTACT} component={Contact} />
+            <Route path={ROUTES.AFTERPAYMENT} component={MemberConfirmationPage} />
         </div>
     </Router>
 );

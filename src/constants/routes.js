@@ -10,3 +10,4 @@ export const MEMBERSHIP = '/membership';
 export const PAYMENT = '/payment';
 export const CONFIRMATION = '/confirm';
 export const CONTACT = '/contact';
+export const AFTERPAYMENT = '/after-payment'
