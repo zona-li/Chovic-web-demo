@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
-import { CardElement, injectStripe } from 'react-stripe-elements';
+import { CardExpiryElement, CardCVCElement, CardNumberElement, injectStripe } from 'react-stripe-elements';
 import { compose } from 'recompose';
 import { Redirect } from 'react-router-dom';
+import Typography from '@material-ui/core/Typography';
 
 import * as ROUTES from '../../constants/routes'
 import { withFirebase } from '../Firebase';
+import './styles.css';
 
 class CardForm extends Component {
   constructor(props) {
@@ -38,12 +40,20 @@ class CardForm extends Component {
   render() {
     if (this.state.complete) return <Redirect to={ROUTES.AFTERPAYMENT} />;
     return (
-      <div className="checkout">
-        <CardElement />
-        <br />
-        {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
-        <button onClick={this.submit}>pay</button>
-      </div>
+      <>
+        <form className="cardForm">
+          <Typography variant="subtitle2">Email</Typography>
+          <input type="email" className='inputFeild' />
+
+          <Typography variant="subtitle2">Card Information</Typography>
+          <CardNumberElement className='inputFeild cardNumber'/>
+          <CardExpiryElement className='inputFeild cardExpiration'/>
+          <CardCVCElement className='inputFeild cardCvc'/>
+          <br />
+          {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
+          <button onClick={this.submit}>pay</button>
+        </form>
+      </>
     );
   }
 }

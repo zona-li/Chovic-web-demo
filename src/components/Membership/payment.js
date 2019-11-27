@@ -15,7 +15,7 @@ const PaymentPage = () => {
         <AuthUserContext.Consumer>
             {authUser => (
                 <StripeProvider apiKey="pk_test_Qu2iqCKHXB7r5v2nopdcctsg">
-                    <div style={{ position: "absolute", left: "10%", top: "5%", width: "60%" }}>
+                    <div>
                     <Elements>
                         <CardForm authUser={authUser} />
                     </Elements>

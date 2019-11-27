@@ -187,7 +187,7 @@ class Landing extends Component {
                 </SectionRight>
 
                 <Section background="PowderBlue">
-                    <h1 className={classes.title2}><strong>Ready for the challenge? Apply <StyledLink decoration='underline' to={ROUTES.MEMBERSHIP}>HERE</StyledLink>!</strong></h1>
+                    <h1 className={classes.title2}><strong>Ready for the challenge? <br/><StyledLink decoration='underline' to={ROUTES.MEMBERSHIP}>Join us now</StyledLink></strong></h1>
                 </Section>
             </div>
         )
