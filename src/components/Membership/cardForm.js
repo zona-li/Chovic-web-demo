@@ -3,6 +3,7 @@ import { CardExpiryElement, CardCVCElement, CardNumberElement, injectStripe } fr
 import { compose } from 'recompose';
 import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 import * as ROUTES from '../../constants/routes'
 import { withFirebase } from '../Firebase';
@@ -42,16 +43,21 @@ class CardForm extends Component {
     return (
       <>
         <form className="cardForm">
+          <Typography variant="h6" style={{marginBottom: '40px'}}>Payment method</Typography>
           <Typography variant="subtitle2">Email</Typography>
           <input type="email" className='inputFeild' />
 
-          <Typography variant="subtitle2">Card Information</Typography>
+          <Typography variant="subtitle2">Card information</Typography>
           <CardNumberElement className='inputFeild cardNumber'/>
           <CardExpiryElement className='inputFeild cardExpiration'/>
           <CardCVCElement className='inputFeild cardCvc'/>
+
+          <Typography variant="subtitle2">Name on card</Typography>
+          <input type="text" className='inputFeild' />
           <br />
           {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
-          <button onClick={this.submit}>pay</button>
+          <Button variant='contained' className='paymentButton' onClick={this.submit}>pay</Button>
+          <Typography variant='caption'>By clicking this button, you agree to Chovic's Terms and Conditions.</Typography>
         </form>
       </>
     );
