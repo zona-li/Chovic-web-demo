@@ -52,8 +52,10 @@ class CardForm extends Component {
           <CardExpiryElement className='inputFeild cardExpiration'/>
           <CardCVCElement className='inputFeild cardCvc'/>
 
-          <Typography variant="subtitle2">Name on card</Typography>
-          <input type="text" className='inputFeild' />
+          <Typography variant="subtitle2" mr={2} className='name'>First Name</Typography>
+          <Typography variant="subtitle2">Last Name</Typography>
+          <input type="text" className='inputFeild firstname'/>
+          <input type="text" className='inputFeild lastname'/>
           <br />
           {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
           <Button variant='contained' className='paymentButton' onClick={this.submit}>pay</Button>
