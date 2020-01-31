@@ -71,10 +71,11 @@ class Firebase {
 
     doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 
-    doSendEmailVerification = () =>
+    doSendEmailVerification = () => {
         this.auth.currentUser.sendEmailVerification({
-            url: process.env.REACT_APP_DEV_CONFIRMATION_EMAIL_REDIRECT,
+            url: "http://localhost:3000/"
         });
+    }
 
     // *** Merge Auth and DB User API ***
     onAuthUserListener = (next, fallback) =>
@@ -166,7 +167,15 @@ class Firebase {
     setToken = (uid, tokenId) => this.db.collection('stripe_customers').doc(`${uid}`).collection('tokens').add({token: tokenId});
 
     // '/stripe_customers/{userId}/charges/{id}'
-    setCharge = (uid) => this.db.collection('stripe_customers').doc(`${uid}`).collection('charges').add({amount: parseInt(200)});
+    setCharge = (uid, email, name) => this.db.collection('stripe_customers').doc(`${uid}`).collection('charges').add({
+        amount: parseInt(200),
+        source: {
+            owner: {
+                email,
+                name
+            }
+        }
+    });
 
     stripe_customer = uid => this.db.collection('stripe_customers').doc(`${uid}`).collection('sources').get();
 }

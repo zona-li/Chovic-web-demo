@@ -3,7 +3,7 @@ import Typography from '@material-ui/core/Typography';
 
 import Pixel from './Pixel';
 
-const DayOfMonth = props => {
+const DayOfMonth = () => {
     const date = new Date();
     const days = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
     const daysArr = Array(days).fill().map((_, i) => i + 1);
@@ -21,7 +21,7 @@ const DayOfMonth = props => {
         11: 'Nov',
         12: 'Dec'
     };
-    const month = monthMap[date.getMonth()+1];
+    const month = monthMap[date.getMonth()];
     return (
         <>
             <Typography variant='h5' className={'month'}>{month}</Typography>

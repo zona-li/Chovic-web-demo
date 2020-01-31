@@ -3,7 +3,10 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
 const logging = require("@google-cloud/logging")();
-const stripe = require("stripe")(functions.config().stripe.token);
+const stripe = require("stripe")(functions.config().stripe.token, {
+  apiVersion: '2019-12-03',
+  maxNetworkRetries: 2, // Retry a request twice before giving up
+});
 const currency = functions.config().stripe.currency || "USD";
 
 // [START chargecustomer]
@@ -54,7 +57,7 @@ exports.createStripeCustomer = functions.auth.user().onCreate(async user => {
     .set({ customer_id: customer.id });
 });
 
-// Add a payment source (card) for a user by writing a stripe payment source token to Realtime database
+// Add a payment source (card) for a user by writing a stripe payment source token to the database
 exports.addPaymentSource = functions.firestore
   .document("/stripe_customers/{userId}/tokens/{pushId}")
   .onCreate(async (snap, context) => {

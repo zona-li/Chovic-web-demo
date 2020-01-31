@@ -26,7 +26,7 @@ const MemberConfirmationPage = () => {
         <Paper className={classes.paper} elevation={10}>
             <div>
                 <Typography component='p'>
-                    <span role='img' aria-label=''>🎉</span>Congratulations! You are part of the Chovic family now!
+                    <span role='img' aria-label=''>🎉</span>Congratulations! Thank you for joining Chovic!
                 </Typography>
                 <br/>
                 <Button className={classes.button}>

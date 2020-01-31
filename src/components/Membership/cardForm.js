@@ -16,12 +16,25 @@ class CardForm extends Component {
       complete: false,
       errorMessage: '',
       signedInUser: this.props.authUser,
+      email: '',
+      firstname: '',
+      lastname: ''
     };
     this.submit = this.submit.bind(this);
   }
 
-  async submit(event) {
-    const {token, error} = await this.props.stripe.createToken();
+  onChange = (event) => {
+    this.setState({
+      [event.target.name]: event.target.value
+    });
+  }
+
+  async submit() {
+    const tokenData = {
+      name: this.state.firstname + ' ' + this.state.lastname,
+      email: this.state.email
+    };
+    const { token, error } = await this.props.stripe.createToken(undefined, tokenData);
     console.log(token, error);
     if (error) {
       this.setState({errorMessage: error.message});
@@ -33,7 +46,7 @@ class CardForm extends Component {
           console.log(`Token added: ${token.id} ${docRef.id}`);
           this.setState({complete: true});
         })
-        .then(res => this.props.firebase.setCharge(uid))
+        // .then(() => this.props.firebase.setCharge(uid))
         .catch(error => console.error(`${error}`));
     }
   }
@@ -45,7 +58,7 @@ class CardForm extends Component {
         <form className="cardForm">
           <Typography variant="h6" style={{marginBottom: '40px'}}>Payment method</Typography>
           <Typography variant="subtitle2">Email</Typography>
-          <input type="email" className='inputFeild' />
+          <input type="email" name="email" className='inputFeild' onChange={this.onChange}/>
 
           <Typography variant="subtitle2">Card information</Typography>
           <CardNumberElement className='inputFeild cardNumber'/>
@@ -54,8 +67,8 @@ class CardForm extends Component {
 
           <Typography variant="subtitle2" mr={2} className='name'>First Name</Typography>
           <Typography variant="subtitle2">Last Name</Typography>
-          <input type="text" className='inputFeild firstname'/>
-          <input type="text" className='inputFeild lastname'/>
+          <input type="text" name="firstname" className='inputFeild firstname' onChange={this.onChange}/>
+          <input type="text" name="lastname" className='inputFeild lastname' onChange={this.onChange}/>
           <br />
           {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
           <Button variant='contained' className='paymentButton' onClick={this.submit}>pay</Button>
