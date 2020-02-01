@@ -1,4 +1,4 @@
-import app from 'firebase/app';
+import firebase from 'firebase';
 import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/firestore';
@@ -22,7 +22,7 @@ const devConfig = {
     messagingSenderId: process.env.REACT_APP_DEV_MESSAGING_SENDER_ID,
 };
 
-const config = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
+const config = prodConfig;
 const date = new Date();
 const month = date.getMonth(),
       year = date.getFullYear();
@@ -43,15 +43,15 @@ const yearlyTrackingData = {
 
 class Firebase {
     constructor() {
-        app.initializeApp(config);
+        firebase.initializeApp(config);
 
-        this.serverValue = app.database.ServerValue;
-        this.emailAuthProvider = app.auth.EmailAuthProvider;
-        this.auth = app.auth();
-        this.db = app.firestore();
+        this.serverValue = firebase.database.ServerValue;
+        this.emailAuthProvider = firebase.auth.EmailAuthProvider;
+        this.auth = firebase.auth();
+        this.db = firebase.firestore();
 
-        this.auth.setPersistence(app.auth.Auth.Persistence.SESSION);
-        this.googleProvider = new app.auth.GoogleAuthProvider();
+        this.auth.setPersistence(firebase.auth.Auth.Persistence.SESSION);
+        this.googleProvider = new firebase.auth.GoogleAuthProvider();
     }
 
     // *** Auth API ***
@@ -72,9 +72,10 @@ class Firebase {
     doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 
     doSendEmailVerification = () => {
-        this.auth.currentUser.sendEmailVerification({
-            url: config.REACT_APP_PROD_CONFIRMATION_EMAIL_REDIRECT
+        const res = this.auth.currentUser.sendEmailVerification({
+            url: "https://chovic.com/home"
         });
+        return res;
     }
 
     // *** Merge Auth and DB User API ***
@@ -127,7 +128,7 @@ class Firebase {
         const userInfo = this.user(uid);
         return userInfo.collection('habits').doc(habit).set({
             category: category,
-            startDate: app.firestore.FieldValue.serverTimestamp(),
+            startDate: firebase.firestore.FieldValue.serverTimestamp(),
             ...yearlyTrackingData,
         }, { merge: true });
     }

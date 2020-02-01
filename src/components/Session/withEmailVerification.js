@@ -14,9 +14,8 @@ const withEmailVerification = Component => {
         }
 
         onSendEmailVerification = () => {
-            this.props.firebase
-                .doSendEmailVerification()
-                .then(() => this.setState({ isSent: true }));
+            const res = this.props.firebase.doSendEmailVerification();
+            res.then(() => this.setState({ isSent: true }))
         };
 
         render() {
