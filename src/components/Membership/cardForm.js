@@ -40,9 +40,9 @@ class CardForm extends Component {
       this.props.firebase.setToken(uid, token.id)
         .then((docRef) => {
           this.setState({complete: true});
-        })
-        .then(() => {
-          this.props.firebase.setCharge(uid);
+          setTimeout(() => {
+            this.props.firebase.setCharge(uid);
+          }, 5600);
         })
         .catch(error => console.error(`${error}`));
     }
@@ -68,7 +68,7 @@ class CardForm extends Component {
           <input type="text" name="lastname" className='inputFeild lastname' onChange={this.onChange}/>
           <br />
           {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
-          <Button variant='contained' className='paymentButton' onClick={this.submit}>pay</Button>
+          <Button variant='contained' className='paymentButton' onClick={this.submit}>Confirm</Button>
           <Typography variant='caption'>By clicking this button, you agree to Chovic's <a href="https://app.termly.io/document/terms-of-use-for-ecommerce/a0e6f34e-98b4-47a8-acd8-313ebbdf1e8c" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>.</Typography>
         </form>
       </>
