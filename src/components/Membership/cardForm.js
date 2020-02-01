@@ -30,11 +30,7 @@ class CardForm extends Component {
   }
 
   async submit() {
-    const tokenData = {
-      name: this.state.firstname + ' ' + this.state.lastname,
-      email: this.state.email
-    };
-    const { token, error } = await this.props.stripe.createToken(undefined, tokenData);
+    const { token, error } = await this.props.stripe.createToken();
     console.log(token, error);
     if (error) {
       this.setState({errorMessage: error.message});
@@ -42,11 +38,12 @@ class CardForm extends Component {
     else {
       const uid = this.state.signedInUser.uid;
       this.props.firebase.setToken(uid, token.id)
-        .then(docRef => {
-          console.log(`Token added: ${token.id} ${docRef.id}`);
+        .then((docRef) => {
           this.setState({complete: true});
         })
-        // .then(() => this.props.firebase.setCharge(uid))
+        .then(() => {
+          this.props.firebase.setCharge(uid);
+        })
         .catch(error => console.error(`${error}`));
     }
   }
@@ -72,7 +69,7 @@ class CardForm extends Component {
           <br />
           {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
           <Button variant='contained' className='paymentButton' onClick={this.submit}>pay</Button>
-          <Typography variant='caption'>By clicking this button, you agree to Chovic's Terms and Conditions.</Typography>
+          <Typography variant='caption'>By clicking this button, you agree to Chovic's <a href="https://app.termly.io/document/terms-of-use-for-ecommerce/a0e6f34e-98b4-47a8-acd8-313ebbdf1e8c" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>.</Typography>
         </form>
       </>
     );

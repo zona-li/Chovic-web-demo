@@ -167,14 +167,8 @@ class Firebase {
     setToken = (uid, tokenId) => this.db.collection('stripe_customers').doc(`${uid}`).collection('tokens').add({token: tokenId});
 
     // '/stripe_customers/{userId}/charges/{id}'
-    setCharge = (uid, email, name) => this.db.collection('stripe_customers').doc(`${uid}`).collection('charges').add({
-        amount: parseInt(200),
-        source: {
-            owner: {
-                email,
-                name
-            }
-        }
+    setCharge = (uid) => this.db.collection('stripe_customers').doc(`${uid}`).collection('charges').add({
+        amount: parseInt(500),
     });
 
     stripe_customer = uid => this.db.collection('stripe_customers').doc(`${uid}`).collection('sources').get();

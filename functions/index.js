@@ -3,10 +3,8 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 admin.initializeApp();
 const logging = require("@google-cloud/logging")();
-const stripe = require("stripe")(functions.config().stripe.token, {
-  apiVersion: '2019-12-03',
-  maxNetworkRetries: 2, // Retry a request twice before giving up
-});
+const stripe = require("stripe")(functions.config().stripe.token);
+stripe.setApiVersion('2019-12-03');
 const currency = functions.config().stripe.currency || "USD";
 
 // [START chargecustomer]
@@ -127,12 +125,12 @@ function reportError(err, context = {}) {
 
   // https://cloud.google.com/error-reporting/reference/rest/v1beta1/ErrorEvent
   const errorEvent = {
-    message: err.stack,
+    message: JSON.stringify(err.stack),
     serviceContext: {
       service: process.env.FUNCTION_NAME,
       resourceType: "cloud_function"
     },
-    context: context
+    context: JSON.stringify(context)
   };
 
   // Write the error log entry
