@@ -3,14 +3,15 @@ import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/firestore';
 
-// const prodConfig = {
-//     apiKey: process.env.REACT_APP_PROD_API_KEY,
-//     authDomain: process.env.REACT_APP_PROD_AUTH_DOMAIN,
-//     databaseURL: process.env.REACT_APP_PROD_DATABASE_URL,
-//     projectId: process.env.REACT_APP_PROD_PROJECT_ID,
-//     storageBucket: process.env.REACT_APP_PROD_STORAGE_BUCKET,
-//     messagingSenderId: process.env.REACT_APP_PROD_MESSAGING_SENDER_ID,
-// };
+const prodConfig = {
+    apiKey: process.env.REACT_APP_PROD_API_KEY,
+    authDomain: process.env.REACT_APP_PROD_AUTH_DOMAIN,
+    databaseURL: process.env.REACT_APP_PROD_DATABASE_URL,
+    projectId: process.env.REACT_APP_PROD_PROJECT_ID,
+    storageBucket: process.env.REACT_APP_PROD_STORAGE_BUCKET,
+    messagingSenderId: process.env.REACT_APP_PROD_MESSAGING_SENDER_ID,
+    confirmationEmailRedirect: process.env.REACT_APP_PROD_CONFIRMATION_EMAIL_REDIRECT
+};
 
 const devConfig = {
     apiKey: process.env.REACT_APP_DEV_API_KEY,
@@ -21,8 +22,7 @@ const devConfig = {
     messagingSenderId: process.env.REACT_APP_DEV_MESSAGING_SENDER_ID,
 };
 
-// const config = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
-const config = devConfig;
+const config = process.env.NODE_ENV === 'production' ? prodConfig : devConfig;
 const date = new Date();
 const month = date.getMonth(),
       year = date.getFullYear();
@@ -73,7 +73,7 @@ class Firebase {
 
     doSendEmailVerification = () => {
         this.auth.currentUser.sendEmailVerification({
-            url: "http://localhost:3000/"
+            url: config.REACT_APP_PROD_CONFIRMATION_EMAIL_REDIRECT
         });
     }
 

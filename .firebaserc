@@ -1,6 +1,7 @@
 {
   "projects": {
     "default": "labcapri-dev",
-    "stag": "labcapri-b55a6"
+    "stag": "labcapri-b55a6",
+    "prod": "labcapri-dev"
   }
 }
