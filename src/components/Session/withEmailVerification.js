@@ -1,4 +1,6 @@
 import React from 'react';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 import AuthUserContext from './context';
 import { withFirebase } from '../Firebase';
@@ -22,29 +24,29 @@ const withEmailVerification = Component => {
                 <AuthUserContext.Consumer>
                     {authUser => 
                         needsEmailVerification(authUser) ? (
-                            <div>
+                            <div style={{ position: "absolute", left: "10%", top: "5%", width: "70%" }}>
                                 {this.state.isSent ? (
-                                    <p>
-                                        E-Mail confirmation sent: Check you E-Mails (Spam
-                                        folder included) for a confirmation E-Mail.
-                                        Refresh this page once you confirmed your E-Mail.
-                                    </p>
+                                    <div>
+                                        <Typography variant="h6">
+                                            E-Mail confirmation sent. Refresh this page once you confirmed your E-Mail.
+                                        </Typography>
+                                    </div>
                                 ) : (
-                                    <p>
-                                        Verify your email: Check you E-Mails (Spam folder
-                                        included) for a confirmation E-Mail or send
-                                        another confirmation E-Mail.
-                                    </p>
+                                    <div>
+                                        <Typography variant="h6">
+                                            Verify your email: Check you emails (spam folder
+                                            included) for a confirmation email.
+                                        </Typography>
+                                        <br/>
+                                        <Button
+                                            variant="contained"
+                                            onClick={this.onSendEmailVerification}
+                                            disabled={this.state.isSent}
+                                        >
+                                            Resend
+                                        </Button>
+                                    </div>
                                 )}
-                                
-
-                                <button
-                                    type="button"
-                                    onClick={this.onSendEmailVerification}
-                                    disabled={this.state.isSent}
-                                >
-                                    Send confirmation email
-                                </button>
                             </div>
                         ) : (
                             <Component {...this.props} />

@@ -1,5 +1,5 @@
-import { createMuiTheme } from '@material-ui/core/styles';
-import { lightBlue, cyan, teal } from '@material-ui/core/colors/blue';
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import { cyan, teal } from '@material-ui/core/colors/blue';
 
 const theme = createMuiTheme({
   palette: {
@@ -15,11 +15,26 @@ const theme = createMuiTheme({
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(','),
-    typography: {
-      useNextVariants: true,
-    },
+    ].join(',')
   },
 });
 
-export default theme;
+const useStyles = makeStyles(theme => ({
+  fab: {
+    margin: theme.spacing(3),
+  },
+  container: {
+    display: 'flex',
+    flexWrap: 'wrap',
+  },
+  textField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: 200,
+  },
+  dense: {
+    marginTop: 19,
+  },
+}));
+
+export {theme, useStyles};

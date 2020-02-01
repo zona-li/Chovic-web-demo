@@ -1,20 +1,25 @@
-import React, { Component } from 'react';
-import { Elements, StripeProvider } from 'react-stripe-elements';
-import CardForm from './cardForm';
+import React from 'react';
+import { compose } from 'recompose';
 
-class Home extends Component {
-    render() {
-        return (
-            <StripeProvider apiKey="pk_test_TYooMQauvdEDq54NiTphI7jx">
-              <div>
-                <h1>React Stripe Elements Example</h1>
-                <Elements>
-                  <CardForm />
-                </Elements>
-              </div>
-            </StripeProvider>
-        );
-    }
+import { AuthUserContext, withAuthorization, withEmailVerification } from '../Session';
+import { withFirebase } from '../Firebase';
+import TheBoard from './Board';
+
+const Home = props => {
+    return (
+        <AuthUserContext.Consumer>
+            {authUser => (
+                <TheBoard authUser={authUser} firebase={props.firebase} />
+            )}
+        </AuthUserContext.Consumer>
+    )
 }
 
-export default Home;
+
+const condition = authUser => !!authUser;
+
+export default compose (
+    withEmailVerification,
+    withAuthorization(condition),
+    withFirebase,
+)(Home);

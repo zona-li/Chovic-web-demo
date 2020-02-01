@@ -1,0 +1,64 @@
+.white {
+    background-color: GhostWhite;
+}
+.lightblue {
+    background-color: powderblue;
+}
+.blue {
+    background-color: skyblue;
+}
+.darkblue {
+    background-color: deepskyblue;
+}
+
+.content {
+    top: 5%;
+    left: 10%;
+    position: absolute;
+}
+
+.colorpicker {
+    display: flex;
+}
+
+.habitList {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    /* height: 100vh; */
+}
+
+.pixel {
+    width: 20px;
+    height: 20px;
+}
+
+.pixel.tracker {
+    border: 1px solid Gainsboro;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.pixel.day-of-month {
+    text-align: center;
+    font-size: 11px;
+    background-color: white;
+    cursor: default;
+}
+
+.habit {
+    margin: 0;
+    width: 100px;
+    font-size: 0.8em;
+}
+
+.month {
+    color: SteelBlue;
+}
+
+.canvas {
+    display: flex;
+    align-self: flex-start;
+    /* flex-wrap: wrap; */
+    max-width: 900px;
+}

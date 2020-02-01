@@ -11,10 +11,11 @@ import PasswordForgetPage from '../PasswordForget';
 import HomePage from '../Home';
 import AccountPage from '../Account';
 import AdminPage from '../Admin';
-import ApplicationPage from '../Application';
+import MembershipSubscription from '../Membership/main';
 import SideDrawer from '../SideDrawer';
 import ThankYou from '../ThankYou';
 import Contact from '../Contact';
+import MemberConfirmationPage from '../Membership/memberConfirmation';
 
 import * as ROUTES from '../../constants/routes';
 import { withAuthentication } from '../Session';
@@ -31,9 +32,10 @@ const App = () => (
             <Route exact path={ROUTES.HOME} component={HomePage} />
             <Route exact path={ROUTES.ACCOUNT} component={AccountPage} />
             <Route exact path={ROUTES.ADMIN} component={AdminPage} />
-            <Route exact path={ROUTES.APPLICATION} component={ApplicationPage} />
+            <Route exact path={ROUTES.MEMBERSHIP} component={MembershipSubscription} />
             <Route exact path={ROUTES.CONFIRMATION} component={ThankYou} />
             <Route exact path={ROUTES.CONTACT} component={Contact} />
+            <Route path={ROUTES.AFTERPAYMENT} component={MemberConfirmationPage} />
         </div>
     </Router>
 );

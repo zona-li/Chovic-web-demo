@@ -1,17 +1,69 @@
-import React, { Component } from 'react';
-import { Link, withRouter } from 'react-router-dom';
+import React, { useState } from 'react';
+import { NavLink, withRouter } from 'react-router-dom';
 import { compose } from 'recompose';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
+import { makeStyles } from '@material-ui/core/styles';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
+import signInPic from '../../assets/signIn.png';
 
-const SignUpPage = () => (
-    <div>
-        <h1>SignUp</h1>
-        <SignUpForm />
-    </div>
-);
+import './styles.css';
+
+const useStyles = makeStyles(theme => ({
+    root: {
+        margin: 100
+    },
+    signUp: {
+        paddingLeft: 250,
+    },
+    signUpOption: {
+        marginLeft: 200,
+        display: "inline-block"
+    },
+    signUpText: {
+        margin: theme.spacing(1),
+        display: "inline-block"
+    },
+    signInImage: {
+        width: 300,
+        height: 300,
+        paddingLeft: 250
+    },
+    textField: {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        display: "flex",
+        width: 330
+    },
+    button: {
+        margin: theme.spacing(1),
+        display: "inline-block"
+    },
+}));
+
+const SignUpPage = () => {
+    const classes  = useStyles();
+    const matches = useMediaQuery('(min-width:1100px)');
+    return (
+    <Grid container spacing={2} className={classes.root}>
+        <Grid item xs>
+            <img src={signInPic} alt="signIn" className={classes.signInImage} />
+        </Grid>
+        <Grid item xs>
+            <div className={matches ? "" : `${classes.signUp}`}>
+                <Typography variant="h6" className={classes.signUpText}>Sign up</Typography>
+                <SignUpForm />
+            </div>
+        </Grid>
+    </Grid>
+    );
+};
 
 const ERROR_CODE_ACCOUNT_EXISTS = 'auth/email-already-in-use';
 
@@ -27,30 +79,26 @@ const INITIAL_STATE = {
     username: '',
     email: '',
     password: '',
-    confirmPassword: '',
     isAdmin: false,
     error: null,
 };
 
-class SignUpFormBase extends Component {
-    constructor(props) {
-        super(props);
+const SignUpFormBase = (props) => {
+    const [state, setState] = useState(INITIAL_STATE);
+    const classes = useStyles();
 
-        this.state = { ...INITIAL_STATE };
-    }
-
-    onSubmit = event => {
-        const { username, email, password, isAdmin } = this.state;
+    const onSubmit = event => {
+        const { username, email, password, isAdmin } = state;
         const roles = [];
 
         if (isAdmin) {
             roles.push(ROLES.ADMIN);
         }
 
-        this.props.firebase
+        props.firebase
             .doCreateUserWithEmailAndPassword(email, password)
             .then(authUser => {
-                this.props.firebase
+                props.firebase
                     .user(authUser.user.uid)
                     .set({
                         username,
@@ -58,105 +106,110 @@ class SignUpFormBase extends Component {
                         roles,
                     })
                     .then(() => {
-                        return this.props.firebase.doSendEmailVerification();
+                        return props.firebase.doSendEmailVerification();
                     })
                     .then(() => {
-                        this.setState({ ...INITIAL_STATE });
-                        this.props.history.push(ROUTES.HOME);
+                        setState(INITIAL_STATE);
+                        props.history.push(ROUTES.HOME);
                     })
                     .catch(error => {
                         if (error.code === ERROR_CODE_ACCOUNT_EXISTS) {
                             error.message = ERROR_MSG_ACCOUNT_EXISTS;
                         }
                         
-                        this.setState({ error });
+                        setState({ ...state, error });
                     });
             })
             .catch(error => {
-                this.setState({ error });
+                setState({ ...state, error });
             });
 
         event.preventDefault();
     };
 
-    onChange = event => {
-        this.setState({ [event.target.name]: event.target.value });
+    const onChange = event => {
+        const signUpInfo = {
+            ...state,
+            [event.target.name]: event.target.value
+        }
+        setState(signUpInfo);
     };
 
-    onChangeCheckbox = event => {
-        this.setState({ [event.target.name]: event.target.checked });
-    };
+    // const onChangeCheckbox = event => {
+    //     setState({ [event.target.name]: event.target.checked });
+    // };
 
-    render() {
-        const {
-            username,
-            email,
-            password,
-            confirmPassword,
-            isAdmin,
-            error,
-        } = this.state;
+    const {
+        username,
+        email,
+        password,
+        // isAdmin,
+        error,
+    } = state;
 
-        const isInvalid = 
-            password !== confirmPassword ||
-            password === '' ||
-            email === '' ||
-            username === '';
+    const isInvalid = 
+        password === '' ||
+        email === '' ||
+        username === '';
 
-        return (
-            <form onSubmit={this.onSubmit}>
+    return (
+        <form onSubmit={onSubmit}>
+            <TextField
+                name="username"
+                value={username}
+                type="text"
+                label="Username"
+                className={classes.textField}
+                margin="normal"
+                onChange={onChange}
+            />
+            <TextField
+                name="email"
+                value={email}
+                type="email"
+                label="Email"
+                className={classes.textField}
+                margin="normal"
+                onChange={onChange}
+            />
+            <TextField
+                name="password"
+                value={password}
+                type="password"
+                label="Password"
+                className={classes.textField}
+                margin="normal"
+                onChange={onChange}                
+            />
+            {/* <label>
+                Admin:
                 <input
-                    name="username"
-                    value={username}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Full Name"
+                    name="isAdmin"
+                    type="checkbox"
+                    checked={isAdmin}
+                    onChange={this.onChangeCheckbox}
                 />
-                <input
-                    name="email"
-                    value={email}
-                    onChange={this.onChange}
-                    type="text"
-                    placeholder="Email Address"
-                />
-                <input
-                    name="password"
-                    value={password}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Password"
-                />
-                <input
-                    name="confirmPassword"
-                    value={confirmPassword}
-                    onChange={this.onChange}
-                    type="password"
-                    placeholder="Confirm Password"
-                />
-                <label>
-                    Admin:
-                    <input
-                        name="isAdmin"
-                        type="checkbox"
-                        checked={isAdmin}
-                        onChange={this.onChangeCheckbox}
-                    />
-                </label>
-                <button disabled={isInvalid} type="submit">
-                    Sign Up
-                </button>
-
-                {error && <p>{error.message}</p>}
-            </form>
-        );
-    }
+            </label> */}
+            <Button disabled={isInvalid} className={classes.button} variant="contained" type="submit">
+                Sign Up
+            </Button>
+            {error && <p>{error.message}</p>}
+        </form>
+    );
 }
 
-const SignUpLink = () => (
-    <p>
-        Don't have an account? <Link to={ROUTES.SIGN_UP}>Sign Up</Link>
-    </p>
-);
+const SignUpLink = () => {
+    const classes = useStyles();
+    return (
+        <Typography variant="subtitle1" className={classes.signUpOption}>
+            or
+            <NavLink 
+                to={ROUTES.SIGN_UP}
+                className="signUp"
+            >Sign Up</NavLink>
+        </Typography>
+    );
+};
 
 const SignUpForm = compose(
     withRouter,

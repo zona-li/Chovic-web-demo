@@ -4,8 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { SectionLeft, SectionRight, Section } from '../../elements/Section';
 import { P } from '../../elements/P';
-import art1 from '../../images/art1.png';
-import meet from '../../images/meet.jpg';
+import art1 from '../../assets/art1.png';
+import meet from '../../assets/meet.jpg';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Group from '@material-ui/icons/Group';
 import ShowChart from '@material-ui/icons/ShowChart';
@@ -128,7 +128,7 @@ class Landing extends Component {
                 
     
                 <Section background="Seagreen">
-                    <Grid  className={classes.root} container spacing={24}>
+                    <Grid  className={classes.root} container spacing={1}>
                         <Grid className={classes.text} item md={6} sm={12}>
                             <P style={{marginLeft: '10vw'}}>
                             The group is based in Charlottesville, Virginia. We meet once a week to discuss goals, 
@@ -141,7 +141,7 @@ class Landing extends Component {
                             health, and other essential skills that will help us during our life's journey.
                             </P>
                         </Grid>
-                        <Grid className={classes.pic} item xs={6} sm={0} >
+                        <Grid className={classes.pic} item xs={6} >
                             <img src={meet} alt="img1" height="380" width="auto" />
                         </Grid>
                     </Grid>
@@ -187,7 +187,7 @@ class Landing extends Component {
                 </SectionRight>
 
                 <Section background="PowderBlue">
-                    <h1 className={classes.title2}><strong>Ready for the challenge? Apply <StyledLink decoration='underline' to={ROUTES.APPLICATION}>HERE</StyledLink>!</strong></h1>
+                    <h1 className={classes.title2}><strong>Ready for the challenge? <br/><StyledLink decoration='underline' to={ROUTES.MEMBERSHIP}>Join us now</StyledLink></strong></h1>
                 </Section>
             </div>
         )

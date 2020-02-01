@@ -1,0 +1,85 @@
+.inputFeild {
+    font-size: 15px;
+    width: 98%;
+    height: 35px;
+    border-radius: 6px;
+    position: relative;
+    background-color: rgba(255,255,255,0.9);
+    border: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+
+.inputFeild:hover {
+    background-color: rgba(255, 255, 255, 0.45);
+    box-shadow: 0px 4px 20px 0px rgba(0, 0, 0, 0.05);
+}
+
+.product {
+    top: 20%;
+    left: 8%;
+    position: absolute;
+}
+
+.productTitle {
+    color: Gray;
+}
+
+.paymentImage {
+    width: 70%;
+    margin-top: 15%;
+}
+
+.firstname {
+    width: 49%;
+    float: left;
+    border-radius: 6px 1px 1px 6px;
+    border-right: none;
+}
+
+.lastname {
+    width: 49%;
+    float: left;
+    border-radius: 1px 6px 6px 1px;
+}
+
+.name {
+    float: left;
+    padding-right: 152px;
+}
+
+.cardForm {
+    top: 20%;
+    left: 58%;
+    position: absolute;
+}
+
+.cardNumber {
+    width: 99%;
+    box-sizing: border-box;
+    border-radius: 6px 6px 1px 1px;
+    padding: 8px 12px;
+    margin-bottom: 0px;
+}
+
+.cardExpiration {
+    box-sizing: border-box;
+    width: 50%;
+    float: left;
+    border-top: none;
+    border-radius: 1px 1px 1px 6px;
+    padding: 8px 12px;
+}
+
+.cardCvc {
+    box-sizing: border-box;
+    width: 49%;
+    float: left;
+    border-top: none;
+    border-left: none;
+    border-radius: 1px 1px 6px 1px;
+    padding: 8px 12px;
+}
+
+.paymentButton {
+    width: 98%;
+}

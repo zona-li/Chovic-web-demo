@@ -1,19 +1,19 @@
 import 'dotenv/config';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { MuiThemeProvider } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
 
 import './index.css';
 import App from './components/App';
 import Firebase, { FirebaseContext } from './components/Firebase';
 import * as serviceWorker from './serviceWorker';
-import theme from './theme';
+import { theme } from './theme';
 
 ReactDOM.render(
     <FirebaseContext.Provider value={new Firebase()}>
-        <MuiThemeProvider theme={theme}>
+        <ThemeProvider theme={theme}>
             <App />
-        </MuiThemeProvider>
+        </ThemeProvider>
     </FirebaseContext.Provider>,
     document.getElementById('root'),
 );
