@@ -71,6 +71,8 @@ class Firebase {
 
     doPasswordUpdate = password => this.auth.currentUser.updatePassword(password);
 
+    doUpdateProfile = (profile) => this.auth.currentUser.updateProfile(profile);
+
     doSendEmailVerification = () => {
         const res = this.auth.currentUser.sendEmailVerification({
             url: "https://chovic.com/home"
