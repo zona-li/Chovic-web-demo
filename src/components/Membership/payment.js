@@ -14,7 +14,7 @@ const PaymentPage = () => {
     return (
         <AuthUserContext.Consumer>
             {authUser => (
-                <StripeProvider apiKey="pk_live_X7cICKwgTSFDg3bHinuGHCCd">
+                <StripeProvider apiKey="pk_test_Qu2iqCKHXB7r5v2nopdcctsg">
                     <div>
                     <Elements>
                         <CardForm authUser={authUser} />

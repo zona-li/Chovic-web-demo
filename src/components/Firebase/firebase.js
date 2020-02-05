@@ -22,7 +22,7 @@ const devConfig = {
     messagingSenderId: process.env.REACT_APP_DEV_MESSAGING_SENDER_ID,
 };
 
-const config = prodConfig;
+const config = process.env.NODE_ENV === 'development' ? devConfig : prodConfig;
 const date = new Date();
 const month = date.getMonth(),
       year = date.getFullYear();

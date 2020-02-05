@@ -37,14 +37,14 @@
 }
 
 .lastname {
-    width: 49%;
+    width: 48%;
     float: left;
     border-radius: 1px 6px 6px 1px;
 }
 
 .name {
     float: left;
-    padding-right: 152px;
+    padding-right: 170px;
 }
 
 .cardForm {
