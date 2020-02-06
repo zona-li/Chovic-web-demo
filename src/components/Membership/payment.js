@@ -11,10 +11,11 @@ import {
 
 
 const PaymentPage = () => {
+    const stripeKey = process.env.NODE_ENV === 'development' ? 'pk_test_Qu2iqCKHXB7r5v2nopdcctsg' : 'pk_live_X7cICKwgTSFDg3bHinuGHCCd';
     return (
         <AuthUserContext.Consumer>
             {authUser => (
-                <StripeProvider apiKey="pk_test_Qu2iqCKHXB7r5v2nopdcctsg">
+                <StripeProvider apiKey={stripeKey}>
                     <div>
                     <Elements>
                         <CardForm authUser={authUser} />
