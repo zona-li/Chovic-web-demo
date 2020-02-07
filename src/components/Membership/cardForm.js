@@ -36,11 +36,15 @@ class CardForm extends Component {
     else {
       const uid = this.state.signedInUser.uid;
       // This will create a token entry in the DB and trigger a cloud function to add customer's card information to Stripe.
-      this.props.firebase.setToken(uid, token.id)
-        .then(() => {
+      try {
+        await this.props.firebase.setToken(uid, token.id);
+        const sourceDoc = await this.props.firebase.stripe_customer(uid);
+        if (sourceDoc.docs[0]) {
           this.submit(uid);
-        })
-        .catch(error => console.error(`${error}`));
+        }  
+      } catch (err) {
+        console.log(err);
+      }
     }
   }
 

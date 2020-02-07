@@ -174,6 +174,7 @@ class Firebase {
         amount: parseInt(500),
     });
 
+    // '/stripe_customers/{userId}/sources/{id}'
     stripe_customer = uid => this.db.collection('stripe_customers').doc(`${uid}`).collection('sources').get();
 }
 
