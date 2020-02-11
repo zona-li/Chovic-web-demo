@@ -177,12 +177,8 @@ class Firebase {
     // Check whether the source (card) information is written to the database, need to verify this before charging customer.
     getSourceDocs = uid => this.db.collection('stripe_customers').doc(`${uid}`).collection('sources').get();
 
-    onSourceChangeListener = (uid, next) => {
-        return this.db.collection('stripe_customers').doc(`${uid}`).collection('sources')
-            .onSnapshot(snapshot => {
-                next(snapshot);
-            });
-    };
+    // Check whether a given user has paid for being a member
+    checkPayment = uid => this.db.collection('stripe_customers').doc(`${uid}`).collection('charges').get();
 }
 
 export default Firebase;

@@ -76,25 +76,27 @@ class PaymentInfoBase extends Component {
     super(props);
 
     this.state = {
-      last4: null
+      succeeded: null
     };
   }
 
   componentDidMount() {
     // Fetch payment card info
     const { firebase, authUser, setIsMember } = this.props;
-    const data = firebase.stripe_customer(authUser.uid);
+    const data = firebase.checkPayment(authUser.uid);
     data.then(
       docs => {
         docs.forEach(doc => {
-          this.setState({ last4: doc.data().last4 });
+          if (doc.data().status === 'succeeded') {
+            this.setState({ succeeded: true });
+          }
         });
       },
       err => {
         console.log(`Encountered error fetching stripe user: ${err}`);
       }
     ).then(
-      _ => {if (this.state.last4) setIsMember(true);}
+      _ => {if (this.state.succeeded) setIsMember(true);}
     );
   }
 
