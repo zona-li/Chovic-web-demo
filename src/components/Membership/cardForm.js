@@ -18,18 +18,41 @@ class CardForm extends Component {
       signedInUser: this.props.authUser,
       email: '',
       firstname: '',
-      lastname: ''
+      lastname: '',
+      processing: false,
     };
   }
-
+  
   onChange = (event) => {
     this.setState({
       [event.target.name]: event.target.value
     });
   }
 
+  checkCardSource = (uid) => {
+    const { firebase } = this.props;
+    let TRY_TIMES = 7;
+    const submit = this.submit;
+    async function getCardSource(TRY_TIMES) {
+      const sourceDocs = await firebase.getSourceDocs(uid);
+      if (!sourceDocs.docs[0] && TRY_TIMES > 0) {
+        TRY_TIMES -= 1;
+        setTimeout(() => {
+          getCardSource(TRY_TIMES);
+        }, 1000);
+      } else if (sourceDocs.docs[0]) {
+        submit(uid);
+      } else {
+        // TODO: Err handling.
+      }
+    }
+    getCardSource(TRY_TIMES);
+  }
+
   addCard = async () => {
-    const { token, error } = await this.props.stripe.createToken();
+    this.setState({processing: true});
+    const { stripe, firebase } = this.props;
+    const { token, error } = await stripe.createToken();
     if (error) {
       this.setState({errorMessage: error.message});
     }
@@ -37,11 +60,8 @@ class CardForm extends Component {
       const uid = this.state.signedInUser.uid;
       // This will create a token entry in the DB and trigger a cloud function to add customer's card information to Stripe.
       try {
-        await this.props.firebase.setToken(uid, token.id);
-        const sourceDoc = await this.props.firebase.stripe_customer(uid);
-        if (sourceDoc.docs[0]) {
-          this.submit(uid);
-        }  
+        await firebase.setToken(uid, token.id);
+        this.checkCardSource(uid);
       } catch (err) {
         console.log(err);
       }
@@ -51,13 +71,13 @@ class CardForm extends Component {
   submit = (uid) => {
     this.props.firebase.setCharge(uid)
       .then(() => {
-        this.setState({complete: true});
+        this.setState({complete: true, processing: false});
       })
       .catch(error => console.error(`${error}`));
   }
 
   render() {
-    const { complete } = this.state;
+    const { complete, processing } = this.state;
     if (complete) return <Redirect to={ROUTES.AFTERPAYMENT} />;
     return (
       <form className="cardForm">
@@ -76,7 +96,13 @@ class CardForm extends Component {
         <input type="text" name="lastname" className='inputFeild lastname' onChange={this.onChange}/>
         <br />
         {this.state.errorMessage ? <p>{this.state.errorMessage}</p> : null}
-        <Button variant='contained' className='paymentButton' onClick={this.addCard}>Confirm</Button>
+        <Button variant='contained' className='paymentButton' onClick={this.addCard}>
+          {processing ? 
+            <div className='lds-facebook'><div></div><div></div><div></div></div>
+            :
+            "Confirm"
+          }
+        </Button>
         <Typography variant='caption'>By clicking this button, you agree to Chovic's <a href="https://app.termly.io/document/terms-of-use-for-ecommerce/a0e6f34e-98b4-47a8-acd8-313ebbdf1e8c" target="_blank" rel="noopener noreferrer">Terms and Conditions</a>.</Typography>
       </form>
     );
