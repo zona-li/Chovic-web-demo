@@ -4,13 +4,12 @@ import { withStyles } from '@material-ui/core/styles';
 
 import { SectionLeft, SectionRight, Section } from '../../elements/Section';
 import { P } from '../../elements/P';
-import art1 from '../../assets/art1.png';
+import art1 from '../../assets/art1.jpg';
 import meet from '../../assets/meet.jpg';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Group from '@material-ui/icons/Group';
 import ShowChart from '@material-ui/icons/ShowChart';
 import Chat from '@material-ui/icons/Chat';
-import { Img } from '../../elements/Img';
 import { H1 } from '../../elements/H1';
 import { A, StyledLink } from '../../elements/Link';
 import * as ROUTES from '../../constants/routes';
@@ -18,13 +17,14 @@ import { Grid } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import './styles.css';
 
 const TitleLeft = styled.h1`
     @media (min-width: 768px) {
         text-align: right;
         margin-right: 5px;
         font-size: 6vw;
-        color: Gainsboro;
+        color: BlanchedAlmond;
         z-index: 1;
     }
     @media (max-width: 768px) {
@@ -37,7 +37,7 @@ const TitleRight = styled.h1`
         text-align: left;
         margin-left: 5px;
         font-size: 6vw;
-        color: Gainsboro;
+        color: BlanchedAlmond;
     }
     @media (max-width: 768px) {
         display: none;
@@ -106,28 +106,29 @@ class Landing extends Component {
         return (
             <div>
                 <Grid>
-                    <SectionLeft background="Cornflowerblue" background-image="url(art1)">
+                    <SectionLeft backgroundImage={`url(${art1})`}>
                         <TitleLeft>cho</TitleLeft>
                         <Title>CHOVIC</Title>
-                        <Img src={art1} alt="img1" />
                     </SectionLeft>
-                    <SectionRight background="Salmon">
+                    <SectionRight background="CadetBlue">
                         <TitleRight>vic</TitleRight>
                         <H1>A growth environment to help you form good habits, become more 
-                            disciplined, end procrastination, and realize your true potential.</H1>
+                            disciplined, and procrastinate less.</H1>
                         <P>Have you ever had an idea but find it difficult to realize? or had a goal but always fall short?
                             Most of the times, it is because you are deploying the wrong method or lack a supportive community 
                             to keep you accountable. Join a group of people who relentlessly seek to learn, improve, and 
                             constantly challenge themselves to do better. Chovic is a gathering place for people who are 
                             unwilling to settle, who pushes hard and persist. Here, you will meet incredible people, find 
-                            supports, practice stoicism, learn to lead from the front, have fun, and, most importantly, 
-                            discover your true potential.
+                            supports, practice stoicism, learn, have fun, and, most importantly, realize your potential.
                         </P>
                     </SectionRight>
+                    <section id="section0">
+                        <a href="#section1"><span></span></a>
+                    </section>
                 </Grid>
                 
     
-                <Section background="Seagreen">
+                <Section id="section1" background="Seagreen">
                     <Grid  className={classes.root} container spacing={1}>
                         <Grid className={classes.text} item md={6} sm={12}>
                             <P style={{marginLeft: '10vw'}}>
@@ -145,9 +146,12 @@ class Landing extends Component {
                             <img src={meet} alt="img1" height="380" width="auto" />
                         </Grid>
                     </Grid>
+                    <section id="section1">
+                        <a href="#section2"><span></span></a>
+                    </section>
                 </Section>
 
-                <SectionLeft background="AntiqueWhite">
+                <SectionLeft id="section2" background="AntiqueWhite">
                     <h1 className={classes.title}>WHY OUR METHOD WILL WORK</h1>
                 </SectionLeft>
                 <SectionRight background="Seashell" >
@@ -184,9 +188,12 @@ class Landing extends Component {
                         </List>
                         </div>
                     </Grid>
+                    <section id="section2">
+                        <a href="#section3"><span></span></a>
+                    </section>
                 </SectionRight>
 
-                <Section background="PowderBlue">
+                <Section id="section3" background="PowderBlue">
                     <h1 className={classes.title2}><strong>Ready for the challenge? <br/><StyledLink decoration='underline' to={ROUTES.MEMBERSHIP}>Join us now</StyledLink></strong></h1>
                 </Section>
             </div>

@@ -1,12 +1,15 @@
 import styled from 'styled-components';
 
 const SectionLeft = styled.section`
-    color: AliceBlue;
     width: 100%;
     height: 100vh;
     overflow: scroll;
     text-align: left;
     background: ${props => props.background};
+    background-image: ${props => props.backgroundImage};
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 
     @media (min-width: 768px) {
         float: left;
