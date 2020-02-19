@@ -11,7 +11,7 @@ import Group from '@material-ui/icons/Group';
 import ShowChart from '@material-ui/icons/ShowChart';
 import Chat from '@material-ui/icons/Chat';
 import { H1 } from '../../elements/H1';
-import { A, StyledLink } from '../../elements/Link';
+import { StyledLink } from '../../elements/Link';
 import * as ROUTES from '../../constants/routes';
 import { Grid } from '@material-ui/core';
 import List from '@material-ui/core/List';
@@ -115,11 +115,12 @@ class Landing extends Component {
                         <H1>A growth environment to help you form good habits, become more 
                             disciplined, and procrastinate less.</H1>
                         <P>Have you ever had an idea but find it difficult to realize? or had a goal but always fall short?
-                            Most of the times, it is because you are deploying the wrong method or lack a supportive community 
+                            Most of the time, it is because you are deploying the wrong method or lack a supportive community 
                             to keep you accountable. Join a group of people who relentlessly seek to learn, improve, and 
                             constantly challenge themselves to do better. Chovic is a gathering place for people who are 
                             unwilling to settle, who pushes hard and persist. Here, you will meet incredible people, find 
-                            supports, practice stoicism, learn, have fun, and, most importantly, realize your potential.
+                            supports, learn the methods that will help you succeed, have fun, and, most importantly, achieve the
+                            goals you set for yourself.
                         </P>
                     </SectionRight>
                     <section id="section0">
@@ -132,14 +133,11 @@ class Landing extends Component {
                     <Grid  className={classes.root} container spacing={1}>
                         <Grid className={classes.text} item md={6} sm={12}>
                             <P style={{marginLeft: '10vw'}}>
-                            The group is based in Charlottesville, Virginia. We meet once a week to discuss goals, 
-                            draft out weekly plans, analyze our trajectory of growth, and share anything we learned 
-                            from the previous week. Each member of the group have 1 personal challenge and 1 group 
-                            challenge to complete on a weekly or monthly basis. Based on those challenges, we arrange 
-                            daily check-ins on <A href="https://slack.com/" target="_blank">Slack</A> and keep track 
-                            of each individual’s progress on <A href="https://coda.io/welcome" target="_blank">Coda</A>.
-                            The group challenges aim to improve different areas such as one's intellect, pain tolerance, 
-                            health, and other essential skills that will help us during our life's journey.
+                            We have a Meetup group based in Charlottesville, Virginia. The group meets once a week to discuss goals, 
+                            draft out weekly plans, and share anything we learned from the previous week. We keep track 
+                            of each individual’s progress on our website, which offers the tool to help each person to build up good habits.
+                            We occasionally have group challenges that aim to encourage people to step out of their comfort zone and experiment
+                            with different methods of improving their lives.
                             </P>
                         </Grid>
                         <Grid className={classes.pic} item xs={6} >
@@ -152,7 +150,7 @@ class Landing extends Component {
                 </Section>
 
                 <SectionLeft id="section2" background="AntiqueWhite">
-                    <h1 className={classes.title}>WHY OUR METHOD WILL WORK</h1>
+                    <h1 className={classes.title}>WHY IT WILL WORK</h1>
                 </SectionLeft>
                 <SectionRight background="Seashell" >
                     <Grid>
@@ -163,8 +161,8 @@ class Landing extends Component {
                                     <Group />
                                 </ListItemIcon>
                                 <ListItemText classes={{primary: classes.listItemText}}>
-                                    The peer-to-peer mentoring system powered by scientific proven methods 
-                                    will help you get things done faster and better.
+                                    Your behavior is held accountable by your friends. When you have a group of people to help you navigate through challenges
+                                    and celebrate with each of the milestone you have reached, you would be much likely to follow through.
                                 </ListItemText>
                             </ListItem>
                             <ListItem className={classes.listItem}>
@@ -172,8 +170,8 @@ class Landing extends Component {
                                     <ShowChart />
                                 </ListItemIcon>
                                 <ListItemText classes={{primary: classes.listItemText}}>
-                                    We value the rate of improvement more than experience or current accomplishment, 
-                                    so the incentivizing system will work for anyone from all walks of life.
+                                    Instead of focusing on the goal, which only states what people want but not how to get there, we design the system that is 
+                                    more likely to impact your daily behavior and guide you along the way.
                                 </ListItemText>
                             </ListItem>
                             <ListItem className={classes.listItem}>
@@ -181,8 +179,8 @@ class Landing extends Component {
                                     <Chat />
                                 </ListItemIcon>
                                 <ListItemText classes={{primary: classes.listItemText}}>
-                                    We keep an authentic and open dialogue at all times to cultivate camaraderie and 
-                                    also to make our system work better for everyone involved.
+                                    We hold regular talks on topics such as health, finance, behavioral science, and career to share the proven ways of improving 
+                                    the quality of our lives.
                                 </ListItemText>
                             </ListItem>
                         </List>
@@ -194,7 +192,7 @@ class Landing extends Component {
                 </SectionRight>
 
                 <Section id="section3" background="PowderBlue">
-                    <h1 className={classes.title2}><strong>Ready for the challenge? <br/><StyledLink decoration='underline' to={ROUTES.MEMBERSHIP}>Join us now</StyledLink></strong></h1>
+                    <h1 className={classes.title2}><strong>Ready for the challenge? <br/><StyledLink decoration='underline' to={ROUTES.SIGN_UP}>Sign up now</StyledLink></strong> to start the journey</h1>
                 </Section>
             </div>
         )
