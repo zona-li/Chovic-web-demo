@@ -16,7 +16,8 @@ const StyledLink = styled(Link)`
 `;
 
 const HeaderLink = styled(StyledLink)`
-    color: Silver;
+    color: DimGray;
+    font-size: 20px;
     text-transform: uppercase;
 `;
 

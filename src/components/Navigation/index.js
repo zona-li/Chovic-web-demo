@@ -24,7 +24,7 @@ const NavigationAuth = ({ authUser }) => (
     <Nav>
         <List>
             <ListItem>
-                <HeaderLink to={ROUTES.LANDING}>Chovic</HeaderLink>
+                <HeaderLink to={ROUTES.LANDING}>Home</HeaderLink>
             </ListItem>
         </List>
         <List>
@@ -56,7 +56,7 @@ const NavigationNonAuth = () => (
     <Nav>
         <List>
             <ListItem>
-                <HeaderLink to={ROUTES.LANDING}>Chovic</HeaderLink>
+                <HeaderLink to={ROUTES.LANDING}>Home</HeaderLink>
             </ListItem>
         </List>
         <List>
