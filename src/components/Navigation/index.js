@@ -29,7 +29,7 @@ const NavigationAuth = ({ authUser }) => (
         </List>
         <List>
             <ListItem>
-                <HeaderLink to={ROUTES.HOME}>Home</HeaderLink>
+                <HeaderLink to={ROUTES.HOME}>Habits</HeaderLink>
             </ListItem>
         </List>
         <List>
@@ -66,7 +66,7 @@ const NavigationNonAuth = () => (
         </List>
         <List>
             <ListItem>
-                <HeaderLink to={ROUTES.MEMBERSHIP}>Join Us</HeaderLink>
+                <HeaderLink to={ROUTES.SIGN_UP}>Join Us</HeaderLink>
             </ListItem>
         </List>
         <List>

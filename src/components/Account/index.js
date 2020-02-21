@@ -60,10 +60,15 @@ const AccountPage = () => {
           <LoginManagement authUser={authUser}/>
           <PaymentInfo authUser={authUser} setIsMember={setIsMember} />
           {
-            !isMember && 
-            <Button variant="contained">
-              <Link style={{ textDecoration: 'none' }} to={ROUTES.MEMBERSHIP}>Join Us!</Link>
-            </Button>
+            !isMember &&
+            <>
+              <Typography variant="h5">Like what you've seen?</Typography>
+              <Typography variant="subtitle2">Lock in all upcoming features here.</Typography>
+              <br></br>
+              <Button variant="contained">
+                <Link style={{ textDecoration: 'none' }} to={ROUTES.MEMBERSHIP}>yes!</Link>
+              </Button>
+            </>
           }
         </div>
       )}
