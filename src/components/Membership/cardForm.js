@@ -54,7 +54,7 @@ class CardForm extends Component {
     const { stripe, firebase } = this.props;
     const { token, error } = await stripe.createToken();
     if (error) {
-      this.setState({errorMessage: error.message});
+      this.setState({errorMessage: error.message, processing: false});
     }
     else {
       const uid = this.state.signedInUser.uid;
@@ -62,8 +62,10 @@ class CardForm extends Component {
       try {
         await firebase.setToken(uid, token.id);
         this.checkCardSource(uid);
-      } catch (err) {
-        console.log(err);
+      } catch (error) {
+        console.log(error);
+        const message = "Failed to connect to service. Try agian later."
+        this.setState({errorMessage: message, processing: false});
       }
     }
   }
@@ -73,7 +75,10 @@ class CardForm extends Component {
       .then(() => {
         this.setState({complete: true, processing: false});
       })
-      .catch(error => console.error(`${error}`));
+      .catch(error => {
+        console.error(error);
+        this.setState({processing: false, errorMessage: error.message});
+      });
   }
 
   render() {
