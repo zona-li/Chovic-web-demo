@@ -46,6 +46,20 @@
     cursor: default;
 }
 
+.today {
+    width: 20px;
+    height: 20px;
+    background-color: moccasin;
+    border-radius: 25px;
+    position: relative;
+    bottom: 3px;
+}
+
+.todayDate {
+    position: relative;
+    left: 5px;
+}
+
 .habit {
     margin: 0;
     width: 100px;
