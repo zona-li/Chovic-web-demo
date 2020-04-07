@@ -52,12 +52,12 @@
     background-color: moccasin;
     border-radius: 25px;
     position: relative;
-    bottom: 3px;
+    bottom: 2px;
 }
 
 .todayDate {
     position: relative;
-    left: 5px;
+    left: 6px;
 }
 
 .habit {
