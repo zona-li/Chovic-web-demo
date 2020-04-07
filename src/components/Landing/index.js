@@ -150,7 +150,7 @@ class Landing extends Component {
                 </Section>
 
                 <SectionLeft id="section2" background="AntiqueWhite">
-                    <h1 className={classes.title}>WHY IT WILL WORK</h1>
+                    <h1 className={classes.title}>WHY IT WORKS</h1>
                 </SectionLeft>
                 <SectionRight background="Seashell" >
                     <Grid>
