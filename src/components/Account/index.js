@@ -12,16 +12,20 @@ import {
   withEmailVerification
 } from "../Session";
 import { withFirebase } from "../Firebase";
-import member from "../../assets/member.png";
 import * as ROUTES from '../../constants/routes';
+import "./account.css";
 
 const useStyles = makeStyles(theme => ({
   pageTitle: {
     fontWeight: 500,
-    marginBottom: 50
+    marginBottom: 50,
+    marginRight: 10
   },
-  image: {
-    marginLeft: 25
+  pro: {
+    backgroundColor: "salmon",
+    color: "white",
+    borderRadius: "20px",
+    width: "40px",
   },
   content: {
     marginTop: 30
@@ -45,13 +49,13 @@ const AccountPage = () => {
   return (
     <AuthUserContext.Consumer>
       {authUser => (
-        <div
-          style={{ position: "absolute", left: "10%", top: "5%", width: "60%" }}
-        >
-          {isMember && <img className={classes.image} src={member} alt="img1" />}
-          <Typography variant="h4" className={classes.pageTitle}>
-            Account
-          </Typography>
+        <div className="page">
+          <div className="proAccount">
+            <Typography variant="h4" className={classes.pageTitle}>
+              Account
+            </Typography>
+            {isMember && <Typography variant="subtitle2" className={classes.pro}>&nbsp;PRO&nbsp;</Typography>}
+          </div>
           <Typography variant="h5">Email:</Typography>
           <Typography variant="h6">{authUser.email}</Typography>
           <br/>
