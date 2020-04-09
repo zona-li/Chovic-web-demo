@@ -24,7 +24,7 @@ const useStyles = makeStyles(theme => ({
         paddingLeft: 250,
     },
     signUpOption: {
-        marginLeft: 200,
+        marginLeft: 180,
         display: "inline-block"
     },
     signUpText: {

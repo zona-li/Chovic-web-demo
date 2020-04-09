@@ -14,13 +14,10 @@ const useStyles = makeStyles(theme => ({
         marginLeft: 100,
         color: "#505050",
     },
-    text: {
-        display: "inline-block"
-    },
     link: {
         textDecoration: "none",
         color: "#283593",
-        marginLeft: 145
+        marginLeft: 10
     },
     button: {
         marginTop: 30,
@@ -98,7 +95,7 @@ const PasswordForgetFormBase = props => {
 const PasswordForgetLink = () => {
     const classes = useStyles();
     return (
-        <Typography variant="subtitle2" className={classes.text} >
+        <Typography variant="subtitle2" >
             <Link className={classes.link} to={ROUTES.PASSWORD_FORGET}>Forgot Password?</Link>
         </Typography>
     );

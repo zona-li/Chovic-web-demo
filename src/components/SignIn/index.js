@@ -39,6 +39,7 @@ const useStyles = makeStyles(theme => ({
     },
     button: {
         margin: theme.spacing(1),
+        marginTop: 30,
         display: "inline-block"
     },
     googleButton: {
@@ -62,6 +63,15 @@ const useStyles = makeStyles(theme => ({
         display: "inline-block",
         position: "relative",
         top: -5
+    },
+    signInOption: {
+        display: "inline-block",
+        marginLeft: 180
+    },
+    signInLink: {
+        marginLeft: 10,
+        textDecoration: "none",
+        color: "#283593"
     }
 }));
 
@@ -94,10 +104,12 @@ const SignInPage = () => {
 };
 
 const SignInLink = () => {
+    const classes = useStyles();
     return (
-        <Typography variant="subtitle1">
+        <Typography variant="subtitle1" className={classes.signInOption}>
             or
-            <NavLink 
+            <NavLink
+                className={classes.signInLink}
                 to={ROUTES.SIGN_IN}
             >Sign In</NavLink>
         </Typography>
@@ -173,10 +185,10 @@ const SignInFormBase = (props) => {
                 margin="normal"
                 onChange={onChange}                    
             />
+            <PasswordForgetLink />
             <Button disabled={isInvalid} className={classes.button} variant="contained" type="submit">
                 Sign In
             </Button>
-            <PasswordForgetLink />
 
             {error && <p>{error.message}</p>}
         </form>
