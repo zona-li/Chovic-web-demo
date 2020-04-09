@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { withRouter } from 'react-router-dom';
+import { withRouter, NavLink } from 'react-router-dom';
 import { compose } from 'recompose';
 import Grid from '@material-ui/core/Grid';
 import { makeStyles } from '@material-ui/core/styles';
@@ -90,6 +90,17 @@ const SignInPage = () => {
                 </Grid>
             </Grid>
         </div>
+    );
+};
+
+const SignInLink = () => {
+    return (
+        <Typography variant="subtitle1">
+            or
+            <NavLink 
+                to={ROUTES.SIGN_IN}
+            >Sign In</NavLink>
+        </Typography>
     );
 };
 
@@ -231,4 +242,4 @@ const SignInGoogle = compose(
 
 export default SignInPage;
 
-export { SignInForm, SignInGoogle };
+export { SignInForm, SignInGoogle, SignInLink };

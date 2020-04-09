@@ -12,6 +12,7 @@ import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
 import signInPic from '../../assets/signIn.png';
+import { SignInLink } from '../SignIn';
 
 import './styles.css';
 
@@ -58,6 +59,7 @@ const SignUpPage = () => {
         <Grid item xs>
             <div className={matches ? "" : `${classes.signUp}`}>
                 <Typography variant="h6" className={classes.signUpText}>Sign up</Typography>
+                <SignInLink />
                 <SignUpForm />
             </div>
         </Grid>
