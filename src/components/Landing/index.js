@@ -179,8 +179,7 @@ class Landing extends Component {
                                     <Chat />
                                 </ListItemIcon>
                                 <ListItemText classes={{primary: classes.listItemText}}>
-                                    We hold regular talks on topics such as health, finance, behavioral science, and career to share the proven ways of improving 
-                                    the quality of our lives.
+                                    We hold regular talks on health, personal finance, how to learn quickly and effectively, career development, and other personal development related topics.
                                 </ListItemText>
                             </ListItem>
                         </List>
@@ -192,7 +191,8 @@ class Landing extends Component {
                 </SectionRight>
 
                 <Section id="section3" background="PowderBlue">
-                    <h1 className={classes.title2}><strong>Ready for the challenge? <br/><StyledLink decoration='underline' to={ROUTES.SIGN_UP}>Sign up now</StyledLink></strong> to start the journey</h1>
+                    <h1 className={classes.title2}><strong>Ready for the challenge? <br/><StyledLink decoration='underline' to={ROUTES.SIGN_UP}>Sign up now</StyledLink></strong> to access the tools and
+                    resources we offer.</h1>
                 </Section>
             </div>
         )

@@ -11,7 +11,7 @@ import useMediaQuery from '@material-ui/core/useMediaQuery';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
 import * as ROLES from '../../constants/roles';
-import signInPic from '../../assets/signIn.png';
+import signInImage from '../../assets/signIn.png';
 import { SignInLink } from '../SignIn';
 
 import './styles.css';
@@ -21,7 +21,6 @@ const useStyles = makeStyles(theme => ({
         margin: 100
     },
     signUp: {
-        paddingLeft: 250,
     },
     signUpOption: {
         marginLeft: 180,
@@ -32,7 +31,11 @@ const useStyles = makeStyles(theme => ({
         display: "inline-block"
     },
     signInImage: {
-        width: 300,
+        width: 400,
+        height: 300,
+    },
+    signInImageWide: {
+        width: 400,
         height: 300,
         paddingLeft: 250
     },
@@ -50,14 +53,14 @@ const useStyles = makeStyles(theme => ({
 
 const SignUpPage = () => {
     const classes  = useStyles();
-    const matches = useMediaQuery('(min-width:1100px)');
+    const wideScreen = useMediaQuery('(min-width:1300px)');
     return (
     <Grid container spacing={2} className={classes.root}>
         <Grid item xs>
-            <img src={signInPic} alt="signIn" className={classes.signInImage} />
+            <img src={signInImage} alt="signIn" className={wideScreen ? `${classes.signInImageWide}` : `${classes.signInImage}`} />
         </Grid>
         <Grid item xs>
-            <div className={matches ? "" : `${classes.signUp}`}>
+            <div className={classes.signUp}>
                 <Typography variant="h6" className={classes.signUpText}>Sign up</Typography>
                 <SignInLink />
                 <SignUpForm />

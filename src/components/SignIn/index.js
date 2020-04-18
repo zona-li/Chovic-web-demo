@@ -14,7 +14,7 @@ import { SignUpLink } from '../SignUp';
 import { PasswordForgetLink } from '../PasswordForget';
 import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
-import signInBird from '../../assets/signIn.png';
+import signInImage from '../../assets/signIn.png';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -24,12 +24,13 @@ const useStyles = makeStyles(theme => ({
         width: 350,
     },
     signInImage: {
-        width: 300,
+        width: 400,
         height: 300,
-        paddingLeft: 150
     },
-    signIn: {
-        paddingLeft: 150,
+    signInImageWide: {
+        width: 400,
+        height: 300,
+        paddingLeft: 250,
     },
     textField: {
         marginLeft: theme.spacing(1),
@@ -77,26 +78,24 @@ const useStyles = makeStyles(theme => ({
 
 const SignInPage = () => {
     const classes = useStyles();
-    const matches = useMediaQuery('(min-width:1100px)');
+    const wideScreen = useMediaQuery('(min-width:1300px)');
     return (
         <div className={classes.root}>
             <Grid container spacing={2}>
                 <Grid item xs>
-                    <img src={signInBird} alt="signIn" className={classes.signInImage} />
+                    <img src={signInImage} alt="signIn" className={wideScreen ? `${classes.signInImageWide}` : `${classes.signInImage}`} />
                 </Grid>
                 <Grid item xs>
-                    <div className={matches ? "" : `${classes.signIn}`}>
-                        <Typography variant="h6" className={classes.signInText}>Sign in</Typography>
-                        <SignUpLink />
-                        <SignInGoogle />
-                        <div className={classes.line}>
-                        <Divider className={classes.divider} />
-                            <Typography variant="subtitle1" className={classes.or} >or</Typography>
-                        <Divider className={classes.divider} />
-                        </div>
-                        
-                        <SignInForm />
+                    <Typography variant="h6" className={classes.signInText}>Sign in</Typography>
+                    <SignUpLink />
+                    <SignInGoogle />
+                    <div className={classes.line}>
+                    <Divider className={classes.divider} />
+                        <Typography variant="subtitle1" className={classes.or} >or</Typography>
+                    <Divider className={classes.divider} />
                     </div>
+                    
+                    <SignInForm />
                 </Grid>
             </Grid>
         </div>
