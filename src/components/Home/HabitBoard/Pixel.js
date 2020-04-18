@@ -7,7 +7,6 @@ export default (props) => {
     let className = background + ' pixel ' + pixelType;
     let todayDate = '';
     if (day === today && pixelType === 'day-of-month') {
-        className = 'today';
         todayDate = 'todayDate'
     }
     

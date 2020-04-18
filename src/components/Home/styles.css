@@ -25,7 +25,6 @@
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    /* height: 100vh; */
 }
 
 .pixel {
@@ -46,18 +45,11 @@
     cursor: default;
 }
 
-.today {
-    width: 20px;
-    height: 20px;
-    background-color: moccasin;
-    border-radius: 25px;
-    position: relative;
-    bottom: 2px;
-}
-
 .todayDate {
-    position: relative;
-    left: 6px;
+    background-color: Salmon;
+    border-radius: 5px;
+    font-weight: bold;
+    color: white;
 }
 
 .habit {
