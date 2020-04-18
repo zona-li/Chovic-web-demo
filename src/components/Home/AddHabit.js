@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
+import { FormHelperText } from '@material-ui/core';
 import { useStyles } from '../../theme';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
@@ -13,6 +14,7 @@ const initialState = {
 
 export default props => {
     const [values, handleChange] = useForm(initialState);
+    const [showError, setShowError] = useState(false);
     const classes = useStyles();
 
     const handleSubmit = e => {
@@ -20,6 +22,15 @@ export default props => {
         if (values.habit) {
             props.onSubmitNewHabit(values);
             handleChange(initialState);
+        }
+    }
+
+    const handleHabitChange = e => {
+        handleChange(e);
+        if (e.target.value.length > 19) {
+            setShowError(true);
+        } else if (showError) {
+            setShowError(false);
         }
     }
 
@@ -31,7 +42,7 @@ export default props => {
                 margin="normal"
                 value={values.habit}
                 name="habit"
-                onChange={handleChange}
+                onChange={handleHabitChange}
                 inputProps={{ maxLength: 20 }}
                 onKeyPress={e => {if (e.key === 'Enter') e.preventDefault()}}
             />
@@ -68,6 +79,7 @@ export default props => {
             >
                 <AddIcon />
             </Fab>
+            {showError && <FormHelperText error={true} className={classes.leftSpacing}>Try to keep it less than 20 characters.</FormHelperText>}
         </form>
     )
 }
