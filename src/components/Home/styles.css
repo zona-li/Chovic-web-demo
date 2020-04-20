@@ -1,12 +1,15 @@
 .white {
   background-color: GhostWhite;
 }
+
 .lightblue {
   background-color: powderblue;
 }
+
 .blue {
   background-color: skyblue;
 }
+
 .darkblue {
   background-color: deepskyblue;
 }
@@ -55,6 +58,10 @@
 .habit {
   width: 180px;
   font-size: 0.8em;
+}
+
+.spaceAlign {
+  width: 142px;
 }
 
 .habitIconDelete {
