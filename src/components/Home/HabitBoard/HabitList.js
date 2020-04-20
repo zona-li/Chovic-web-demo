@@ -4,9 +4,10 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 
 import HabitItem from './HabitItem';
 import Canvas from './Canvas';
+import { withFirebase } from '../../Firebase';
 
 const HabitList = (props) => {
-  const { habits, setHabitChecked } = props;
+  const { habits, setHabits, setHabitChecked, firebase } = props;
   const habitItems = habits.map((habit) => (
     <div className={'habitList'} key={habit}>
       <HabitItem habit={habit} />
@@ -15,19 +16,38 @@ const HabitList = (props) => {
         userId={props.userId}
         setHabitChecked={setHabitChecked}
       />
-      <HabitDelete />
+      <HabitDelete
+        habit={habit}
+        habits={habits}
+        setHabits={setHabits}
+        firebase={firebase}
+      />
     </div>
   ));
 
   return habitItems;
 };
 
-const HabitDelete = () => {
+const HabitDelete = ({ habit, habits, setHabits, firebase }) => {
+  const deleteHabit = () => {
+    console.log('delete', habit, 'from', habits);
+    const newHabits = habits.filter((oldHabit) => oldHabit !== habit);
+    setHabits(newHabits);
+    firebase
+      .deleteHabit(firebase.auth.currentUser.uid, habit)
+      .then(function () {
+        console.log('Document successfully deleted!');
+      })
+      .catch(function (error) {
+        console.error('Error removing document: ', error);
+      });
+  };
+
   return (
-    <IconButton aria-label="delete" size="small">
+    <IconButton aria-label="delete" size="small" onClick={deleteHabit}>
       <HighlightOffIcon fontSize="small" className={'habitIconDelete'} />
     </IconButton>
   );
 };
 
-export default HabitList;
+export default withFirebase(HabitList);
