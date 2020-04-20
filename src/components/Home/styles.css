@@ -1,70 +1,72 @@
 .white {
-    background-color: GhostWhite;
+  background-color: GhostWhite;
 }
 .lightblue {
-    background-color: powderblue;
+  background-color: powderblue;
 }
 .blue {
-    background-color: skyblue;
+  background-color: skyblue;
 }
 .darkblue {
-    background-color: deepskyblue;
+  background-color: deepskyblue;
 }
 
 .content {
-    top: 5%;
-    left: 10%;
-    position: absolute;
+  top: 5%;
+  left: 10%;
+  position: absolute;
 }
 
 .colorpicker {
-    display: flex;
+  display: flex;
 }
 
 .habitList {
-    display: flex;
-    align-items: flex-start;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .pixel {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .pixel.tracker {
-    border: 1px solid Gainsboro;
-    box-sizing: border-box;
-    cursor: pointer;
+  border: 1px solid Gainsboro;
+  box-sizing: border-box;
+  cursor: pointer;
 }
 
 .pixel.day-of-month {
-    text-align: center;
-    font-size: 11px;
-    background-color: white;
-    cursor: default;
+  text-align: center;
+  font-size: 11px;
+  background-color: white;
+  cursor: default;
 }
 
 .todayDate {
-    background-color: Salmon;
-    border-radius: 5px;
-    font-weight: bold;
-    color: white;
+  background-color: Salmon;
+  border-radius: 5px;
+  font-weight: bold;
+  color: white;
 }
 
 .habit {
-    margin: 0;
-    width: 100px;
-    font-size: 0.8em;
+  width: 180px;
+  font-size: 0.8em;
+}
+
+.habitIconDelete {
+  color: salmon;
 }
 
 .month {
-    color: SteelBlue;
+  color: SteelBlue;
 }
 
 .canvas {
-    display: flex;
-    align-self: flex-start;
-    /* flex-wrap: wrap; */
-    max-width: 900px;
+  display: flex;
+  max-width: 900px;
+  margin-right: 10px;
 }
