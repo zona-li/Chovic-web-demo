@@ -10,6 +10,7 @@ const withAuthentication = (Component) => {
 
       this.state = {
         authUser: JSON.parse(sessionStorage.getItem('authUser')),
+        isMember: false,
       };
     }
 
@@ -18,10 +19,17 @@ const withAuthentication = (Component) => {
         (authUser) => {
           sessionStorage.setItem('authUser', JSON.stringify(authUser));
           this.setState({ authUser });
+          this.props.firebase.checkPayment(authUser.uid).then((docs) => {
+            docs.forEach((doc) => {
+              if (doc.data().status === 'succeeded') {
+                this.setState({ isMember: true });
+              }
+            });
+          });
         },
         () => {
           sessionStorage.removeItem('authUser');
-          this.setState({ authUser: null });
+          this.setState({ authUser: null, isMember: false });
         }
       );
     }
@@ -31,6 +39,7 @@ const withAuthentication = (Component) => {
     }
 
     render() {
+      console.log('this.state: ', this.state);
       return (
         <AuthUserContext.Provider value={this.state}>
           <Component {...this.props} />
