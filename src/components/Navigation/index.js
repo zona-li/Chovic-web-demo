@@ -9,73 +9,63 @@ import { Nav } from '../../elements/Nav';
 import { List, ListItem } from '@material-ui/core';
 
 const Navigation = () => (
-    <AuthUserContext.Consumer>
-        {authUser =>
-            authUser ? (
-                <NavigationAuth authUser={authUser} />
-            ) : (
-                <NavigationNonAuth />
-            )
-        }
-    </AuthUserContext.Consumer>
+  <AuthUserContext.Consumer>
+    {(authUser) =>
+      authUser ? <NavigationAuth authUser={authUser} /> : <NavigationNonAuth />
+    }
+  </AuthUserContext.Consumer>
 );
 
 const NavigationAuth = ({ authUser }) => (
-    <Nav>
-        <List>
-            <ListItem>
-                <HeaderLink to={ROUTES.LANDING}>Home</HeaderLink>
-            </ListItem>
-        </List>
-        <List>
-            <ListItem>
-                <HeaderLink to={ROUTES.HOME}>Habits</HeaderLink>
-            </ListItem>
-        </List>
-        <List>
-            <ListItem>
-                <HeaderLink to={ROUTES.ACCOUNT}>Account</HeaderLink>
-            </ListItem>
-        </List>
-        <List>
-            <ListItem>
-                {authUser.roles && authUser.roles.includes(ROLES.ADMIN) && (
-                    <HeaderLink to={ROUTES.ADMIN}>Admin</HeaderLink>
-                )}
-            </ListItem>
-        </List>
-        <List>
-            <ListItem>
-                <SignOutButton />
-            </ListItem>
-        </List>
-    </Nav>
+  <Nav>
+    <List>
+      <ListItem>
+        <HeaderLink to={ROUTES.LANDING}>Home</HeaderLink>
+      </ListItem>
+    </List>
+    <List>
+      <ListItem>
+        <HeaderLink to={ROUTES.HOME}>Habits</HeaderLink>
+      </ListItem>
+    </List>
+    <List>
+      <ListItem>
+        <HeaderLink to={ROUTES.ACCOUNT}>Account</HeaderLink>
+      </ListItem>
+    </List>
+    <List>
+      <ListItem>
+        {authUser.roles && authUser.roles.includes(ROLES.ADMIN) && (
+          <HeaderLink to={ROUTES.ADMIN}>Admin</HeaderLink>
+        )}
+      </ListItem>
+    </List>
+    <List>
+      <ListItem>
+        <SignOutButton />
+      </ListItem>
+    </List>
+  </Nav>
 );
 
 const NavigationNonAuth = () => (
-    <Nav>
-        <List>
-            <ListItem>
-                <HeaderLink to={ROUTES.LANDING}>Home</HeaderLink>
-            </ListItem>
-        </List>
-        <List>
-            <ListItem>
-                <HeaderLink to={ROUTES.SIGN_IN}>Sign In</HeaderLink>
-            </ListItem>
-        </List>
-        <List>
-            <ListItem>
-                <HeaderLink to={ROUTES.SIGN_UP}>Join Us</HeaderLink>
-            </ListItem>
-        </List>
-        <List>
-            <ListItem>
-                <HeaderLink to={ROUTES.CONTACT}>Contact</HeaderLink>
-            </ListItem>
-        </List>
-    </Nav>    
+  <Nav>
+    <List>
+      <ListItem>
+        <HeaderLink to={ROUTES.LANDING}>Home</HeaderLink>
+      </ListItem>
+    </List>
+    <List>
+      <ListItem>
+        <HeaderLink to={ROUTES.SIGN_IN}>Sign In</HeaderLink>
+      </ListItem>
+    </List>
+    <List>
+      <ListItem>
+        <HeaderLink to={ROUTES.CONTACT}>Contact</HeaderLink>
+      </ListItem>
+    </List>
+  </Nav>
 );
-
 
 export default Navigation;
