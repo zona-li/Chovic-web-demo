@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react';
+import React, { Component } from 'react';
 import { compose } from 'recompose';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -45,10 +45,9 @@ const SIGN_IN_METHODS = [
 
 const AccountPage = () => {
   const classes = useStyles();
-  const [isMember, setIsMember] = useState(false);
   return (
     <AuthUserContext.Consumer>
-      {({ authUser }) => (
+      {({ authUser, isMember }) => (
         <div className="page">
           <div className="proAccount">
             <Typography variant="h4" className={classes.pageTitle}>
@@ -68,7 +67,6 @@ const AccountPage = () => {
           </Typography>
           <PasswordChangeForm />
           <LoginManagement authUser={authUser} />
-          <PaymentInfo authUser={authUser} setIsMember={setIsMember} />
           <br />
           {!isMember && (
             <>
@@ -84,42 +82,6 @@ const AccountPage = () => {
     </AuthUserContext.Consumer>
   );
 };
-
-class PaymentInfoBase extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      succeeded: null,
-    };
-  }
-
-  componentDidMount() {
-    // Fetch payment card info
-    const { firebase, authUser, setIsMember } = this.props;
-    const data = firebase.checkPayment(authUser.uid);
-    data
-      .then(
-        (docs) => {
-          docs.forEach((doc) => {
-            if (doc.data().status === 'succeeded') {
-              this.setState({ succeeded: true });
-            }
-          });
-        },
-        (err) => {
-          console.log(`Encountered error fetching stripe user: ${err}`);
-        }
-      )
-      .then((_) => {
-        if (this.state.succeeded) setIsMember(true);
-      });
-  }
-
-  render() {
-    return null;
-  }
-}
 
 class LoginManagementBase extends Component {
   constructor(props) {
@@ -289,7 +251,6 @@ class DefaultLoginToggle extends Component {
 }
 
 const LoginManagement = withFirebase(LoginManagementBase);
-const PaymentInfo = withFirebase(PaymentInfoBase);
 const condition = (authUser) => !!authUser;
 
 export default compose(
