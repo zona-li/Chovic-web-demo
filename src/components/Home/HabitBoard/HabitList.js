@@ -1,6 +1,7 @@
 import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
+import Tooltip from '@material-ui/core/Tooltip';
 
 import HabitItem from './HabitItem';
 import Canvas from './Canvas';
@@ -44,9 +45,11 @@ const HabitDelete = ({ habit, habits, setHabits, firebase }) => {
   };
 
   return (
-    <IconButton aria-label="delete" size="small" onClick={deleteHabit}>
-      <HighlightOffIcon fontSize="small" className={'habitIconDelete'} />
-    </IconButton>
+    <Tooltip title="Remove Habit">
+      <IconButton aria-label="delete" size="small" onClick={deleteHabit}>
+        <HighlightOffIcon fontSize="small" className={'habitIconDelete'} />
+      </IconButton>
+    </Tooltip>
   );
 };
 

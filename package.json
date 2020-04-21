@@ -14,9 +14,7 @@
     "react-stripe-elements": "^3.0.0",
     "recompose": "^0.30.0",
     "stripe": "^8.9.0",
-    "styled-components": "^4.3.2",
-    "ts-node": "^8.8.2",
-    "typescript": "^3.8.3"
+    "styled-components": "^4.3.2"
   },
   "scripts": {
     "start": "react-scripts start",
