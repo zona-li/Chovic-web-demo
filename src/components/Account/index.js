@@ -1,46 +1,46 @@
-import React, { Component, useState } from "react";
-import { compose } from "recompose";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
+import React, { Component, useState } from 'react';
+import { compose } from 'recompose';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import { Link } from 'react-router-dom';
 
-import PasswordChangeForm from "../PasswordChange";
+import PasswordChangeForm from '../PasswordChange';
 import {
   AuthUserContext,
   withAuthorization,
-  withEmailVerification
-} from "../Session";
-import { withFirebase } from "../Firebase";
+  withEmailVerification,
+} from '../Session';
+import { withFirebase } from '../Firebase';
 import * as ROUTES from '../../constants/routes';
-import "./account.css";
+import './account.css';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   pageTitle: {
     fontWeight: 500,
     marginBottom: 50,
-    marginRight: 10
+    marginRight: 10,
   },
   pro: {
-    backgroundColor: "salmon",
-    color: "white",
-    borderRadius: "20px",
-    width: "40px",
+    backgroundColor: 'salmon',
+    color: 'white',
+    borderRadius: '20px',
+    width: '40px',
   },
   content: {
-    marginTop: 30
-  }
+    marginTop: 30,
+  },
 }));
 
 const SIGN_IN_METHODS = [
   {
-    id: "password",
-    provider: null
+    id: 'password',
+    provider: null,
   },
   {
-    id: "google.com",
-    provider: "googleProvider"
-  }
+    id: 'google.com',
+    provider: 'googleProvider',
+  },
 ];
 
 const AccountPage = () => {
@@ -48,32 +48,37 @@ const AccountPage = () => {
   const [isMember, setIsMember] = useState(false);
   return (
     <AuthUserContext.Consumer>
-      {authUser => (
+      {(authUser) => (
         <div className="page">
           <div className="proAccount">
             <Typography variant="h4" className={classes.pageTitle}>
               Account
             </Typography>
-            {isMember && <Typography variant="subtitle2" className={classes.pro}>&nbsp;PRO&nbsp;</Typography>}
+            {isMember && (
+              <Typography variant="subtitle2" className={classes.pro}>
+                &nbsp;PRO&nbsp;
+              </Typography>
+            )}
           </div>
           <Typography variant="h5">Email:</Typography>
           <Typography variant="h6">{authUser.email}</Typography>
-          <br/>
-          <Typography variant="h5" className={classes.content}>Change Password:</Typography>
+          <br />
+          <Typography variant="h5" className={classes.content}>
+            Change Password:
+          </Typography>
           <PasswordChangeForm />
-          <LoginManagement authUser={authUser}/>
+          <LoginManagement authUser={authUser} />
           <PaymentInfo authUser={authUser} setIsMember={setIsMember} />
-          {
-            !isMember &&
+          <br />
+          {!isMember && (
             <>
-              <Typography variant="h5">Like what you've seen?</Typography>
-              <Typography variant="subtitle2">Lock in all upcoming features here.</Typography>
-              <br></br>
               <Button variant="contained">
-                <Link style={{ textDecoration: 'none' }} to={ROUTES.MEMBERSHIP}>yes!</Link>
+                <Link style={{ textDecoration: 'none' }} to={ROUTES.MEMBERSHIP}>
+                  Become a member
+                </Link>
               </Button>
             </>
-          }
+          )}
         </div>
       )}
     </AuthUserContext.Consumer>
@@ -85,7 +90,7 @@ class PaymentInfoBase extends Component {
     super(props);
 
     this.state = {
-      succeeded: null
+      succeeded: null,
     };
   }
 
@@ -93,20 +98,22 @@ class PaymentInfoBase extends Component {
     // Fetch payment card info
     const { firebase, authUser, setIsMember } = this.props;
     const data = firebase.checkPayment(authUser.uid);
-    data.then(
-      docs => {
-        docs.forEach(doc => {
-          if (doc.data().status === 'succeeded') {
-            this.setState({ succeeded: true });
-          }
-        });
-      },
-      err => {
-        console.log(`Encountered error fetching stripe user: ${err}`);
-      }
-    ).then(
-      _ => {if (this.state.succeeded) setIsMember(true);}
-    );
+    data
+      .then(
+        (docs) => {
+          docs.forEach((doc) => {
+            if (doc.data().status === 'succeeded') {
+              this.setState({ succeeded: true });
+            }
+          });
+        },
+        (err) => {
+          console.log(`Encountered error fetching stripe user: ${err}`);
+        }
+      )
+      .then((_) => {
+        if (this.state.succeeded) setIsMember(true);
+      });
   }
 
   render() {
@@ -120,7 +127,7 @@ class LoginManagementBase extends Component {
 
     this.state = {
       activeSignInMethods: [],
-      error: null
+      error: null,
     };
   }
 
@@ -131,27 +138,27 @@ class LoginManagementBase extends Component {
   fetchSignInMethods = () => {
     this.props.firebase.auth
       .fetchSignInMethodsForEmail(this.props.authUser.email)
-      .then(activeSignInMethods =>
+      .then((activeSignInMethods) =>
         this.setState({ activeSignInMethods, error: null })
       )
-      .catch(error => this.setState({ error }));
+      .catch((error) => this.setState({ error }));
   };
 
-  onSocialLoginLink = provider => {
+  onSocialLoginLink = (provider) => {
     this.props.firebase.auth.currentUser
       .linkWithPopup(this.props.firebase[provider])
       .then(this.fetchSignInMethods)
-      .catch(error => this.setState({ error }));
+      .catch((error) => this.setState({ error }));
   };
 
-  onUnlink = providerId => {
+  onUnlink = (providerId) => {
     this.props.firebase.auth.currentUser
       .unlink(providerId)
       .then(this.fetchSignInMethods)
-      .catch(error => this.setState({ error }));
+      .catch((error) => this.setState({ error }));
   };
 
-  onDefaultLoginLink = password => {
+  onDefaultLoginLink = (password) => {
     const credential = this.props.firebase.emailAuthProvider.credential(
       this.props.authUser.email,
       password
@@ -160,7 +167,7 @@ class LoginManagementBase extends Component {
     this.props.firebase.auth.currentUser
       .linkAndRetrieveDataWithCredential(credential)
       .then(this.fetchSignInMethods)
-      .catch(error => this.setState({ error }));
+      .catch((error) => this.setState({ error }));
   };
 
   render() {
@@ -168,14 +175,14 @@ class LoginManagementBase extends Component {
 
     return (
       <div>
-        <Typography variant="h5">Sign In Methods:</Typography>
+        <Typography variant="h5">Modify Your Sign In Methods:</Typography>
         <ul>
-          {SIGN_IN_METHODS.map(signInMethod => {
+          {SIGN_IN_METHODS.map((signInMethod) => {
             const onlyOneLeft = activeSignInMethods.length === 1;
             const isEnabled = activeSignInMethods.includes(signInMethod.id);
             return (
               <li key={signInMethod.id}>
-                {signInMethod.id === "password" ? (
+                {signInMethod.id === 'password' ? (
                   <DefaultLoginToggle
                     onlyOneLeft={onlyOneLeft}
                     isEnabled={isEnabled}
@@ -207,7 +214,7 @@ const SocialLoginToggle = ({
   isEnabled,
   signInMethod,
   onLink,
-  onUnlink
+  onUnlink,
 }) =>
   isEnabled ? (
     <Button
@@ -227,17 +234,17 @@ class DefaultLoginToggle extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { password: "", confirmPassword: "" };
+    this.state = { password: '', confirmPassword: '' };
   }
 
-  onSubmit = event => {
+  onSubmit = (event) => {
     event.preventDefault();
 
     this.props.onLink(this.state.password);
-    this.setState({ password: "", confirmPassword: "" });
+    this.setState({ password: '', confirmPassword: '' });
   };
 
-  onChange = event => {
+  onChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
@@ -246,7 +253,7 @@ class DefaultLoginToggle extends Component {
 
     const { password, confirmPassword } = this.state;
 
-    const isInvalid = password !== confirmPassword || confirmPassword === "";
+    const isInvalid = password !== confirmPassword || confirmPassword === '';
 
     return isEnabled ? (
       <Button
@@ -283,7 +290,7 @@ class DefaultLoginToggle extends Component {
 
 const LoginManagement = withFirebase(LoginManagementBase);
 const PaymentInfo = withFirebase(PaymentInfoBase);
-const condition = authUser => !!authUser;
+const condition = (authUser) => !!authUser;
 
 export default compose(
   withEmailVerification,
