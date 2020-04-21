@@ -48,7 +48,7 @@ const AccountPage = () => {
   const [isMember, setIsMember] = useState(false);
   return (
     <AuthUserContext.Consumer>
-      {(authUser) => (
+      {({ authUser }) => (
         <div className="page">
           <div className="proAccount">
             <Typography variant="h4" className={classes.pageTitle}>

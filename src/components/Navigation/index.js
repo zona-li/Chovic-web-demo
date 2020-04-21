@@ -10,7 +10,7 @@ import { List, ListItem } from '@material-ui/core';
 
 const Navigation = () => (
   <AuthUserContext.Consumer>
-    {(authUser) =>
+    {({ authUser }) =>
       authUser ? <NavigationAuth authUser={authUser} /> : <NavigationNonAuth />
     }
   </AuthUserContext.Consumer>
