@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { FormHelperText } from '@material-ui/core';
-import { useStyles } from '../../theme';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import Tooltip from '@material-ui/core/Tooltip';
 
+import { useStyles } from '../../theme';
 import useForm from './useForm';
 
 const initialState = {
@@ -37,7 +38,7 @@ export default (props) => {
   return (
     <form>
       <TextField
-        label="Add Habit"
+        label="Habit name"
         className={classes.textField}
         margin="normal"
         value={values.habit}
@@ -69,15 +70,17 @@ export default (props) => {
         <option value="finance">Personal Finance</option>
         <option value="fam">Relationships</option>
       </TextField>
-      <Fab
-        color="primary"
-        aria-label="add"
-        size="small"
-        className={classes.fab}
-        onClick={handleSubmit}
-      >
-        <AddIcon />
-      </Fab>
+      <Tooltip title="Add Habit">
+        <Fab
+          color="primary"
+          aria-label="add"
+          size="small"
+          className={classes.fab}
+          onClick={handleSubmit}
+        >
+          <AddIcon />
+        </Fab>
+      </Tooltip>
       {showError && (
         <FormHelperText error={true} className={classes.leftSpacing}>
           Try to keep it less than 20 characters.

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 import { SectionLeft, SectionRight, Section } from '../../elements/Section';
 import { P } from '../../elements/P';
@@ -75,7 +76,7 @@ const styles = (theme) => ({
   },
   title2: {
     color: 'SandyBrown',
-    fontSize: '6em',
+    fontSize: '5em',
     margin: '10vw',
     [theme.breakpoints.down('sm')]: {
       fontSize: '15vw',
@@ -117,16 +118,16 @@ class Landing extends Component {
               disciplined, and procrastinate less.
             </H1>
             <P>
-              Have you ever had an idea but find it difficult to realize? or had
-              a goal but always fall short? Most of the time, it is because you
+              Have you ever had an idea but find it difficult to realize? Or had
+              a goal but always fell short? Most of the time, it is because you
               are deploying the wrong method or lack a supportive community to
               keep you accountable. Join a group of people who relentlessly seek
-              to learn, improve, and constantly challenge themselves to do
+              to learn, improve, and continuously challenge themselves to do
               better. Chovic is a gathering place for people who are unwilling
               to settle, who pushes hard and persist. Here, you will meet
-              incredible people, find supports, learn the methods that will help
-              you succeed, have fun, and, most importantly, achieve the goals
-              you set for yourself.
+              incredible people, find support, learn the methods that will help
+              you succeed, and, most importantly, achieve the goals you set for
+              yourself.
             </P>
           </SectionRight>
           <section id="section0">
@@ -140,14 +141,15 @@ class Landing extends Component {
           <Grid className={classes.root} container spacing={1}>
             <Grid className={classes.text} item md={6} sm={12}>
               <P style={{ marginLeft: '10vw' }}>
-                We have a Meetup group based in Charlottesville, Virginia. The
-                group meets once a week to discuss goals, draft out weekly
-                plans, and share anything we learned from the previous week. We
-                keep track of each individual’s progress on our website, which
-                offers the tool to help each person to build up good habits. We
-                occasionally have group challenges that aim to encourage people
-                to step out of their comfort zone and experiment with different
-                methods of improving their lives.
+                Members from the group meet once a month to discuss goals, write
+                down plans, and share the things we learned from the previous
+                month. We keep track of each individual’s progress on our
+                website and support each other through the social platform we
+                use. Simply{' '}
+                <Link decoration="none" to={ROUTES.SIGN_UP}>
+                  sign up
+                </Link>{' '}
+                to become one of our members.
               </P>
             </Grid>
             <Grid className={classes.pic} item xs={6}>
@@ -197,7 +199,7 @@ class Landing extends Component {
                   <ListItemText classes={{ primary: classes.listItemText }}>
                     We hold regular talks on health, personal finance, how to
                     learn quickly and effectively, career development, and other
-                    personal development related topics.
+                    topics related to personal growth.
                   </ListItemText>
                 </ListItem>
               </List>
@@ -211,7 +213,7 @@ class Landing extends Component {
         </SectionRight>
 
         <Section id="section3" background="PowderBlue">
-          <h1 className={classes.title2}>
+          <h2 className={classes.title2}>
             <strong>
               Ready for the challenge? <br />
               <StyledLink decoration="underline" to={ROUTES.SIGN_UP}>
@@ -219,7 +221,7 @@ class Landing extends Component {
               </StyledLink>
             </strong>{' '}
             to access the tools and resources we offer.
-          </h1>
+          </h2>
         </Section>
       </div>
     );
