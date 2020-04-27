@@ -136,7 +136,7 @@ class LoginManagementBase extends Component {
     const { activeSignInMethods, error } = this.state;
 
     return (
-      <div>
+      <div style={{ marginTop: '50px' }}>
         <Typography variant="h5">Modify Your Sign In Methods:</Typography>
         <ul>
           {SIGN_IN_METHODS.map((signInMethod) => {
