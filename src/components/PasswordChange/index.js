@@ -40,12 +40,17 @@ const PasswordChangeForm = (props) => {
     }
   };
 
+  const onFormInput = (event) => {
+    handleChange(event);
+    setError(null);
+  };
+
   return (
     <form onSubmit={onSubmit}>
       <TextField
         name="passwordOne"
         value={values.passwordOne}
-        onChange={handleChange}
+        onChange={onFormInput}
         type="password"
         placeholder="New Password"
         className={classes.inputField}
@@ -53,7 +58,7 @@ const PasswordChangeForm = (props) => {
       <TextField
         name="passwordTwo"
         value={values.passwordTwo}
-        onChange={handleChange}
+        onChange={onFormInput}
         type="password"
         placeholder="Confirm New Password"
       />
