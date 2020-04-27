@@ -1,16 +1,16 @@
-"use strict";
-const functions = require("firebase-functions");
-const admin = require("firebase-admin");
+'use strict';
+const functions = require('firebase-functions');
+const admin = require('firebase-admin');
 admin.initializeApp();
-const logging = require("@google-cloud/logging")();
-const stripe = require("stripe")(functions.config().stripe.token);
-stripe.setApiVersion('2019-12-03');
-const currency = functions.config().stripe.currency || "USD";
+const logging = require('@google-cloud/logging')();
+const stripe = require('stripe')(functions.config().stripe.token);
+stripe.setApiVersion('2020-03-02');
+const currency = functions.config().stripe.currency || 'USD';
 
 // [START chargecustomer]
 // Charge the Stripe customer whenever an amount is written to the database
 exports.createStripeCharge = functions.firestore
-  .document("stripe_customers/{userId}/charges/{id}")
+  .document('stripe_customers/{userId}/charges/{id}')
   .onCreate(async (snap, context) => {
     const val = snap.data();
     try {
@@ -31,7 +31,7 @@ exports.createStripeCharge = functions.firestore
         charge.source = val.source;
       }
       const response = await stripe.charges.create(charge, {
-        idempotency_key: idempotencyKey
+        idempotency_key: idempotencyKey,
       });
       // If the result is successful, write it back to the database
       return snap.ref.set(response, { merge: true });
@@ -46,18 +46,18 @@ exports.createStripeCharge = functions.firestore
 // [END chargecustomer]]
 
 // When a user is created, register them with Stripe
-exports.createStripeCustomer = functions.auth.user().onCreate(async user => {
+exports.createStripeCustomer = functions.auth.user().onCreate(async (user) => {
   const customer = await stripe.customers.create({ email: user.email });
   return admin
     .firestore()
-    .collection("stripe_customers")
+    .collection('stripe_customers')
     .doc(user.uid)
     .set({ customer_id: customer.id });
 });
 
 // Add a payment source (card) for a user by writing a stripe payment source token to the database
 exports.addPaymentSource = functions.firestore
-  .document("/stripe_customers/{userId}/tokens/{pushId}")
+  .document('/stripe_customers/{userId}/tokens/{pushId}')
   .onCreate(async (snap, context) => {
     const source = snap.data();
     const token = source.token;
@@ -68,18 +68,18 @@ exports.addPaymentSource = functions.firestore
     try {
       const snapshot = await admin
         .firestore()
-        .collection("stripe_customers")
+        .collection('stripe_customers')
         .doc(context.params.userId)
         .get();
       const customer = snapshot.data().customer_id;
       const response = await stripe.customers.createSource(customer, {
-        source: token
+        source: token,
       });
       return admin
         .firestore()
-        .collection("stripe_customers")
+        .collection('stripe_customers')
         .doc(context.params.userId)
-        .collection("sources")
+        .collection('sources')
         .doc(response.fingerprint)
         .set(response, { merge: true });
     } catch (error) {
@@ -89,17 +89,17 @@ exports.addPaymentSource = functions.firestore
   });
 
 // When a user deletes their account, clean up after them
-exports.cleanupUser = functions.auth.user().onDelete(async user => {
+exports.cleanupUser = functions.auth.user().onDelete(async (user) => {
   const snapshot = await admin
     .firestore()
-    .collection("stripe_customers")
+    .collection('stripe_customers')
     .doc(user.uid)
     .get();
   const customer = snapshot.data();
   await stripe.customers.del(customer.customer_id);
   return admin
     .firestore()
-    .collection("stripe_customers")
+    .collection('stripe_customers')
     .doc(user.uid)
     .delete();
 });
@@ -112,15 +112,15 @@ function reportError(err, context = {}) {
   // This is the name of the StackDriver log stream that will receive the log
   // entry. This name can be any valid log stream name, but must contain "err"
   // in order for the error to be picked up by StackDriver Error Reporting.
-  const logName = "errors";
+  const logName = 'errors';
   const log = logging.log(logName);
 
   // https://cloud.google.com/logging/docs/api/ref_v2beta1/rest/v2beta1/MonitoredResource
   const metadata = {
     resource: {
-      type: "cloud_function",
-      labels: { function_name: process.env.FUNCTION_NAME }
-    }
+      type: 'cloud_function',
+      labels: { function_name: process.env.FUNCTION_NAME },
+    },
   };
 
   // https://cloud.google.com/error-reporting/reference/rest/v1beta1/ErrorEvent
@@ -128,14 +128,14 @@ function reportError(err, context = {}) {
     message: JSON.stringify(err.stack),
     serviceContext: {
       service: process.env.FUNCTION_NAME,
-      resourceType: "cloud_function"
+      resourceType: 'cloud_function',
     },
-    context: JSON.stringify(context)
+    context: JSON.stringify(context),
   };
 
   // Write the error log entry
   return new Promise((resolve, reject) => {
-    log.write(log.entry(metadata, errorEvent), error => {
+    log.write(log.entry(metadata, errorEvent), (error) => {
       if (error) {
         return reject(error);
       }
@@ -149,5 +149,5 @@ function reportError(err, context = {}) {
 function userFacingMessage(error) {
   return error.type
     ? error.message
-    : "An error occurred, developers have been alerted";
+    : 'An error occurred, developers have been alerted';
 }
