@@ -45,13 +45,26 @@ const TitleRight = styled.h1`
   }
 `;
 
-const Title = styled.h1`
+const Title = styled.div`
   @media (min-width: 768px) {
     display: none;
   }
   @media (max-width: 768px) {
     font-size: 25vw;
-    margin-top: 30vh;
+    padding-top: 50px;
+    padding-left: 15px;
+  }
+`;
+
+const Subtitle = styled.div`
+  @media (min-width: 768px) {
+    color: #e83f6f;
+    font-size: 6em;
+    margin-left: 50px;
+    margin-top: 100px;
+  }
+  @media (max-width: 768px) {
+    display: none;
   }
 `;
 
@@ -63,16 +76,6 @@ const styles = (theme) => ({
   },
   text: {
     color: 'MistyRose',
-  },
-  title: {
-    color: '#E83F6F',
-    fontSize: '6em',
-    display: 'inline-block',
-    marginLeft: '10%',
-    marginRight: '10%',
-    [theme.breakpoints.down('sm')]: {
-      fontSize: '15vw',
-    },
   },
   title2: {
     color: 'SandyBrown',
@@ -164,7 +167,7 @@ class Landing extends Component {
         </Section>
 
         <SectionLeft id="section2" background="AntiqueWhite">
-          <h1 className={classes.title}>WHY IT WORKS</h1>
+          <Subtitle>WHY IT WORKS</Subtitle>
         </SectionLeft>
         <SectionRight background="Seashell">
           <Grid>
@@ -217,7 +220,7 @@ class Landing extends Component {
             <strong>
               Ready for the challenge? <br />
               <StyledLink decoration="underline" to={ROUTES.SIGN_UP}>
-                Sign up now
+                Sign up
               </StyledLink>
             </strong>{' '}
             to access the tools and resources we offer.
