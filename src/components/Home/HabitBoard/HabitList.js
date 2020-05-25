@@ -31,13 +31,12 @@ const HabitList = (props) => {
 
 const HabitDelete = ({ habit, habits, setHabits, firebase }) => {
   const deleteHabit = () => {
-    console.log('delete', habit, 'from', habits);
     const newHabits = habits.filter((oldHabit) => oldHabit !== habit);
     setHabits(newHabits);
     firebase
       .deleteHabit(firebase.auth.currentUser.uid, habit)
       .then(function () {
-        console.log('Document successfully deleted!');
+        console.log('Habit successfully deleted!');
       })
       .catch(function (error) {
         console.error('Error removing document: ', error);

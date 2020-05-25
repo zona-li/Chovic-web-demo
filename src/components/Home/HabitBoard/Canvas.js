@@ -4,51 +4,49 @@ import Pixel from './Pixel';
 import { withFirebase } from '../../Firebase';
 import sound from '../../../assets/complete.wav';
 
-const Canvas = props => {
-    const date = new Date();
-    const days = new Date(date.getFullYear(), date.getMonth()+1, 0).getDate();
-    const { userId, habit, setHabitChecked, firebase } = props;
-    const [row, setRow] = useState(Array(days).fill().map(() => 0));
-    const audio = new Audio(sound);
+const Canvas = (props) => {
+  const { userId, habit, setHabitChecked, firebase } = props;
+  const [row, setRow] = useState([]);
+  const audio = new Audio(sound);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            const trackingData = await firebase.getHabitTrackerEntry(userId, habit);
-            setRow(trackingData);
-        }
-        fetchData();
-    }, [firebase, habit, userId, setRow]);
+  useEffect(() => {
+    const fetchData = async () => {
+      const trackingData = await firebase.getHabitTrackerEntry(userId, habit);
+      setRow(trackingData);
+    };
+    fetchData();
+  }, [firebase, habit, userId, setRow]);
 
-    const onHabitPixelClicked = (index) => {
-        // Update color
-        const newRow = JSON.parse(JSON.stringify(row));
-        let currentColorIndex = newRow[index];
-        if (currentColorIndex + 1 > 3) {
-            currentColorIndex = 0;
-        } else {
-            currentColorIndex += 1;
-            // Play sound
-            audio.play();
-        }
-        setHabitChecked(true);
-        newRow[index] = currentColorIndex;
-        setRow(newRow);
-        firebase.updateHabitTrackerEntry(userId, habit, newRow);
+  const onHabitPixelClicked = (index) => {
+    // Update color
+    const newRow = JSON.parse(JSON.stringify(row));
+    let currentColorIndex = newRow[index];
+    if (currentColorIndex + 1 > 3) {
+      currentColorIndex = 0;
+    } else {
+      currentColorIndex += 1;
+      // Play sound
+      audio.play();
     }
+    setHabitChecked(true);
+    newRow[index] = currentColorIndex;
+    setRow(newRow);
+    firebase.updateHabitTrackerEntry(userId, habit, newRow);
+  };
 
-    return (
-        <div className={'canvas'}>
-            {row.map((_, index) => {
-                return (
-                    <Pixel
-                        key={index}
-                        background={Colors[row[index]]}
-                        onClick={e => onHabitPixelClicked(index)}
-                    />
-                )
-            })}
-        </div>
-    );
-}
+  return (
+    <div className={'canvas'}>
+      {row.map((_, index) => {
+        return (
+          <Pixel
+            key={index}
+            background={Colors[row[index]]}
+            onClick={(e) => onHabitPixelClicked(index)}
+          />
+        );
+      })}
+    </div>
+  );
+};
 
 export default withFirebase(Canvas);
