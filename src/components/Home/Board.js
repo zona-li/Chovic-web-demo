@@ -6,6 +6,7 @@ import Typography from '@material-ui/core/Typography';
 import AddHabit from './AddHabit';
 import HabitList from './HabitBoard/HabitList';
 import DayOfMonth from './HabitBoard/DayOfMonth';
+import Spinner from '../../elements/Spinner';
 
 const useStyles = makeStyles((theme) => ({
   noHabit: {
@@ -19,7 +20,7 @@ const TheBoard = (props) => {
   const [habits, setHabits] = useState([]);
   // Whether habits are fetched from the DB.
   const [loaded, setLoaded] = useState(false);
-
+  const [loading, setLoading] = useState(false);
   // Whether the user has any habit stored in the DB.
   const [hasHabit, setHasHabit] = useState(false);
 
@@ -35,7 +36,10 @@ const TheBoard = (props) => {
       if (!existingHabits.length) setHasHabit(false);
       else setHasHabit(true);
     };
-    fetchData();
+    setLoading(true);
+    fetchData().then(() => {
+      setLoading(false);
+    });
   }, [firebase, userId]);
 
   useEffect(() => {
@@ -77,6 +81,7 @@ const TheBoard = (props) => {
       <div className="content">
         <AddHabit onSubmitNewHabit={addNewHabit} />
         <br />
+        {loading && <Spinner />}
         {loaded && hasHabit && <DayOfMonth />}
         {loaded && !hasHabit && <NoHabits />}
         <HabitList
