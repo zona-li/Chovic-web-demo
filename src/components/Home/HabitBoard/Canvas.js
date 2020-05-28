@@ -5,7 +5,7 @@ import { withFirebase } from '../../Firebase';
 import sound from '../../../assets/complete.wav';
 
 const Canvas = (props) => {
-  const { userId, habit, setHabitChecked, firebase } = props;
+  const { userId, habit, makeConfetti, firebase } = props;
   const [row, setRow] = useState([]);
   const audio = new Audio(sound);
 
@@ -28,7 +28,7 @@ const Canvas = (props) => {
       // Play sound
       audio.play();
     }
-    setHabitChecked(true);
+    makeConfetti();
     newRow[index] = currentColorIndex;
     setRow(newRow);
     firebase.updateHabitTrackerEntry(userId, habit, newRow);

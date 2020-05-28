@@ -8,15 +8,11 @@ import Canvas from './Canvas';
 import { withFirebase } from '../../Firebase';
 
 const HabitList = (props) => {
-  const { habits, setHabits, setHabitChecked, firebase } = props;
+  const { habits, setHabits, makeConfetti, firebase } = props;
   const habitItems = habits.map((habit) => (
     <div className={'habitList'} key={habit}>
       <HabitItem habit={habit} />
-      <Canvas
-        habit={habit}
-        userId={props.userId}
-        setHabitChecked={setHabitChecked}
-      />
+      <Canvas habit={habit} userId={props.userId} makeConfetti={makeConfetti} />
       <HabitDelete
         habit={habit}
         habits={habits}

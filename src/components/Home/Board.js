@@ -14,6 +14,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+const confettiSettings = { target: 'page', clock: '90' };
+
 const TheBoard = (props) => {
   const { authUser, firebase } = props;
   const userId = authUser.uid;
@@ -24,15 +26,12 @@ const TheBoard = (props) => {
   // Whether the user has any habit stored in the DB.
   const [hasHabit, setHasHabit] = useState(false);
 
-  // Whether user just clicked on a habit pixel.
-  const [habitChecked, setHabitChecked] = useState(false);
-
   useEffect(() => {
+    console.log('Fetching called', firebase, userId);
     const fetchData = async () => {
       const existingHabits = await firebase.habits(userId);
       setHabits(existingHabits);
       setLoaded(true);
-      console.log('fetched habits from DB ', existingHabits);
       if (!existingHabits.length) setHasHabit(false);
       else setHasHabit(true);
     };
@@ -50,17 +49,13 @@ const TheBoard = (props) => {
     }
   }, [habits]);
 
-  useEffect(() => {
-    const confettiSettings = { target: 'page', clock: '90' };
+  const makeConfetti = () => {
     const confetti = new ConfettiGenerator(confettiSettings);
-    if (habitChecked) {
-      confetti.render();
-      setTimeout(() => {
-        confetti.clear();
-        setHabitChecked(false);
-      }, 3000);
-    }
-  }, [habitChecked]);
+    confetti.render();
+    setTimeout(() => {
+      confetti.clear();
+    }, 3000);
+  };
 
   const addNewHabit = (values) => {
     const { habit, category } = values;
@@ -88,7 +83,7 @@ const TheBoard = (props) => {
           habits={habits}
           setHabits={setHabits}
           userId={userId}
-          setHabitChecked={setHabitChecked}
+          makeConfetti={makeConfetti}
         />
       </div>
     </>
