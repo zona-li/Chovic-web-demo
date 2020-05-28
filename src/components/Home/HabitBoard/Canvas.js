@@ -25,10 +25,11 @@ const Canvas = (props) => {
       currentColorIndex = 0;
     } else {
       currentColorIndex += 1;
-      // Play sound
+      // Play sound and confetti
       audio.play();
+      makeConfetti();
     }
-    makeConfetti();
+
     newRow[index] = currentColorIndex;
     setRow(newRow);
     firebase.updateHabitTrackerEntry(userId, habit, newRow);

@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const confettiSettings = { target: 'page', clock: '90' };
+const confettiSettings = { target: 'confetti-page', clock: '90' };
 
 const TheBoard = (props) => {
   const { authUser, firebase } = props;
@@ -27,10 +27,10 @@ const TheBoard = (props) => {
   const [hasHabit, setHasHabit] = useState(false);
 
   useEffect(() => {
-    console.log('Fetching called', firebase, userId);
     const fetchData = async () => {
       const existingHabits = await firebase.habits(userId);
       setHabits(existingHabits);
+
       setLoaded(true);
       if (!existingHabits.length) setHasHabit(false);
       else setHasHabit(true);
@@ -72,7 +72,7 @@ const TheBoard = (props) => {
 
   return (
     <>
-      <canvas id="page" />
+      <canvas id="confetti-page" />
       <div className="content">
         <AddHabit onSubmitNewHabit={addNewHabit} />
         <br />
