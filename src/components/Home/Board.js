@@ -5,7 +5,6 @@ import Typography from '@material-ui/core/Typography';
 
 import HabitList from './HabitBoard/HabitList';
 import DayOfMonth from './HabitBoard/DayOfMonth';
-import Spinner from '../../elements/Spinner';
 
 const useStyles = makeStyles((theme) => ({
   noHabit: {
@@ -15,7 +14,8 @@ const useStyles = makeStyles((theme) => ({
 
 const confettiSettings = { target: 'confetti-page', clock: '90' };
 
-const TheBoard = ({ habits, dispatch }) => {
+const TheBoard = ({ allHabits, dispatch }) => {
+  const { firstLoaded, habits } = allHabits;
   const habitsNames = Object.keys(habits);
   // Whether the user has any habit stored in the DB.
   const [hasHabit, setHasHabit] = useState(false);
@@ -36,7 +36,7 @@ const TheBoard = ({ habits, dispatch }) => {
     }, 3000);
   };
 
-  if (!hasHabit) return <NoHabits />;
+  if (!hasHabit && firstLoaded) return <NoHabits />;
   return (
     <div>
       <DayOfMonth />

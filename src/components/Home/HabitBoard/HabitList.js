@@ -25,9 +25,6 @@ const HabitDelete = ({ habit, dispatch, firebase }) => {
     dispatch({ type: 'DELETE_HABIT', payload: habit });
     firebase
       .deleteHabit(firebase.auth.currentUser.uid, habit)
-      .then(function () {
-        console.log('Habit successfully deleted!');
-      })
       .catch(function (error) {
         console.error('Error removing document: ', error);
       });

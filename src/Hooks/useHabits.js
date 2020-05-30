@@ -6,28 +6,38 @@ export const HabitContext = createContext(null);
 const reducer = (state, action) => {
   switch (action.type) {
     case 'SET_ALL_HABITS':
-      return action.payload;
+      return {
+        firstLoaded: true,
+        habits: action.payload,
+      };
     case 'ADD_HABIT':
+      const habits = { ...state.habits };
+      habits[action.payload] = yearlyTrackingData;
       return {
         ...state,
-        [action.payload]: yearlyTrackingData,
+        habits: habits,
       };
     case 'DELETE_HABIT':
-      const habitsLeft = { ...state };
+      const habitsLeft = { ...state.habits };
       delete habitsLeft[action.payload];
-      return habitsLeft;
+      return {
+        ...state,
+        habits: habitsLeft,
+      };
     default:
       throw new Error();
   }
 };
 
 export const useHabits = (firebase, uid) => {
-  const [habits, dispatch] = useReducer(reducer, {});
+  const [habits, dispatch] = useReducer(reducer, {
+    firstLoaded: false,
+    habits: {},
+  });
 
   useEffect(() => {
     const getAllHabits = async () => {
       const habits = await firebase.getAllHabits(uid);
-      console.log('init habit hook >>>>>', habits);
       dispatch({ type: 'SET_ALL_HABITS', payload: habits });
     };
     getAllHabits();

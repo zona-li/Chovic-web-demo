@@ -32,7 +32,7 @@ const HomeBase = ({ firebase, authUser }) => {
       <canvas id="confetti-page" />
       <div className="content">
         <AddHabit onSubmitNewHabit={addNewHabit} />
-        <TheBoard habits={habits} dispatch={dispatch} />
+        <TheBoard allHabits={habits} dispatch={dispatch} />
       </div>
     </>
   );
