@@ -5,17 +5,18 @@ import { withFirebase } from '../../Firebase';
 import sound from '../../../assets/complete.wav';
 
 const Canvas = (props) => {
-  const { userId, habit, makeConfetti, firebase } = props;
+  const { habit, makeConfetti, firebase } = props;
+  const uid = firebase.auth.currentUser.uid;
   const [row, setRow] = useState([]);
   const audio = new Audio(sound);
 
   useEffect(() => {
     const fetchData = async () => {
-      const trackingData = await firebase.getHabitTrackerEntry(userId, habit);
+      const trackingData = await firebase.getHabitTrackerEntry(uid, habit);
       setRow(trackingData);
     };
     fetchData();
-  }, [firebase, habit, userId, setRow]);
+  }, [firebase, habit, uid, setRow]);
 
   const onHabitPixelClicked = (index) => {
     // Update color
@@ -32,7 +33,7 @@ const Canvas = (props) => {
 
     newRow[index] = currentColorIndex;
     setRow(newRow);
-    firebase.updateHabitTrackerEntry(userId, habit, newRow);
+    firebase.updateHabitTrackerEntry(uid, habit, newRow);
   };
 
   return (
@@ -42,7 +43,7 @@ const Canvas = (props) => {
           <Pixel
             key={index}
             background={Colors[row[index]]}
-            onClick={(e) => onHabitPixelClicked(index)}
+            onClick={() => onHabitPixelClicked(index)}
           />
         );
       })}

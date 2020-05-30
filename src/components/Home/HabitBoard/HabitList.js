@@ -8,27 +8,21 @@ import Canvas from './Canvas';
 import { withFirebase } from '../../Firebase';
 
 const HabitList = (props) => {
-  const { habits, setHabits, makeConfetti, firebase } = props;
+  const { habits, dispatch, makeConfetti, firebase } = props;
   const habitItems = habits.map((habit) => (
     <div className={'habitList'} key={habit}>
       <HabitItem habit={habit} />
-      <Canvas habit={habit} userId={props.userId} makeConfetti={makeConfetti} />
-      <HabitDelete
-        habit={habit}
-        habits={habits}
-        setHabits={setHabits}
-        firebase={firebase}
-      />
+      <Canvas habit={habit} makeConfetti={makeConfetti} />
+      <HabitDelete habit={habit} dispatch={dispatch} firebase={firebase} />
     </div>
   ));
 
   return habitItems;
 };
 
-const HabitDelete = ({ habit, habits, setHabits, firebase }) => {
+const HabitDelete = ({ habit, dispatch, firebase }) => {
   const deleteHabit = () => {
-    const newHabits = habits.filter((oldHabit) => oldHabit !== habit);
-    setHabits(newHabits);
+    dispatch({ type: 'DELETE_HABIT', payload: habit });
     firebase
       .deleteHabit(firebase.auth.currentUser.uid, habit)
       .then(function () {

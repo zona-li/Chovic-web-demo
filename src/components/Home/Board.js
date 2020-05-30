@@ -3,7 +3,6 @@ import ConfettiGenerator from 'confetti-js';
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 
-import AddHabit from './AddHabit';
 import HabitList from './HabitBoard/HabitList';
 import DayOfMonth from './HabitBoard/DayOfMonth';
 import Spinner from '../../elements/Spinner';
@@ -16,38 +15,18 @@ const useStyles = makeStyles((theme) => ({
 
 const confettiSettings = { target: 'confetti-page', clock: '90' };
 
-const TheBoard = (props) => {
-  const { authUser, firebase } = props;
-  const userId = authUser.uid;
-  const [habits, setHabits] = useState([]);
-  // Whether habits are fetched from the DB.
-  const [loaded, setLoaded] = useState(false);
-  const [loading, setLoading] = useState(false);
+const TheBoard = ({ habits, dispatch }) => {
+  const habitsNames = Object.keys(habits);
   // Whether the user has any habit stored in the DB.
   const [hasHabit, setHasHabit] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
-      const existingHabits = await firebase.habits(userId);
-      setHabits(existingHabits);
-
-      setLoaded(true);
-      if (!existingHabits.length) setHasHabit(false);
-      else setHasHabit(true);
-    };
-    setLoading(true);
-    fetchData().then(() => {
-      setLoading(false);
-    });
-  }, [firebase, userId]);
-
-  useEffect(() => {
-    if (habits.length) {
+    if (habitsNames.length) {
       setHasHabit(true);
     } else {
       setHasHabit(false);
     }
-  }, [habits]);
+  }, [habitsNames]);
 
   const makeConfetti = () => {
     const confetti = new ConfettiGenerator(confettiSettings);
@@ -57,36 +36,18 @@ const TheBoard = (props) => {
     }, 3000);
   };
 
-  const addNewHabit = (values) => {
-    const { habit, category } = values;
-    firebase
-      .addHabit(userId, habit, category)
-      .then(() => {
-        const updatedHabits = [...new Set([...habits, habit])];
-        setHabits(updatedHabits);
-      })
-      .catch(() => {
-        console.error(`Failed to add ${habit} to the database.`);
-      });
-  };
-
+  if (!hasHabit) return <NoHabits />;
   return (
-    <>
-      <canvas id="confetti-page" />
-      <div className="content">
-        <AddHabit onSubmitNewHabit={addNewHabit} />
-        <br />
-        {loading && <Spinner />}
-        {loaded && hasHabit && <DayOfMonth />}
-        {loaded && !hasHabit && <NoHabits />}
-        <HabitList
-          habits={habits}
-          setHabits={setHabits}
-          userId={userId}
-          makeConfetti={makeConfetti}
-        />
-      </div>
-    </>
+    <div>
+      <DayOfMonth />
+      <HabitList
+        habits={habitsNames}
+        dispatch={dispatch}
+        // setHabits={setHabits}
+        // userId={userId}
+        makeConfetti={makeConfetti}
+      />
+    </div>
   );
 };
 
