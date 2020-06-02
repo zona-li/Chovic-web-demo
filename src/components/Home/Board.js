@@ -41,10 +41,8 @@ const TheBoard = ({ allHabits, dispatch }) => {
     <div>
       <DayOfMonth />
       <HabitList
-        habits={habitsNames}
+        habits={habits}
         dispatch={dispatch}
-        // setHabits={setHabits}
-        // userId={userId}
         makeConfetti={makeConfetti}
       />
     </div>

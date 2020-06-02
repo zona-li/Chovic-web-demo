@@ -7,6 +7,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 
 import { useStyles } from '../../theme';
 import useForm from './useForm';
+import habitCategory from '../../constants/habitCategory';
 
 const initialState = {
   habit: '',
@@ -17,6 +18,11 @@ export default (props) => {
   const [values, handleChange] = useForm(initialState);
   const [showError, setShowError] = useState(false);
   const classes = useStyles();
+  const selections = habitCategory.map((category) => (
+    <option value={category.toLowerCase()} key={category}>
+      {category}
+    </option>
+  ));
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -64,11 +70,7 @@ export default (props) => {
         value={values.category}
         onChange={handleChange}
       >
-        <option value="career">Career</option>
-        <option value="health">Health</option>
-        <option value="growth">Learning</option>
-        <option value="finance">Personal Finance</option>
-        <option value="fam">Relationships</option>
+        {selections}
       </TextField>
       <Tooltip title="Add Habit">
         <Fab

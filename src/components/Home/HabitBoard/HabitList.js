@@ -9,13 +9,15 @@ import { withFirebase } from '../../Firebase';
 
 const HabitList = (props) => {
   const { habits, dispatch, makeConfetti, firebase } = props;
-  const habitItems = habits.map((habit) => (
-    <div className={'habitList'} key={habit}>
-      <HabitItem habit={habit} />
-      <Canvas habit={habit} makeConfetti={makeConfetti} />
-      <HabitDelete habit={habit} dispatch={dispatch} firebase={firebase} />
-    </div>
-  ));
+  const habitItems = Object.keys(habits).map((habit) => {
+    return (
+      <div className={'habitList'} key={habit}>
+        <HabitItem habit={habit} />
+        <Canvas habit={habit} makeConfetti={makeConfetti} />
+        <HabitDelete habit={habit} dispatch={dispatch} firebase={firebase} />
+      </div>
+    );
+  });
 
   return habitItems;
 };
