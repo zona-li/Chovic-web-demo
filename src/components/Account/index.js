@@ -18,17 +18,26 @@ import './account.css';
 const useStyles = makeStyles((theme) => ({
   pageTitle: {
     fontWeight: 500,
-    marginBottom: 50,
     marginRight: 10,
+    [theme.breakpoints.down('sm')]: {
+      position: 'absolute',
+      marginTop: 20,
+      marginLeft: 70,
+    },
   },
   pro: {
     backgroundColor: 'salmon',
     color: 'white',
     borderRadius: '20px',
     width: '40px',
+    [theme.breakpoints.down('sm')]: {
+      position: 'absolute',
+      marginLeft: 208,
+      marginTop: 20,
+    },
   },
-  content: {
-    marginTop: 30,
+  email: {
+    marginTop: 90,
   },
 }));
 
@@ -59,7 +68,9 @@ const AccountPage = () => {
               </Typography>
             )}
           </div>
-          <Typography variant="h5">Email:</Typography>
+          <Typography variant="h5" className={classes.email}>
+            Email:
+          </Typography>
           <Typography variant="h6">{authUser.email}</Typography>
           <br />
           <Typography variant="h5" className={classes.content}>
@@ -136,7 +147,7 @@ class LoginManagementBase extends Component {
     const { activeSignInMethods, error } = this.state;
 
     return (
-      <div style={{ marginTop: '50px' }}>
+      <div style={{ marginTop: '25px' }}>
         <Typography variant="h5">Modify Your Sign In Methods:</Typography>
         <ul>
           {SIGN_IN_METHODS.map((signInMethod) => {

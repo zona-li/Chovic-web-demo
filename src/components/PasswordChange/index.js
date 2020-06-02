@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
   },
   button: {
     marginLeft: 50,
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: 0,
+      marginTop: 10,
+    },
   },
 }));
 
