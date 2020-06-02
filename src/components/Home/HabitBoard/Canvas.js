@@ -1,22 +1,16 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Colors from '../Colors';
 import Pixel from './Pixel';
 import { withFirebase } from '../../Firebase';
 import sound from '../../../assets/complete.wav';
 
 const Canvas = (props) => {
-  const { habit, makeConfetti, firebase } = props;
+  const date = new Date();
+  const month = date.getMonth();
+  const { habit, habitName, makeConfetti, firebase } = props;
   const uid = firebase.auth.currentUser.uid;
-  const [row, setRow] = useState([]);
+  const [row, setRow] = useState(habit[month]);
   const audio = new Audio(sound);
-
-  useEffect(() => {
-    const fetchData = async () => {
-      const trackingData = await firebase.getHabitTrackerEntry(uid, habit);
-      setRow(trackingData);
-    };
-    fetchData();
-  }, [firebase, habit, uid, setRow]);
 
   const onHabitPixelClicked = (index) => {
     // Update color
@@ -33,7 +27,7 @@ const Canvas = (props) => {
 
     newRow[index] = currentColorIndex;
     setRow(newRow);
-    firebase.updateHabitTrackerEntry(uid, habit, newRow);
+    firebase.updateHabitTrackerEntry(uid, habitName, newRow);
   };
 
   return (

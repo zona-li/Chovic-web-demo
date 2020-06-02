@@ -13,7 +13,11 @@ const HabitList = (props) => {
     return (
       <div className={'habitList'} key={habit}>
         <HabitItem habit={habit} />
-        <Canvas habit={habit} makeConfetti={makeConfetti} />
+        <Canvas
+          habit={habits[habit]}
+          habitName={habit}
+          makeConfetti={makeConfetti}
+        />
         <HabitDelete habit={habit} dispatch={dispatch} firebase={firebase} />
       </div>
     );
