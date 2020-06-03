@@ -18,23 +18,16 @@ import './account.css';
 const useStyles = makeStyles((theme) => ({
   pageTitle: {
     fontWeight: 500,
-    marginRight: 10,
-    [theme.breakpoints.down('sm')]: {
-      position: 'absolute',
-      marginTop: 20,
-      marginLeft: 70,
-    },
+    left: '40%',
+    position: 'relative',
   },
   pro: {
     backgroundColor: 'salmon',
     color: 'white',
     borderRadius: '20px',
     width: '40px',
-    [theme.breakpoints.down('sm')]: {
-      position: 'absolute',
-      marginLeft: 208,
-      marginTop: 20,
-    },
+    left: '41%',
+    position: 'relative',
   },
   email: {
     marginTop: 90,
