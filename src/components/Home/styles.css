@@ -30,6 +30,11 @@
   justify-content: center;
 }
 
+.habitCategoryList {
+  list-style-type: none;
+  padding-left: 0;
+}
+
 .pixel {
   width: 20px;
   height: 20px;

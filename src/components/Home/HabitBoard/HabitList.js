@@ -2,6 +2,8 @@ import React from 'react';
 import IconButton from '@material-ui/core/IconButton';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Tooltip from '@material-ui/core/Tooltip';
+import Typography from '@material-ui/core/Typography';
+import Divider from '@material-ui/core/Divider';
 
 import HabitItem from './HabitItem';
 import Canvas from './Canvas';
@@ -10,7 +12,6 @@ import habitCategory from '../../../constants/habitCategory';
 
 const HabitList = (props) => {
   const { habits } = props;
-  console.log('habits: ', habits);
 
   const habitsByCategory = {};
   habitCategory.forEach((category) => {
@@ -23,17 +24,25 @@ const HabitList = (props) => {
     else habitsByCategory[cat] = [habit];
   });
 
-  console.log('habitsByCategory: ', habitsByCategory);
-
   const habitItems = Object.keys(habitsByCategory).map((category) => {
     const habitsInCategory = habitsByCategory[category];
     const habitsBundle = habitsInCategory.map((habit) => {
       return <HabitRow {...props} habit={habit} key={habit} />;
     });
-    return <li key={category}>{habitsBundle}</li>;
+    if (habitsInCategory.length > 0) {
+      return (
+        <div key={category}>
+          <Typography variant="subtitle2">{category}</Typography>
+          <Divider light={true} />
+          <li>{habitsBundle}</li>
+          <br />
+        </div>
+      );
+    }
+    return null;
   });
 
-  return <ul>{habitItems}</ul>;
+  return <ul className={'habitCategoryList'}>{habitItems}</ul>;
 };
 
 const HabitRow = ({ habits, habit, dispatch, makeConfetti, firebase }) => {
