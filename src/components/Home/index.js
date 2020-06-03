@@ -20,7 +20,7 @@ const HomeBase = ({ firebase, authUser }) => {
     firebase
       .addHabit(userId, habit, category)
       .then(() => {
-        dispatch({ type: 'ADD_HABIT', payload: habit });
+        dispatch({ type: 'ADD_HABIT', payload: values });
       })
       .catch(() => {
         console.error(`Failed to add ${habit} to the database.`);

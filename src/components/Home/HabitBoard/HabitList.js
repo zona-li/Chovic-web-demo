@@ -6,24 +6,48 @@ import Tooltip from '@material-ui/core/Tooltip';
 import HabitItem from './HabitItem';
 import Canvas from './Canvas';
 import { withFirebase } from '../../Firebase';
+import habitCategory from '../../../constants/habitCategory';
 
 const HabitList = (props) => {
-  const { habits, dispatch, makeConfetti, firebase } = props;
-  const habitItems = Object.keys(habits).map((habit) => {
-    return (
-      <div className={'habitList'} key={habit}>
-        <HabitItem habit={habit} />
-        <Canvas
-          habit={habits[habit]}
-          habitName={habit}
-          makeConfetti={makeConfetti}
-        />
-        <HabitDelete habit={habit} dispatch={dispatch} firebase={firebase} />
-      </div>
-    );
+  const { habits } = props;
+  console.log('habits: ', habits);
+
+  const habitsByCategory = {};
+  habitCategory.forEach((category) => {
+    habitsByCategory[category.toLowerCase()] = [];
   });
 
-  return habitItems;
+  Object.keys(habits).forEach((habit) => {
+    const cat = habits[habit]['category'];
+    if (habitsByCategory[cat]) habitsByCategory[cat].push(habit);
+    else habitsByCategory[cat] = [habit];
+  });
+
+  console.log('habitsByCategory: ', habitsByCategory);
+
+  const habitItems = Object.keys(habitsByCategory).map((category) => {
+    const habitsInCategory = habitsByCategory[category];
+    const habitsBundle = habitsInCategory.map((habit) => {
+      return <HabitRow {...props} habit={habit} key={habit} />;
+    });
+    return <li key={category}>{habitsBundle}</li>;
+  });
+
+  return <ul>{habitItems}</ul>;
+};
+
+const HabitRow = ({ habits, habit, dispatch, makeConfetti, firebase }) => {
+  return (
+    <div className={'habitList'}>
+      <HabitItem habit={habit} />
+      <Canvas
+        habit={habits[habit]}
+        habitName={habit}
+        makeConfetti={makeConfetti}
+      />
+      <HabitDelete habit={habit} dispatch={dispatch} firebase={firebase} />
+    </div>
+  );
 };
 
 const HabitDelete = ({ habit, dispatch, firebase }) => {

@@ -12,7 +12,10 @@ const reducer = (state, action) => {
       };
     case 'ADD_HABIT':
       const habits = { ...state.habits };
-      habits[action.payload] = yearlyTrackingData;
+      habits[action.payload.habit] = {
+        ...yearlyTrackingData,
+        category: action.payload.category,
+      };
       return {
         ...state,
         habits: habits,
