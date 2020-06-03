@@ -51,6 +51,7 @@ export default (props) => {
         name="habit"
         onChange={handleHabitChange}
         inputProps={{ maxLength: 20 }}
+        autoComplete="off"
         onKeyPress={(e) => {
           if (e.key === 'Enter') e.preventDefault();
         }}
