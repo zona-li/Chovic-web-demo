@@ -15,11 +15,14 @@ const theme = createMuiTheme({
       '"Apple Color Emoji"',
       '"Segoe UI Emoji"',
       '"Segoe UI Symbol"',
-    ].join(',')
+    ].join(','),
+  },
+  status: {
+    blue: 'steelblue',
   },
 });
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme) => ({
   fab: {
     margin: theme.spacing(3),
   },
@@ -40,4 +43,4 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export {theme, useStyles};
+export { theme, useStyles };

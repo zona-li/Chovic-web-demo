@@ -4,14 +4,22 @@ import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import Tooltip from '@material-ui/core/Tooltip';
 import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
+import { makeStyles } from '@material-ui/core/styles';
 
 import HabitItem from './HabitItem';
 import Canvas from './Canvas';
 import { withFirebase } from '../../Firebase';
 import habitCategory from '../../../constants/habitCategory';
 
+const useStyles = makeStyles((theme) => ({
+  categoryText: {
+    color: theme.status.blue,
+  },
+}));
+
 const HabitList = (props) => {
   const { habits } = props;
+  const classes = useStyles();
 
   const habitsByCategory = {};
   habitCategory.forEach((category) => {
@@ -32,7 +40,9 @@ const HabitList = (props) => {
     if (habitsInCategory.length > 0) {
       return (
         <div key={category}>
-          <Typography variant="subtitle2">{category}</Typography>
+          <Typography variant="overline" className={classes.categoryText}>
+            {category}
+          </Typography>
           <Divider light={true} />
           <li>{habitsBundle}</li>
           <br />
