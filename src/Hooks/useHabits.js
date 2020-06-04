@@ -10,6 +10,20 @@ const reducer = (state, action) => {
         firstLoaded: true,
         habits: action.payload,
       };
+    case 'UPDATE_HABIT':
+      const { habitName, habitEntry, monthSelected } = action.payload;
+      const prevHabits = { ...state.habits };
+      const prevHabit = { ...prevHabits[habitName] };
+      return {
+        ...state,
+        habits: {
+          ...prevHabits,
+          [habitName]: {
+            ...prevHabit,
+            [monthSelected]: habitEntry,
+          },
+        },
+      };
     case 'ADD_HABIT':
       const habits = { ...state.habits };
       habits[action.payload.habit] = {

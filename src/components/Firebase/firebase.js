@@ -130,14 +130,14 @@ class Firebase {
     return userInfo.collection('habits').doc(habit).delete();
   };
 
-  updateHabitTrackerEntry = (uid, habit, entryArr) => {
+  updateHabitTrackerEntry = (uid, habit, monthSelected, entryArr) => {
     const userInfo = this.user(uid);
     userInfo
       .collection('habits')
       .doc(habit)
       .set(
         {
-          [month]: entryArr,
+          [monthSelected]: entryArr,
         },
         { merge: true }
       );

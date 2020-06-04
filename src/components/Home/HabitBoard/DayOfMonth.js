@@ -87,7 +87,6 @@ const MonthSelector = ({ monthSelected, setMonthSelected }) => {
   };
 
   const handleChange = (e) => {
-    console.log('setting month selected:', e.target.value);
     setMonthSelected(parseInt(e.target.value));
   };
 

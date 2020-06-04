@@ -55,14 +55,23 @@ const HabitList = (props) => {
   return <ul className={'habitCategoryList'}>{habitItems}</ul>;
 };
 
-const HabitRow = ({ habits, habit, dispatch, makeConfetti, firebase }) => {
+const HabitRow = ({
+  habits,
+  habit,
+  monthSelected,
+  dispatch,
+  makeConfetti,
+  firebase,
+}) => {
   return (
     <div className={'habitList'}>
       <HabitItem habit={habit} />
       <Canvas
+        monthSelected={monthSelected}
         habit={habits[habit]}
         habitName={habit}
         makeConfetti={makeConfetti}
+        dispatch={dispatch}
       />
       <HabitDelete habit={habit} dispatch={dispatch} firebase={firebase} />
     </div>

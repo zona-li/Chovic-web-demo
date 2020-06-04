@@ -47,6 +47,7 @@ const TheBoard = ({ allHabits, dispatch }) => {
       />
       <HabitList
         habits={habits}
+        monthSelected={monthSelected}
         dispatch={dispatch}
         makeConfetti={makeConfetti}
       />
