@@ -19,6 +19,8 @@ const TheBoard = ({ allHabits, dispatch }) => {
   const habitsNames = Object.keys(habits);
   // Whether the user has any habit stored in the DB.
   const [hasHabit, setHasHabit] = useState(false);
+  const date = new Date();
+  const [monthSelected, setMonthSelected] = useState(date.getMonth());
 
   useEffect(() => {
     if (habitsNames.length) {
@@ -39,7 +41,10 @@ const TheBoard = ({ allHabits, dispatch }) => {
   if (!hasHabit && firstLoaded) return <NoHabits />;
   return (
     <div>
-      <DayOfMonth />
+      <DayOfMonth
+        monthSelected={monthSelected}
+        setMonthSelected={setMonthSelected}
+      />
       <HabitList
         habits={habits}
         dispatch={dispatch}

@@ -31,17 +31,25 @@ const BootstrapInput = withStyles((theme) => ({
   },
 }))(InputBase);
 
-const DayOfMonth = () => {
+const DayOfMonth = ({ monthSelected, setMonthSelected }) => {
   const date = new Date();
-  const days = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+  const days = new Date(date.getFullYear(), monthSelected + 1, 0).getDate();
   const daysArr = Array(days)
     .fill()
     .map((_, i) => i + 1);
-  const today = date.getDate();
+  let today = 0;
+  if (monthSelected === date.getMonth()) {
+    today = date.getDate();
+  }
+
   return (
     <>
       <Typography variant="h5" className={'month'}>
-        <MonthSelector /> &nbsp; {date.getFullYear()}
+        <MonthSelector
+          monthSelected={monthSelected}
+          setMonthSelected={setMonthSelected}
+        />{' '}
+        &nbsp; {date.getFullYear()}
       </Typography>
       <br />
       <div className="habitList">
@@ -62,30 +70,34 @@ const DayOfMonth = () => {
   );
 };
 
-const MonthSelector = () => {
-  const date = new Date();
+const MonthSelector = ({ monthSelected, setMonthSelected }) => {
   const monthMap = {
     0: 'January',
     1: 'February',
-    3: 'March',
-    4: 'April',
-    5: 'May',
-    6: 'June',
-    7: 'July',
-    8: 'August',
-    9: 'September',
-    10: 'October',
-    11: 'November',
-    12: 'December',
+    2: 'March',
+    3: 'April',
+    4: 'May',
+    5: 'June',
+    6: 'July',
+    7: 'August',
+    8: 'September',
+    9: 'October',
+    10: 'November',
+    11: 'December',
   };
-  const [month, setMonth] = React.useState(date.getMonth() + 1);
 
   const handleChange = (e) => {
-    setMonth(e.target.value);
+    console.log('setting month selected:', e.target.value);
+    setMonthSelected(parseInt(e.target.value));
   };
+
   return (
     <FormControl>
-      <Select value={month} onChange={handleChange} input={<BootstrapInput />}>
+      <Select
+        value={monthSelected}
+        onChange={handleChange}
+        input={<BootstrapInput />}
+      >
         {Object.keys(monthMap).map((monthItemValue) => (
           <MenuItem key={monthItemValue} value={monthItemValue}>
             {monthMap[monthItemValue]}
