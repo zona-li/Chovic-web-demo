@@ -144,15 +144,13 @@ class Landing extends Component {
           <Grid className={classes.root} container spacing={1}>
             <Grid className={classes.text} item md={6} sm={12}>
               <P style={{ marginLeft: '10vw' }}>
-                Members from the group meet once a month to discuss goals, write
-                down plans, and share the things we learned from the previous
-                month. We keep track of each individual’s progress on our
-                website and support each other through the social platform we
-                use. Simply{' '}
+                You can become a member today for free simply by{' '}
                 <Link decoration="none" to={ROUTES.SIGN_UP}>
-                  sign up
+                  signing up here
                 </Link>{' '}
-                to become one of our members.
+                . After you verified your email address, you will receive an
+                email about our community resources and be able to access our
+                habit tracking page on this website.
               </P>
             </Grid>
             <Grid className={classes.pic} item xs={6}>
