@@ -118,19 +118,21 @@ class Landing extends Component {
             <TitleRight>vic</TitleRight>
             <H1>
               A growth environment to help you form good habits, become more
-              disciplined, and procrastinate less.
+              disciplined, and implement the right mental model for long-term
+              success.
             </H1>
             <P>
               Have you ever had an idea but find it difficult to realize? Or had
-              a goal but always fell short? Most of the time, it is because you
-              are deploying the wrong method or lack a supportive community to
-              keep you accountable. Join a group of people who relentlessly seek
-              to learn, improve, and continuously challenge themselves to do
-              better. Chovic is a gathering place for people who are unwilling
-              to settle, who pushes hard and persist. Here, you will meet
-              incredible people, find support, learn the methods that will help
-              you succeed, and, most importantly, achieve the goals you set for
-              yourself.
+              a goal but always fell short? Most of the time, it is not because
+              you are lazy or unmotivated, but because there is a lack of a
+              supportive community to keep you accountable or an assemble of
+              methods and mental models to help you deal with difficult
+              situations at hand. Choivc implements a system that allows you to
+              address that. On our platform, you would be able to share a habit
+              with your friend, track your progress, and make improvements in a
+              systematic way. Whenever you feel down or face a challenging
+              situation, our coaching bot would point you to the right resources
+              and nudge you to get back on track.
             </P>
           </SectionRight>
           <section id="section0">
@@ -144,13 +146,13 @@ class Landing extends Component {
           <Grid className={classes.root} container spacing={1}>
             <Grid className={classes.text} item md={6} sm={12}>
               <P style={{ marginLeft: '10vw' }}>
-                You can become a member today for free simply by{' '}
+                Our habit tracker is currently in Beta. You can try it out for
+                free by{' '}
                 <Link decoration="none" to={ROUTES.SIGN_UP}>
                   signing up here
                 </Link>{' '}
-                . After you verified your email address, you will receive an
-                email about our community resources and be able to access our
-                habit tracking page on this website.
+                and verifying your email address. We will keep all our current
+                users up to date with our new releases.
               </P>
             </Grid>
             <Grid className={classes.pic} item xs={6}>
@@ -165,7 +167,7 @@ class Landing extends Component {
         </Section>
 
         <SectionLeft id="section2" background="AntiqueWhite">
-          <Subtitle>WHY IT WORKS</Subtitle>
+          <Subtitle>WHY OUR METHOD WORKS</Subtitle>
         </SectionLeft>
         <SectionRight background="Seashell">
           <Grid>
@@ -199,8 +201,8 @@ class Landing extends Component {
                   </ListItemIcon>
                   <ListItemText classes={{ primary: classes.listItemText }}>
                     We hold regular talks on health, personal finance, how to
-                    learn quickly and effectively, career development, and other
-                    topics related to personal growth.
+                    learn quickly and effectively, career development, and
+                    topics on personal growth.
                   </ListItemText>
                 </ListItem>
               </List>
@@ -216,7 +218,7 @@ class Landing extends Component {
         <Section id="section3" background="PowderBlue">
           <h2 className={classes.title2}>
             <strong>
-              Ready for the challenge? <br />
+              Ready to step up your game? <br />
               <StyledLink decoration="underline" to={ROUTES.SIGN_UP}>
                 Sign up
               </StyledLink>

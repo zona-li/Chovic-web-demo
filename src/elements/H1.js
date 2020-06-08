@@ -6,8 +6,8 @@ const H1 = styled.div`
   color: Linen;
   margin-left: 15%;
   margin-right: 15%;
-  margin-bottom: 15%;
   text-align: left;
+  overflow: scroll;
 `;
 
 export { H1 };
