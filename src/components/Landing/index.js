@@ -148,7 +148,7 @@ class Landing extends Component {
           <Grid className={classes.root} container spacing={1}>
             <Grid className={classes.text} item md={6} sm={12}>
               <P style={{ marginLeft: '10vw' }}>
-                Our habit tracker (web version) is released. You can try it out
+                Our habit tracker (web version) is released! You can try it out
                 for free by{' '}
                 <Link
                   style={{
