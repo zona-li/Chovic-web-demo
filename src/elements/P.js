@@ -7,7 +7,6 @@ const P = styled.div`
   margin-right: 15%;
   font-size: 1.3em;
   text-align: left;
-  overflow: scroll;
 `;
 
 export { P };
