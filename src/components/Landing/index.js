@@ -2,11 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
-
-import { SectionLeft, SectionRight, Section } from '../../elements/Section';
-import { P } from '../../elements/P';
-import art1 from '../../assets/art1.jpg';
-import meet from '../../assets/meet.jpg';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import Group from '@material-ui/icons/Group';
 import ShowChart from '@material-ui/icons/ShowChart';
@@ -18,6 +13,11 @@ import { Grid } from '@material-ui/core';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+
+import { SectionLeft, SectionRight, Section } from '../../elements/Section';
+import { P } from '../../elements/P';
+import art1 from '../../assets/art1.jpg';
+import section2Image from '../../assets/section2.svg';
 import './styles.css';
 
 const TitleLeft = styled.h1`
@@ -88,6 +88,7 @@ const styles = (theme) => ({
   list: {
     display: 'inline-block',
     margin: '10%',
+    overflow: 'scroll',
   },
   listItem: {
     marginBottom: '10%',
@@ -121,6 +122,7 @@ class Landing extends Component {
               disciplined, and implement the right mental model for long-term
               success.
             </H1>
+            <br />
             <P>
               Have you ever had an idea but find it difficult to realize? Or had
               a goal but always fell short? Most of the time, it is not because
@@ -146,17 +148,24 @@ class Landing extends Component {
           <Grid className={classes.root} container spacing={1}>
             <Grid className={classes.text} item md={6} sm={12}>
               <P style={{ marginLeft: '10vw' }}>
-                Our habit tracker is currently in Beta. You can try it out for
-                free by{' '}
-                <Link decoration="none" to={ROUTES.SIGN_UP}>
+                Our habit tracker (web version) is released. You can try it out
+                for free by{' '}
+                <Link
+                  style={{
+                    textDecoration: 'none',
+                    fontWeight: 'bold',
+                    color: 'MistyRose',
+                  }}
+                  to={ROUTES.SIGN_UP}
+                >
                   signing up here
                 </Link>{' '}
                 and verifying your email address. We will keep all our current
                 users up to date with our new releases.
               </P>
             </Grid>
-            <Grid className={classes.pic} item xs={6}>
-              <img src={meet} alt="img1" height="380" width="auto" />
+            <Grid className={classes.pic} item xs={5}>
+              <img src={section2Image} alt="" />
             </Grid>
           </Grid>
           <section id="section1">
