@@ -2,8 +2,8 @@
 /node_modules
 
 # firebase
-/.firebase
 /firebase-debug.log
+/.firebase/
 
 # testing
 /coverage
