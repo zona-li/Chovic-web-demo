@@ -70,28 +70,28 @@ class Firebase {
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        const userDoc = this.user(authUser.uid);
-        userDoc.update({
-          emailVerified: authUser.emailVerified,
-        });
-        userDoc.onSnapshot((snapshot) => {
-          const dbUser = snapshot.data();
+        const userDoc = this.user(authUser.uid).get();
+        userDoc.then((doc) => {
+          if (doc) {
+            const data = doc.data();
+            const emailVerified = data?.emailVerified;
+            if (!emailVerified) {
+              this.user(authUser.uid).update({
+                emailVerified: authUser.emailVerified,
+              });
+            }
 
-          // default empty roles
-          if (dbUser && !dbUser.roles) {
-            dbUser.roles = [];
+            if (data && !data.roles) data.roles = [];
+            authUser = {
+              ...data,
+              uid: authUser.uid,
+              email: authUser.email,
+              emailVerified: authUser.emailVerified,
+              providerData: authUser.providerData,
+            };
+
+            next(authUser);
           }
-
-          // merge auth and db user
-          authUser = {
-            ...dbUser,
-            uid: authUser.uid,
-            email: authUser.email,
-            emailVerified: authUser.emailVerified,
-            providerData: authUser.providerData,
-          };
-
-          next(authUser);
         });
       } else {
         fallback();
