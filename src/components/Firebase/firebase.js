@@ -72,13 +72,25 @@ class Firebase {
       if (authUser) {
         const userDoc = this.user(authUser.uid).get();
         userDoc.then((doc) => {
-          if (doc) {
-            const data = doc.data();
-            const emailVerified = data?.emailVerified;
+          const data = doc.data();
+          if (data) {
+            const { emailVerified, username } = data;
+
             if (!emailVerified) {
-              this.user(authUser.uid).update({
-                emailVerified: authUser.emailVerified,
-              });
+              if (authUser.emailVerified) {
+                this.user(authUser.uid).update({
+                  emailVerified: authUser.emailVerified,
+                });
+                this.db.collection('emails').add({
+                  to: 'haoyang.zona@gmail.com',
+                  template: {
+                    name: 'WelcomeEmail',
+                    data: {
+                      username: username,
+                    },
+                  },
+                });
+              }
             }
 
             if (data && !data.roles) data.roles = [];
