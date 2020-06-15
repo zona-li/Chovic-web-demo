@@ -75,7 +75,7 @@ class Firebase {
           const data = doc.data();
           if (data) {
             const { emailVerified, username, email } = data;
-            console.log(emailVerified, username, email);
+
             if (!emailVerified) {
               if (authUser.emailVerified) {
                 this.user(authUser.uid).update({
