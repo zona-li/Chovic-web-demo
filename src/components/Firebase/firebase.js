@@ -74,15 +74,15 @@ class Firebase {
         userDoc.then((doc) => {
           const data = doc.data();
           if (data) {
-            const { emailVerified, username } = data;
-
+            const { emailVerified, username, email } = data;
+            console.log(emailVerified, username, email);
             if (!emailVerified) {
               if (authUser.emailVerified) {
                 this.user(authUser.uid).update({
                   emailVerified: authUser.emailVerified,
                 });
                 this.db.collection('emails').add({
-                  to: 'haoyang.zona@gmail.com',
+                  to: email,
                   template: {
                     name: 'WelcomeEmail',
                     data: {
