@@ -70,7 +70,11 @@ class Firebase {
   onAuthUserListener = (next, fallback) =>
     this.auth.onAuthStateChanged((authUser) => {
       if (authUser) {
-        this.user(authUser.uid).onSnapshot((snapshot) => {
+        const userDoc = this.user(authUser.uid);
+        userDoc.update({
+          emailVerified: authUser.emailVerified,
+        });
+        userDoc.onSnapshot((snapshot) => {
           const dbUser = snapshot.data();
 
           // default empty roles
@@ -80,11 +84,11 @@ class Firebase {
 
           // merge auth and db user
           authUser = {
+            ...dbUser,
             uid: authUser.uid,
             email: authUser.email,
             emailVerified: authUser.emailVerified,
             providerData: authUser.providerData,
-            ...dbUser,
           };
 
           next(authUser);
@@ -127,6 +131,20 @@ class Firebase {
 
   deleteHabit = (uid, habit) => {
     const userInfo = this.user(uid);
+    // Test sending email
+    this.db
+      .collection('emails')
+      .add({
+        to: 'haoyang.zona@gmail.com',
+        message: {
+          subject: 'Welcome to Chovic!',
+          html:
+            '<body><p>Thank you for signing up for Chovic! We are excited to embark on this journey with you. Our team is working hard to provide the best product for you to easily build and track your habits, connect with your friends for mutual support, and learn the mental models that lead to long-term success. To get started, log in and head to our <a style="color: steelblue; text-decoration: none;" href="https://chovic.com/home" target="_blank">habit page</a>. You can add a habit that you want to build upon and keep track of on that page. Our calendar will give you an overview of your monthly progress. We are working on adding more functionalities to our product, including an iOS and Android app with a habit coach! Stay tuned for our emails on the future product updates!</p><p>Best,<br />Your Chovic Team</p></body>',
+        },
+      })
+      .then(() => console.log('Queued email for delivery!'));
+    // Finish sending email
+
     return userInfo.collection('habits').doc(habit).delete();
   };
 

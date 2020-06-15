@@ -12,7 +12,7 @@ import AddHabit from './AddHabit';
 import { useHabits } from '../../Hooks/useHabits';
 
 const HomeBase = ({ firebase, authUser }) => {
-  const userId = authUser.uid;
+  const userId = authUser?.uid;
   const [habits, dispatch] = useHabits(firebase, userId);
 
   const addNewHabit = (values) => {
