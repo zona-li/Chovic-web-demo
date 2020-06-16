@@ -3,6 +3,7 @@ import 'firebase/auth';
 import 'firebase/database';
 import 'firebase/firestore';
 import { yearlyTrackingData } from '../../constants/initialHabitData';
+import debounce from '../../utils/debounce';
 
 const prodConfig = {
   apiKey: process.env.REACT_APP_PROD_API_KEY,
@@ -66,16 +67,15 @@ class Firebase {
     return res;
   };
 
-  // *** Merge Auth and DB User API ***
-  onAuthUserListener = (next, fallback) =>
-    this.auth.onAuthStateChanged((authUser) => {
+  // Because the onAuthStateChanged API always gets invoked twice at the same time, we need to add a debounce so this function only gets called once in short intervals.
+  _userSignedInCheckpoint = debounce(
+    (authUser, next, fallback) => {
       if (authUser) {
         const userDoc = this.user(authUser.uid).get();
         userDoc.then((doc) => {
           const data = doc.data();
           if (data) {
             const { emailVerified, username, email } = data;
-
             if (!emailVerified) {
               if (authUser.emailVerified) {
                 this.user(authUser.uid).update({
@@ -108,6 +108,15 @@ class Firebase {
       } else {
         fallback();
       }
+    },
+    100,
+    true
+  );
+
+  // *** Merge Auth and DB User API ***
+  onAuthUserListener = (next, fallback) =>
+    this.auth.onAuthStateChanged((authUser) => {
+      this._userSignedInCheckpoint(authUser, next, fallback);
     });
 
   // *** User API ***
